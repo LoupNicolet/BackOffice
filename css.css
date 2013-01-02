@@ -1,0 +1,187 @@
+
+/*//////////////////////////////////
+////			a				////
+//////////////////////////////////*/
+a:link,a:visited
+{
+	display:block;
+	font-weight:bold;
+	color:#FFFFFF; /*Blanc*/
+	width:120px;
+	text-align:center;
+	padding:2px;
+	text-decoration:none;
+}
+
+#index a:link,#index a:visited,
+#inscription a:link,#inscription a:visited,
+#pages a:link,#pages a:visited,
+#gestion a.menu:link,#gestion a.menu:visited,
+#deconnexion a:link,#deconnexion a:visited
+{
+	background-color:#7A991A; /*Vert*/
+}
+
+#gestion a.deconnexion:link,#gestion a.linkdec:visited
+{
+	background-color:#8B0000; /*Rouge*/
+}
+
+#index a:hover,#index a:active,
+#inscription a:hover,#inscription a:active,
+#pages a:hover,#pages a:active,
+#gestion a.menu:hover,#gestion a.menu:active,
+#deconnexion a:hover,#deconnexion a:active
+{
+	background-color:#9CBB3C; /*Vert Clair*/
+}
+
+#gestion a.deconnexion:hover,#gestion a.deconnexion:active
+{
+	background-color:#AD0000; /*Rouge Clair*/
+}
+
+
+
+
+/*//////////////////////////////////
+////			th				////
+//////////////////////////////////*/
+
+#licencesTable th.titre,
+#customersTable th.titre,
+#downloadsTable th.titre
+{
+	padding:10px;
+	border:1px solid #98bf21; /*Vert Clair*/
+	background-color:#7A991A; /*Vert*/
+	color:#ffffff;	/*Blanc*/
+}
+
+
+/*//////////////////////////////////
+////			td				////
+//////////////////////////////////*/
+
+#licencesTable td,
+#customersTable td ,
+#downloadsTable td 
+ {
+	border:1px solid #98bf21; /*Vert Clair*/
+}
+
+#index td,
+#inscription td,
+#gestion td.deco,
+#pages td,
+#deconnexion td
+{
+	padding:10px;
+}
+
+
+
+
+/*//////////////////////////////////
+////			table			////
+//////////////////////////////////*/
+
+#licencesTable,
+#customersTable,
+#downloadsTable
+{
+	border-collapse:collapse;
+}
+
+{
+	border-collapse:collapse;
+}
+
+#gestion table
+{
+	padding: 5px;
+}
+
+#gestion table.menu
+{
+	border:1px solid #98bf21; /*Vert Clair*/
+	border-collapse:collapse;
+}
+
+
+
+
+/*//////////////////////////////////
+////			input			////
+//////////////////////////////////*/
+
+#index input.button,
+#inscription input.button,
+#pages input.button
+{
+	display:block;
+	color:#FFFFFF; /*Blanc*/
+	background-color:#7A991A; /*Vert*/
+	font-weight:bold;
+	width:120px;
+	text-align:center;
+	padding:15px;
+	text-decoration:none;
+	border:none;
+}
+
+#index input.button:hover,#index input.button:active,
+#inscription input.button:hover,#inscription input.button:active,
+#pages input.button:hover,#pages input.button:active,
+#pages input.button_titre:hover,#pages input.button_titre:active
+{
+	background-color:#9CBB3C; /*Vert Clair*/
+}
+
+
+#pages input.button_titre
+{
+	display:block;
+	color:#FFFFFF; /*Blanc*/
+	background-color:#7A991A; /*Vert*/
+	font-weight:bold;
+	width:100px;
+	text-align:center;
+	padding:5px;
+	text-decoration:none;
+	border:none;
+}
+
+
+
+/*//////////////////////////////////
+////			p				////
+//////////////////////////////////*/
+
+#gestion p
+{
+	font-weight: bold;
+	font-size: 30px;
+	padding : 10px;
+}
+
+
+
+/*//////////////////////////////////
+////			form			////
+//////////////////////////////////*/
+
+#pages form.recherche
+{
+	margin:auto;
+
+	background-color: #CCCCCC; /*Gris*/
+	border:1px solid #000000; /*Noir*/
+}
+
+
+
+
+
+
+
