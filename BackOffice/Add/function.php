@@ -42,6 +42,44 @@
 	}
 	
 	//Construit la requete SQL en fonction de ce que l'utilisateur a renseigné
+	function recherche_product($champ){
+		$prec = 0;
+		$sql = 'SELECT '.$champ.' FROM keyactivityca WHERE';
+		
+		$ret = ajout_si_existe('time','KeyActivity_Date',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
+		$ret = ajout_si_existe('key','ProductKey',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
+		
+		if($_POST['logiciel'] != 'tous'){
+			include 'define.php';
+			mysql_close();
+			$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
+			mysql_select_db ($SQL_Cdw_name, $base);
+			
+			$productID = RequeteSQL_Select('Product_ID', 'products', 'Product_Name',$_POST["logiciel"],"","");
+			
+			if($prec == 1){
+				$sql = $sql.' AND';
+			}
+			$sql = $sql.' ProductID="'.$productID[0].'"';$prec = 1;	
+		}
+		
+		if(!empty($_POST['number'])){
+			if($prec == 1){
+				$sql = $sql.' AND';
+			}
+			if($_POST['operateur_nombre'] == 'sup'){
+				$sql = $sql.' NumUsers>="'.$_POST['number'].'"';$prec = 1;
+			}else if($_POST['operateur_nombre'] == 'inf'){
+				$sql = $sql.' NumUsers<="'.$_POST['number'].'"';$prec = 1;
+			}else{
+				$sql = $sql.' NumUsers="'.$_POST['number'].'"';$prec = 1;
+			}
+		}
+		
+		return $sql;
+	}
+	
+	//Construit la requete SQL en fonction de ce que l'utilisateur a renseigné
 	function recherche_downloads($champ){
 		$prec = 0;
 		$sql = 'SELECT '.$champ.' FROM downloadkey WHERE';
@@ -154,6 +192,18 @@
 		return $sql;
 	}
 	
+	
+	//Test si des champs Downloads sont remplit
+	function Test_Product(){
+		if ((isset($_POST['time']) 	&& !empty($_POST['time']))
+		|| (isset($_POST['cle']) 		&& !empty($_POST['cle']))  
+		|| (isset($_POST['number']) 	&& !empty($_POST['number'])) 
+		){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 	//Test si des champs Downloads sont remplit
 	function Test_Downloads(){

@@ -39,7 +39,7 @@
 	</head>
 	<body>
 		<table>
-			<tr><h2 align="center">Downloads</h2></tr>
+			<tr><h2 align="center">Telechargements</h2></tr>
 			<tr>
 				<td>
 					<form id="form" class="recherche" action="gestion.php?action=downloads" method="post">

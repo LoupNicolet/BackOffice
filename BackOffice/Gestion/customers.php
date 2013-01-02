@@ -53,7 +53,7 @@
 	</head>
 	<body>
 		<table>
-			<tr><h2 align="center">Customers</h2></tr>
+			<tr><h2 align="center">Clients</h2></tr>
 			<tr>
 				<td>
 					<form id="form" class="recherche" action="gestion.php?action=customers" method="post">

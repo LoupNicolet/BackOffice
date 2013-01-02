@@ -50,7 +50,8 @@ a:link,a:visited
 
 #licencesTable th.titre,
 #customersTable th.titre,
-#downloadsTable th.titre
+#downloadsTable th.titre,
+#productTable th.titre
 {
 	padding:10px;
 	border:1px solid #98bf21; /*Vert Clair*/
@@ -65,7 +66,8 @@ a:link,a:visited
 
 #licencesTable td,
 #customersTable td ,
-#downloadsTable td 
+#downloadsTable td ,
+#productTable td
  {
 	border:1px solid #98bf21; /*Vert Clair*/
 }
@@ -88,7 +90,8 @@ a:link,a:visited
 
 #licencesTable,
 #customersTable,
-#downloadsTable
+#downloadsTable,
+#productTable
 {
 	border-collapse:collapse;
 }
