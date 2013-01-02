@@ -21,11 +21,17 @@
 		return $retData;
 	}
 	
+	///////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////
+	
 	//Insert un enregistrements pour une table de 3 champs
 	function RequeteSQL_Insert_3($table, $val1, $val2, $val3){
 		$sql = 'INSERT INTO '.$table.' VALUES("", "'.$val1.'", "'.$val2.'", "'.$val3.'")';
 		mysql_query($sql) or die('Erreur SQL !'.$sql.'<br />'.mysql_error());
 	}
+	
+	///////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////
 	
 	//verifie si la valeur est renseigné et l'ajoute à la requete SQL
 	function ajout_si_existe($value,$table,$sql,$prec){
@@ -41,12 +47,14 @@
 		return $ret;
 	}
 	
+	///////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////
+	
 	//Construit la requete SQL en fonction de ce que l'utilisateur a renseigné
 	function recherche_product($champ){
 		$prec = 0;
 		$sql = 'SELECT '.$champ.' FROM keyactivityca WHERE';
 		
-		$ret = ajout_si_existe('time','KeyActivity_Date',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		$ret = ajout_si_existe('key','ProductKey',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		
 		if($_POST['logiciel'] != 'tous'){
@@ -76,21 +84,69 @@
 			}
 		}
 		
+		if(!empty($_POST['time'])){
+			$_POST['time'] = strtotime($_POST['time']);
+			if($prec == 1){
+				$sql = $sql.' AND';
+			}
+			if($_POST['operateur_date'] == 'sup'){
+				$sql = $sql.' KeyActivity_Date>="'.$_POST['time'].'"';$prec = 1;
+			}else if($_POST['operateur_date'] == 'inf'){
+				$sql = $sql.' KeyActivity_Date<="'.($_POST['time']+3600*24).'"';$prec = 1;
+			}else{
+				$sql = $sql.' KeyActivity_Date>="'.($_POST['time']).'" AND KeyActivity_Date<="'.($_POST['time']+3600*24).'"';$prec = 1;
+			}
+			$_POST['time'] = date("Y/m/d",$_POST['time']);
+		}
+		
 		return $sql;
 	}
+	
+	///////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////
 	
 	//Construit la requete SQL en fonction de ce que l'utilisateur a renseigné
 	function recherche_downloads($champ){
 		$prec = 0;
 		$sql = 'SELECT '.$champ.' FROM downloadkey WHERE';
 		
-		$ret = ajout_si_existe('time','timestamp',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		$ret = ajout_si_existe('email','mail',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		$ret = ajout_si_existe('number','downloads',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
-		$ret = ajout_si_existe('logiciel','Application',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		
+		if($_POST['logiciel'] != 'tous'){
+			if(!empty($_POST['logiciel'])){
+				if($prec == 1){
+					$sql = $sql.' AND';
+				}
+				$logiciel = $_POST['logiciel'];
+				if($logiciel == 'BCP Anywhere'){
+					$logiciel = 'BCPAnywhere';
+				}
+				$sql = $sql.' Application="'.$logiciel.'"';
+				$prec = 1;
+			}
+			
+		}
+		
+		if(!empty($_POST['time'])){
+			$_POST['time'] = strtotime($_POST['time']);
+			if($prec == 1){
+				$sql = $sql.' AND';
+			}
+			if($_POST['operateur_date'] == 'sup'){
+				$sql = $sql.' timestamp>="'.$_POST['time'].'"';$prec = 1;
+			}else if($_POST['operateur_date'] == 'inf'){
+				$sql = $sql.' timestamp<="'.($_POST['time']+3600*24).'"';$prec = 1;
+			}else{
+				$sql = $sql.' timestamp>="'.($_POST['time']).'" AND timestamp<="'.($_POST['time']+3600*24).'"';$prec = 1;
+			}
+			$_POST['time'] = date("Y/m/d",$_POST['time']);
+		}
 		return $sql;
 	}
+	
+	///////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////
 	
 	//Construit la requete SQL en fonction de ce que l'utilisateur a renseigné
 	function recherche_Customer($champ){
@@ -120,6 +176,9 @@
 		return $sql;
 	}
 	
+	///////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////
+	
 	//Construit la requete SQL en fonction de ce que l'utilisateur a renseigné
 	function recherche_Licences($row_Customer_ID){
 		$prec = 0;
@@ -134,19 +193,6 @@
 		$ret = ajout_si_existe('installKey','InstallKey',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		$ret = ajout_si_existe('label','Label',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		$ret = ajout_si_existe('date','Expiration',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
-		
-		/*if(!empty($_POST['date'])){
-			if($prec == 1){
-				$sql = $sql.' AND';
-			}
-			if($_POST['operateur_date'] == 'sup'){
-				$sql = $sql.' Expiration>="'.$_POST['date'].'"';$prec = 1;
-			}else if($_POST['operateur_date'] == 'inf'){
-				$sql = $sql.' Expiration<="'.$_POST['date'].'"';$prec = 1;
-			}else{
-				$sql = $sql.' Expiration="'.$_POST['date'].'"';$prec = 1;
-			}
-		}*/
 		
 		if(!empty($_POST['number'])){
 			if($prec == 1){
@@ -192,8 +238,10 @@
 		return $sql;
 	}
 	
+	///////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////
 	
-	//Test si des champs Downloads sont remplit
+	//Test si des champs product sont remplit
 	function Test_Product(){
 		if ((isset($_POST['time']) 	&& !empty($_POST['time']))
 		|| (isset($_POST['cle']) 		&& !empty($_POST['cle']))  
@@ -204,6 +252,9 @@
 			return false;
 		}
 	}
+	
+	///////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////
 	
 	//Test si des champs Downloads sont remplit
 	function Test_Downloads(){
@@ -218,6 +269,8 @@
 		}
 	}
 	
+	///////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////
 	
 	//Test si des champs Customer sont remplit
 	function Test_Customer(){
@@ -233,6 +286,9 @@
 			return false;
 		}
 	}
+	
+	///////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////
 	
 	//Test si des champs Licences sont remplit
 	function Test_Licences(){

@@ -99,12 +99,7 @@
 									<td align="right">Tel :</td>
 									<td><input type="text" name="tel" value="<?php if (isset($_POST['tel'])) echo htmlentities(trim($_POST['tel']));?>"></td>
 									<td align="right">Expire :</td>
-									<td>
-										<input type="text" name="date" value="<?php if (isset($_POST['date'])) echo htmlentities(trim($_POST['date'])); ?>"><br>
-										<!--<input <?php //if(!isset($_POST['operateur_date']) || ($_POST['operateur_date'] == 'sup')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="sup"><?php// echo '>='; ?>
-										<input <?php //if(isset($_POST['operateur_date']) && ($_POST['operateur_date'] == 'inf')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="inf"><?php// echo '<='; ?>
-										<input <?php //if(isset($_POST['operateur_date']) && ($_POST['operateur_date'] == 'eg')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="eg"><?php// echo '='; ?>-->
-									</td>
+									<td><input type="text" name="date" value="<?php if (isset($_POST['date'])) echo htmlentities(trim($_POST['date'])); ?>"><br></td>
 								</tr>
 								<tr>
 									<td align="right">Mobile :</td>
