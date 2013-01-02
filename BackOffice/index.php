@@ -1,6 +1,6 @@
 <?php
-	require 'define.php';
-	require 'function.php';
+	require 'Add/define.php';
+	require 'Add/function.php';
 	
 	if (isset($_POST['connexion']) && $_POST['connexion'] == 'Connexion') {
 		if ((isset($_POST['login']) && !empty($_POST['login'])) && (isset($_POST['pass']) && !empty($_POST['pass']))) {
@@ -13,10 +13,10 @@
 			if ($data[0] == 1) {
 				session_start();
 				$_SESSION['login'] = $_POST['login'];
-				$fp = fopen('log.txt', 'a');
+				$fp = fopen('Add/log.txt', 'a');
 				fwrite($fp, 'Connexion de : '.$_SESSION['login'].' ( le '.Date("d/m/Y").' à '.Date("H:i").' )'."\n");
 				fclose($fp);
-				header('Location: gestion.php');
+				header('Location: Gestion/gestion.php');
 				exit();
 			}
 			elseif ($data[0] == 0) {
@@ -35,7 +35,7 @@
 <html id="index">
 	<head>
 		<title>Accueil</title>
-		<link rel="stylesheet" type="text/css" href="css.css">
+		<link rel="stylesheet" type="text/css" href="Add/css.css">
 	</head>
 	
 	<body>

@@ -1,6 +1,6 @@
 <?php
-	require 'define.php';
-	require 'function.php';
+	require '../Add/define.php';
+	require '../Add/function.php';
 	
 	session_start();
 	
@@ -11,14 +11,14 @@
 		
 		$data = RequeteSQL_Select('type_operator', 'operator', 'login_operator', mysql_real_escape_string($_SESSION['login']),"","");
 		if ($data[0] == null){
-			header('Location: deconnexion.php?action="err"');
+			header('Location: ../Session/deconnexion.php?action="err"');
 			exit();
 		}
 		else if ($data[0] == "admin") {
 			$_SESSION['type'] = 'admin';
 		}
 		else{
-			header('Location: deconnexion.php?action="err"');
+			header('Location: ../Session/deconnexion.php?action="err"');
 		}
 
 		$data = RequeteSQL_Select('lastName_operator', 'operator', 'login_operator', mysql_real_escape_string($_SESSION['login']),"","");
@@ -27,7 +27,7 @@
 		$_SESSION['firstName'] = $data[0];
 		mysql_close();
 	}else{
-		header ('Location: deconnexion.php?action="co"');
+		header ('Location: ../Session/deconnexion.php?action="co"');
 		exit();
 	}
 ?>
@@ -35,7 +35,7 @@
 <html id="gestion">
 	<head>
 		<title>Gestion</title>
-		<link rel="stylesheet" type="text/css" href="css.css">
+		<link rel="stylesheet" type="text/css" href="../Add/css.css">
 	</head>
 
 	<body>
@@ -48,9 +48,10 @@
 					<table class="menu">
 						<tr>
 							<td><a class="menu" href="gestion.php?action=licences">Licences</a></td>
-							<td><a class="menu" href="gestion.php?action=customers">Customers</a></td>
-							<td><a class="menu" href="gestion.php?action=downloads">Downloads</a></td>
-							<td><a class="deconnexion" href='deconnexion.php?action="dec"'>Deconnexion</a></td>
+							<td><a class="menu" href="gestion.php?action=customers">Clients</a></td>
+							<td><a class="menu" href="gestion.php?action=downloads">Telechargements</a></td>
+							<td><a class="menu" href="gestion.php?action=product">Produits</a></td>
+							<td><a class="deconnexion" href='../Session/deconnexion.php?action="dec"'>Deconnexion</a></td>
 						</tr>
 					</table>
 				</td>
@@ -62,6 +63,7 @@
 							if($_GET['action'] == 'licences'){include('licences.php');}
 							else if($_GET['action'] == 'customers'){include('customers.php');}
 							else if($_GET['action'] == 'downloads'){include('downloads.php');}
+							else if($_GET['action'] == 'product'){include('product.php');}
 						}
 					?> 
 				</td>

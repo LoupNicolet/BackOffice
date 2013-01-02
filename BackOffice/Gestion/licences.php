@@ -43,7 +43,7 @@
 			$y = 0;
 		}
 	}else{
-		header ('Location: deconnexion.php?action="co"');
+		header ('Location: ../Session/deconnexion.php?action="co"');
 		exit();
 	}
 	
@@ -51,7 +51,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-		<script type='text/javascript'  src="tri.js"></script>
+		<script type='text/javascript'  src="../Add/tri.js"></script>
 	</head>
 	<body>
 		<table>

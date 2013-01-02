@@ -33,13 +33,7 @@
 				}else{
 					$prospect[$i] = 'undefined';
 				}
-				/*if($name[$i] == null){$name[$i] = "";}
-				if($lastName[$i] == null){$lastName[$i] = "";}
-				if($firstName[$i] == null){$firstName[$i] = "/";}
-				if($email[$i] == null){$email[$i] = "/";}
-				if($telephon[$i] == null){$telephon[$i] = "/";}
-				if($mobile[$i] == null){$mobile[$i] = "/";}
-			*/}
+			}
 			
 			mysql_close();
 
@@ -47,7 +41,7 @@
 			$y = 0;
 		}
 	}else{
-		header ('Location: deconnexion.php?action="co"');
+		header ('Location: ../Session/deconnexion.php?action="co"');
 		exit();
 	}
 	
@@ -55,7 +49,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-		<script type='text/javascript' src="tri.js"></script>
+		<script type='text/javascript' src="../Add/tri.js"></script>
 	</head>
 	<body>
 		<table>

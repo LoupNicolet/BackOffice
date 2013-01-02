@@ -7,7 +7,7 @@ a:link,a:visited
 	display:block;
 	font-weight:bold;
 	color:#FFFFFF; /*Blanc*/
-	width:120px;
+	width:150px;
 	text-align:center;
 	padding:2px;
 	text-decoration:none;
@@ -174,7 +174,6 @@ a:link,a:visited
 #pages form.recherche
 {
 	margin:auto;
-
 	background-color: #CCCCCC; /*Gris*/
 	border:1px solid #000000; /*Noir*/
 }

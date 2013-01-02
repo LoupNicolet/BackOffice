@@ -17,7 +17,7 @@
 <html id="deconnexion">
 	<head>
 		<title>Accueil</title>
-		<link rel="stylesheet" type="text/css" href="css.css">
+		<link rel="stylesheet" type="text/css" href="../Add/css.css">
 	</head>
 
 	<body>
@@ -25,7 +25,7 @@
 			<td>
 				<table align="center">
 					<tr><h3><?php echo $message;?></h3></tr>
-					<td><a href="index.php">Ok</a></td>
+					<td><a href="../index.php">Ok</a></td>
 				</table>
 			</td>
 		</table>
