@@ -1,40 +1,45 @@
 <?php
-	// on teste si le visiteur a soumis le formulaire
-	if (isset($_POST['valider']) && $_POST['valider'] == 'Valider') {
-		if ((isset($_POST['cLogin']) && !empty($_POST['cLogin'])) && (isset($_POST['pass']) && !empty($_POST['pass'])) && (isset($_POST['nLogin']) && !empty($_POST['nLogin']))) {
-			
-			// on teste les deux mots de passe
-			if ($_POST['nLogin'] != $_POST['cLogin']) {
-				$erreur = 'Les deux login sont differents.';
-			}
-			else 
-			{
-				$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
-				mysql_select_db ($SQL_Cdw_name, $base);
+	if (isset($_SESSION['login'])){
+		// on teste si le visiteur a soumis le formulaire
+		if (isset($_POST['valider']) && $_POST['valider'] == 'Valider') {
+			if ((isset($_POST['cLogin']) && !empty($_POST['cLogin'])) && (isset($_POST['pass']) && !empty($_POST['pass'])) && (isset($_POST['nLogin']) && !empty($_POST['nLogin']))) {
 				
-				// on recherche si il est enregistré
-				$data = RequeteSQL_Select('count(*)','operator','login_operator',$_SESSION['login'],'pass_operator',md5($_POST['pass']));
-				
-				//si il ne l'est pas
-				if ($data[0] == 0){
-					$erreur = "Mauvais mot de passe.";
-				//si il l'est
-				}else{
-					// on recherche si ce login est déjà utilisé par un autre membre
-					$data = RequeteSQL_Select('count(*)','operator','login_operator',$_POST['nLogin'],0,0);
+				// on teste les deux mots de passe
+				if ($_POST['nLogin'] != $_POST['cLogin']) {
+					$erreur = 'Les deux login sont differents.';
+				}
+				else 
+				{
+					$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
+					mysql_select_db ($SQL_Cdw_name, $base);
 					
-					//On l'ajoute dans la base
-					if ($data[0] == 0) {
-						RequeteSQL_Update('operator', 'login_operator', $_POST['nLogin'], 'login_operator', $_SESSION['login'], 'pass_operator', md5($_POST['pass']));
-						$_SESSION['login'] = $_POST['nLogin'];
-						$erreur = 'Changement effectué.';
+					// on recherche si il est enregistré
+					$data = RequeteSQL_Select('count(*)','operator','login_operator',$_SESSION['login'],'pass_operator',md5($_POST['pass']));
+					
+					//si il ne l'est pas
+					if ($data[0] == 0){
+						$erreur = "Mauvais mot de passe.";
+					//si il l'est
+					}else{
+						// on recherche si ce login est déjà utilisé par un autre membre
+						$data = RequeteSQL_Select('count(*)','operator','login_operator',$_POST['nLogin'],"","");
+						
+						//On l'ajoute dans la base
+						if ($data[0] == 0) {
+							RequeteSQL_Update('operator', 'login_operator', $_POST['nLogin'],"","","","", 'login_operator', $_SESSION['login'], 'pass_operator', md5($_POST['pass']));
+							$_SESSION['login'] = $_POST['nLogin'];
+							$erreur = 'Changement effectué.';
+						}
+						else {$erreur = 'Login deja utilisé.';}
+						mysql_close();
 					}
-					else {$erreur = 'Login deja utilisé.';}
-					mysql_close();
 				}
 			}
+			else {$erreur = 'Au moins un des champs est vide.';}
 		}
-		else {$erreur = 'Au moins un des champs est vide.';}
+	}else{
+		header ('Location: ../Session/deconnexion.php?action="co"');
+		exit();
 	}
 ?>
 

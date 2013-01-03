@@ -173,7 +173,7 @@ a:link,a:visited
 ////			form			////
 //////////////////////////////////*/
 
-#pages form.recherche
+form.recherche
 {
 	margin:auto;
 	background-color: #CCCCCC; /*Gris*/

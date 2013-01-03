@@ -33,8 +33,23 @@
 	///////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////
 	
-	function RequeteSQL_Update($table, $att, $val, $enrg1, $valEnrg1, $enrg2, $valEnrg2){
+	/*function RequeteSQL_Update($table, $att, $val, $enrg1, $valEnrg1, $enrg2, $valEnrg2){
 		$sql = 'UPDATE '.$table.' SET '.$att.'="'.$val.'" WHERE '.$enrg1.'="'.$valEnrg1.'" AND '.$enrg2.'="'.$valEnrg2.'"';
+		mysql_query($sql) or die('Erreur SQL !'.$sql.'<br />'.mysql_error());
+	}*/
+	
+	function RequeteSQL_Update($table, $att1, $val1, $att2, $val2, $att3, $val3, $enrg1, $valEnrg1, $enrg2, $valEnrg2){
+		$sql = 'UPDATE '.$table.' SET '.$att1.'="'.$val1.'"';
+		if(!empty($att2)){
+			$sql = $sql.', '.$att2.'="'.$val2.'"';
+		}
+		if(!empty($att3)){
+			$sql = $sql.', '.$att3.'="'.$val3.'"';
+		}
+		$sql = $sql.' WHERE '.$enrg1.'="'.$valEnrg1.'"';
+		if(!empty($enrg2)){
+			$sql = $sql.' AND '.$enrg2.'="'.$valEnrg2.'"';
+		}
 		mysql_query($sql) or die('Erreur SQL !'.$sql.'<br />'.mysql_error());
 	}
 	
