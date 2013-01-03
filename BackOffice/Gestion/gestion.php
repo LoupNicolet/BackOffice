@@ -15,7 +15,7 @@
 			exit();
 		}
 		else if ($data[0] == "admin") {
-			$_SESSION['type'] = 'admin';
+			$_SESSION['type'] = $data[0];
 		}
 		else{
 			header('Location: ../Session/deconnexion.php?action="err"');
@@ -51,6 +51,7 @@
 							<td><a class="menu" href="gestion.php?action=customers">Clients</a></td>
 							<td><a class="menu" href="gestion.php?action=downloads">Telechargements</a></td>
 							<td><a class="menu" href="gestion.php?action=product">Produits</a></td>
+							<td><a class="menu" href="gestion.php?action=options">Options</a></td>
 							<td><a class="deconnexion" href='../Session/deconnexion.php?action="dec"'>Deconnexion</a></td>
 						</tr>
 					</table>
@@ -64,6 +65,7 @@
 							else if($_GET['action'] == 'customers'){include('customers.php');}
 							else if($_GET['action'] == 'downloads'){include('downloads.php');}
 							else if($_GET['action'] == 'product'){include('product.php');}
+							else if($_GET['action'] == 'options'){include('../Session/options.php');}
 						}
 					?> 
 				</td>

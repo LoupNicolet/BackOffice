@@ -91,7 +91,7 @@
 										<input <?php if(isset($_POST['type']) && $_POST['type'] == 'prospect'){echo 'checked="checked"';}?> type="radio" name="type" value="prospect">Prospect
 									</td>
 								</tr>
-								<tr><td  colspan="2" align="center"><input class="button" type="submit" name="recherche" value="Rechercher"></td></tr>
+								<tr><td  colspan="2"  align="center"><input class="button" type="submit" name="recherche" value="Rechercher"></td></tr>
 							</table>
 						</div>
 					</form>

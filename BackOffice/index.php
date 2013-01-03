@@ -42,7 +42,9 @@
 		<table border="6">
 			<td>
 				<table>
-					<tr><h3>Connexion :</h3></tr>
+					<tr>
+						<td colspan="2" align="center"><h3>Connexion :</h3><td>
+					</tr>
 					<?php if(isset($erreur)){echo $erreur;}?>
 					<form action="index.php" method="post" >
 						<tr>
@@ -53,7 +55,10 @@
 							<td align="right">Mot de passe :</td>
 							<td><input type="password" name="pass" value=""></td>
 						</tr>
-						<tr><td></td><td><input class="button" type="submit" name="connexion" value="Connexion"></td></tr>
+						<tr>
+							<td></td>
+							<td><input class="button" type="submit" name="connexion" value="Connexion"></td>
+						</tr>
 					</form>
 				</table>
 			</td>

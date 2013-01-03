@@ -62,9 +62,8 @@
 						<div align="center">
 							<table>
 								<tr>
-									<td><h3>Informations Clients :</h3></td>
-									<td></td>
-									<td><h3>Informations Licences :</h3></td>
+									<td colspan="2"><h3 align="center">Informations Clients :</h3></td>
+									<td colspan="2"><h3 align="center">Informations Licences :</h3></td>
 								</tr>
 								<tr>
 									<td align="right">Email : </td>
@@ -118,18 +117,19 @@
 										<input <?php if(isset($_POST['etat']) && $_POST['etat'] == 'valide'){echo 'checked="checked"';}?> type="radio" name="etat" value="valide">Valide<br>
 										<input <?php if(isset($_POST['etat']) && $_POST['etat'] == 'invalide'){echo 'checked="checked"';}?> type="radio" name="etat" value="invalide">Invalide
 									</td>
-									<td align="right">Logiciel :</td>
-									<td>
+								</tr>
+								<tr>
+									<td align="center" colspan="4"><h3>Logiciels :</h3>
 										<?php
 											$x=0;
 											$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 											mysql_select_db ($SQL_Cdw_name, $base);
 											$sql = 'SELECT Product_Name FROM products';
 											$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
-											?><input <?php if(!isset($_POST['logiciel']) || ($_POST['logiciel'] == 'tous')){echo 'checked="checked"';}?> type="radio" name="logiciel" value="tous">Tous<br><?php
+											?><input <?php if(!isset($_POST['logiciel']) || ($_POST['logiciel'] == 'tous')){echo 'checked="checked"';}?> type="radio" name="logiciel" value="tous">Tous<?php
 											while($row = mysql_fetch_array($req)){
 												$mem[$x] = $row;
-												?><input <?php if(isset($_POST['logiciel']) && $_POST['logiciel'] == $row['Product_Name']){echo 'checked="checked"';}?> type="radio" name="logiciel" value=<?php echo '"'.$row['Product_Name'].'"'?>><?php echo $row['Product_Name'] ?><br><?php
+												?><input <?php if(isset($_POST['logiciel']) && $_POST['logiciel'] == $row['Product_Name']){echo 'checked="checked"';}?> type="radio" name="logiciel" value=<?php echo '"'.$row['Product_Name'].'"'?>><?php echo $row['Product_Name'] ?><?php
 												$logiciels[$x] = $row['Product_Name'];
 												$x++;
 											}
@@ -138,7 +138,9 @@
 										?>
 									</td>
 								</tr>
-								<tr><td></td><td></td><td><input class="button" type="submit" name="recherche" value="Rechercher"></td></tr>
+								<tr>
+									<td align="center" colspan="4"><input class="button" type="submit" name="recherche" value="Rechercher"></td>
+								</tr>
 							</table>
 						</div>
 					</form>

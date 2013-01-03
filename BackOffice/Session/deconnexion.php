@@ -23,8 +23,8 @@
 	<table border="6">
 			<td>
 				<table align="center">
-					<tr><h3><?php echo $message;?></h3></tr>
-					<td><a href="../index.php">Ok</a></td>
+					<tr><td colspan="2" align="center"><h3><?php echo $message;?></h3></td></tr>
+					<td align="center"><a href="../index.php">Ok</a></td>
 				</table>
 			</td>
 		</table>
