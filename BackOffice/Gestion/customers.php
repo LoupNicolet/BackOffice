@@ -56,7 +56,7 @@
 			<tr><h2 align="center">Clients</h2></tr>
 			<tr>
 				<td>
-					<form id="form" class="recherche" action="gestion.php?action=customers" method="post">
+					<form id="form" class="recherche" action="../Gestion/gestion.php?action=customers" method="post">
 						<div align="center">
 							<table>
 								<tr>

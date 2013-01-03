@@ -1,4 +1,5 @@
 <?php
+
 	require '../Add/define.php';
 	require '../Add/function.php';
 	
@@ -47,11 +48,11 @@
 				<td>
 					<table class="menu">
 						<tr>
-							<td><a class="menu" href="gestion.php?action=licences">Licences</a></td>
-							<td><a class="menu" href="gestion.php?action=customers">Clients</a></td>
-							<td><a class="menu" href="gestion.php?action=downloads">Telechargements</a></td>
-							<td><a class="menu" href="gestion.php?action=product">Produits</a></td>
-							<td><a class="menu" href="gestion.php?action=options">Options</a></td>
+							<td><a class="menu" href="../Gestion/gestion.php?action=licences">Licences</a></td>
+							<td><a class="menu" href="../Gestion/gestion.php?action=customers">Clients</a></td>
+							<td><a class="menu" href="../Gestion/gestion.php?action=downloads">Telechargements</a></td>
+							<td><a class="menu" href="../Gestion/gestion.php?action=product">Produits</a></td>
+							<td><a class="menu" href="../Gestion/gestion.php?action=options">Options</a></td>
 							<td><a class="deconnexion" href='../Session/deconnexion.php?action="dec"'>Deconnexion</a></td>
 						</tr>
 					</table>
@@ -61,10 +62,10 @@
 				<td id="pages">
 					<?php 	
 						if(isset($_GET['action'])){
-							if($_GET['action'] == 'licences'){include('licences.php');}
-							else if($_GET['action'] == 'customers'){include('customers.php');}
-							else if($_GET['action'] == 'downloads'){include('downloads.php');}
-							else if($_GET['action'] == 'product'){include('product.php');}
+							if($_GET['action'] == 'licences'){include('../Gestion/licences.php');}
+							else if($_GET['action'] == 'customers'){include('../Gestion/customers.php');}
+							else if($_GET['action'] == 'downloads'){include('../Gestion/downloads.php');}
+							else if($_GET['action'] == 'product'){include('../Gestion/product.php');}
 							else if($_GET['action'] == 'options'){include('../Session/options.php');}
 						}
 					?> 

@@ -47,7 +47,7 @@
 			<tr><h2 align="center">Produits</h2></tr>
 			<tr>
 				<td>
-					<form id="form" class="recherche" action="gestion.php?action=product" method="post">
+					<form id="form" class="recherche" action="../Gestion/gestion.php?action=product" method="post">
 						<div align="center">
 							<table>
 								<tr>

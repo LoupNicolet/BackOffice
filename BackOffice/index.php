@@ -45,7 +45,7 @@
 					<tr>
 						<td colspan="2" align="center"><h3>Connexion :</h3><td>
 					</tr>
-					<?php if(isset($erreur)){echo $erreur;}?>
+					<?php if(isset($erreur)) echo '<tr><td colspan="2" align="center">'.$erreur.'</td></tr>'; ?>
 					<form action="index.php" method="post" >
 						<tr>
 							<td align="right">Login : </td>
