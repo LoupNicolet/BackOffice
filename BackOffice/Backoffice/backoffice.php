@@ -11,12 +11,11 @@
 		mysql_select_db ($SQL_Cdw_name, $base);
 		
 		$data = RequeteSQL_Select('type_operator', 'operator', 'login_operator', mysql_real_escape_string($_SESSION['login']),"","");
-		if ($data[0] == null){
-			header('Location: ../Session/deconnexion.php?action="err"');
-			exit();
-		}
-		else if ($data[0] == "admin") {
+		if ($data[0] == "admin") {
 			$_SESSION['type'] = $data[0];
+		}
+		else if ($data[0] == null) {
+			$_SESSION['type'] = "";
 		}
 		else{
 			header('Location: ../Session/deconnexion.php?action="err"');
@@ -33,27 +32,28 @@
 	}
 ?>
 
-<html id="gestion">
+<html id="backoffice">
 	<head>
-		<title>Gestion</title>
+		<title>BackOffice</title>
 		<link rel="stylesheet" type="text/css" href="../Add/css.css">
 	</head>
 
 	<body>
 		<table border=6>
 			<tr>
-				<td align="center"><p>Gestion<?php echo " [ ".htmlentities(trim($_SESSION['type']))." ] "." [ ".htmlentities(trim($_SESSION['firstName']))." ".htmlentities(trim($_SESSION['lastName']))." ]";?></p></td>
-			</tr>
-			<tr>
 				<td>
 					<table class="menu">
 						<tr>
-							<td><a class="menu" href="../Gestion/gestion.php?action=licences">Licences</a></td>
-							<td><a class="menu" href="../Gestion/gestion.php?action=customers">Clients</a></td>
-							<td><a class="menu" href="../Gestion/gestion.php?action=downloads">Telechargements</a></td>
-							<td><a class="menu" href="../Gestion/gestion.php?action=product">Produits</a></td>
-							<td><a class="menu" href="../Gestion/gestion.php?action=options">Options</a></td>
+							<td><a class="menu" href="../Backoffice/backoffice.php?action=licences">Licences</a></td>
+							<td><a class="menu" href="../Backoffice/backoffice.php?action=customers">Clients</a></td>
+							<td><a class="menu" href="../Backoffice/backoffice.php?action=downloads">Telechargements</a></td>
+							<td><a class="menu" href="../Backoffice/backoffice.php?action=product">Produits</a></td>
+							<td><a class="menu" href="../Backoffice/backoffice.php?action=operateurs">Operateurs</a></td>
+							<td><a class="menu" href="../Backoffice/backoffice.php?action=options">Options</a></td>
+							<td align="center"><small><?php echo "[".htmlentities(trim($_SESSION['type']))."]"."[".htmlentities(trim($_SESSION['firstName'])).htmlentities(trim($_SESSION['lastName']))."]";?></small></td>
 							<td><a class="deconnexion" href='../Session/deconnexion.php?action="dec"'>Deconnexion</a></td>
+							
+							
 						</tr>
 					</table>
 				</td>
@@ -62,10 +62,11 @@
 				<td id="pages">
 					<?php 	
 						if(isset($_GET['action'])){
-							if($_GET['action'] == 'licences'){include('../Gestion/licences.php');}
-							else if($_GET['action'] == 'customers'){include('../Gestion/customers.php');}
-							else if($_GET['action'] == 'downloads'){include('../Gestion/downloads.php');}
-							else if($_GET['action'] == 'product'){include('../Gestion/product.php');}
+							if($_GET['action'] == 'licences'){include('../Backoffice/licences.php');}
+							else if($_GET['action'] == 'customers'){include('../Backoffice/customers.php');}
+							else if($_GET['action'] == 'downloads'){include('../Backoffice/downloads.php');}
+							else if($_GET['action'] == 'product'){include('../Backoffice/product.php');}
+							else if($_GET['action'] == 'operateurs'){include('../BackOffice/operateurs.php');}
 							else if($_GET['action'] == 'options'){include('../Session/options.php');}
 						}
 					?> 

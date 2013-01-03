@@ -58,7 +58,7 @@
 			<tr><h2 align="center">Licences</h2></tr>
 			<tr>
 				<td>
-					<form id="form" class="recherche" action="../Gestion/gestion.php?action=licences" method="post">
+					<form id="form" class="recherche" action="../Backoffice/backoffice.php?action=licences" method="post">
 						<div align="center">
 							<table>
 								<tr>

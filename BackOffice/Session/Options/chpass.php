@@ -43,7 +43,7 @@ if (isset($_SESSION['login'])){
 				<table>
 					<tr><td colspan="3" align="center"><h3>Nouveau Mdp :</h3></td></tr>
 					<?php if(isset($erreur)) echo '<tr><td colspan="3" align="center">'.$erreur.'</td></tr>'; ?>
-					<form action="../Gestion/gestion.php?action=options&page=chpass" method="post" >
+					<form action="../Backoffice/backoffice.php?action=options&page=chpass" method="post" >
 						<tr>
 							<td align="right">Nouveau : </td>
 							<td><input type="password" name="nPass"></td>

@@ -16,13 +16,13 @@ a:link,a:visited
 #index a:link,#index a:visited,
 #inscription a:link,#inscription a:visited,
 #pages a:link,#pages a:visited,
-#gestion a.menu:link,#gestion a.menu:visited,
+#backoffice a.menu:link,#backoffice a.menu:visited,
 #deconnexion a:link,#deconnexion a:visited
 {
 	background-color:#7A991A; /*Vert*/
 }
 
-#gestion a.deconnexion:link,#gestion a.linkdec:visited
+#backoffice a.deconnexion:link,#backoffice a.linkdec:visited
 {
 	background-color:#8B0000; /*Rouge*/
 }
@@ -30,13 +30,13 @@ a:link,a:visited
 #index a:hover,#index a:active,
 #inscription a:hover,#inscription a:active,
 #pages a:hover,#pages a:active,
-#gestion a.menu:hover,#gestion a.menu:active,
+#backoffice a.menu:hover,#backoffice a.menu:active,
 #deconnexion a:hover,#deconnexion a:active
 {
 	background-color:#9CBB3C; /*Vert Clair*/
 }
 
-#gestion a.deconnexion:hover,#gestion a.deconnexion:active
+#backoffice a.deconnexion:hover,#backoffice a.deconnexion:active
 {
 	background-color:#AD0000; /*Rouge Clair*/
 }
@@ -51,7 +51,8 @@ a:link,a:visited
 #licencesTable th.titre,
 #customersTable th.titre,
 #downloadsTable th.titre,
-#productTable th.titre
+#productTable th.titre,
+#operateurTable th.titre
 {
 	padding:10px;
 	border:1px solid #98bf21; /*Vert Clair*/
@@ -67,14 +68,15 @@ a:link,a:visited
 #licencesTable td,
 #customersTable td ,
 #downloadsTable td ,
-#productTable td
+#productTable td,
+#operateurTable td
  {
 	border:1px solid #98bf21; /*Vert Clair*/
 }
 
 #index td,
 #inscription td,
-#gestion td.deco,
+#backoffice td.deco,
 #pages td,
 #deconnexion td
 {
@@ -92,18 +94,19 @@ a:link,a:visited
 #licencesTable,
 #customersTable,
 #downloadsTable,
-#productTable
+#productTable,
+#operateurTable
 {
 	border-collapse:collapse;
 }
 
-#gestion table
+#backoffice table
 {
 	padding: 5px;
 	width: 100%;
 }
 
-#gestion table.menu
+#backoffice table.menu
 {
 	/*border:1px solid #98bf21; *//*Vert Clair*/
 	background-color: #7A991A;
@@ -160,7 +163,7 @@ a:link,a:visited
 ////			p				////
 //////////////////////////////////*/
 
-#gestion p
+#backoffice p
 {
 	font-weight: bold;
 	font-size: 30px;

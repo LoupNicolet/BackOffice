@@ -47,7 +47,7 @@
 			<tr><h2 align="center">Produits</h2></tr>
 			<tr>
 				<td>
-					<form id="form" class="recherche" action="../Gestion/gestion.php?action=product" method="post">
+					<form id="form" class="recherche" action="../Backoffice/backoffice.php?action=product" method="post">
 						<div align="center">
 							<table>
 								<tr>
@@ -118,12 +118,13 @@
 								</th>
 								<th class='titre' align='center'>
 									<input class='button_titre' type='button' onclick='sortTable(3,true,\"productTable\")' value='Cle' />
-								</th>";
+								</th>
+							</tr>";
 
 							for ($i=0; $i<$y;$i++){
 								echo 
 								'<tr>
-									<td id=1 align="center">'.$productID[$i][0].'</td>
+									<td align="center">'.$productID[$i][0].'</td>
 									<td align="center">'.$time[$i].'</td>
 									<td align="center">'.$number[$i].'</td>
 									<td align="center">'.$key[$i].'</td>

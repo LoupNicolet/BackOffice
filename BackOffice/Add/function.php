@@ -24,7 +24,6 @@
 	///////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////
 	
-	//Insert un enregistrements pour une table de 3 champs
 	/*function RequeteSQL_Insert($table, $val1, $val2, $val3){
 		$sql = 'INSERT INTO '.$table.' VALUES("", "'.$val1.'", "'.$val2.'", "'.$val3.'")';
 		mysql_query($sql) or die('Erreur SQL !'.$sql.'<br />'.mysql_error());
@@ -32,11 +31,6 @@
 	
 	///////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////
-	
-	/*function RequeteSQL_Update($table, $att, $val, $enrg1, $valEnrg1, $enrg2, $valEnrg2){
-		$sql = 'UPDATE '.$table.' SET '.$att.'="'.$val.'" WHERE '.$enrg1.'="'.$valEnrg1.'" AND '.$enrg2.'="'.$valEnrg2.'"';
-		mysql_query($sql) or die('Erreur SQL !'.$sql.'<br />'.mysql_error());
-	}*/
 	
 	function RequeteSQL_Update($table, $att1, $val1, $att2, $val2, $att3, $val3, $enrg1, $valEnrg1, $enrg2, $valEnrg2){
 		$sql = 'UPDATE '.$table.' SET '.$att1.'="'.$val1.'"';

@@ -42,7 +42,7 @@
 			<tr><h2 align="center">Telechargements</h2></tr>
 			<tr>
 				<td>
-					<form id="form" class="recherche" action="../Gestion/gestion.php?action=downloads" method="post">
+					<form id="form" class="recherche" action="../Backoffice/backoffice.php?action=downloads" method="post">
 						<div align="center">
 							<table>
 								<tr>

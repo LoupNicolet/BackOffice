@@ -61,7 +61,7 @@
 				<table>
 					<tr><td colspan="4" align="center"><h3>Profil :</h3></td></tr>
 					<?php if(isset($erreur)) echo '<tr><td colspan="4" align="center">'.$erreur.'</td></tr>'; ?>
-					<form action="../Gestion/gestion.php?action=options&page=chprofil" method="post" >
+					<form action="../Backoffice/backoffice.php?action=options&page=chprofil" method="post" >
 						<tr>
 							<td></td>
 							<td align="center"><b>Informations :</b></td>
