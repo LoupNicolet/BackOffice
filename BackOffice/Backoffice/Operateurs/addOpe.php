@@ -44,7 +44,6 @@
 					mysql_query($sql) or die('Erreur SQL !'.$sql.'<br />'.mysql_error());
 					$erreur = "operateur ajoute";
 					mysql_close();
-					
 				}else{
 					$erreur = 'Login deja utilise.';
 				}

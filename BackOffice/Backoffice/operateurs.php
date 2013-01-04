@@ -8,11 +8,17 @@
 		$y = 0;
 		$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
 		while($row = mysql_fetch_array($req)){
+			
 			$login[$y] = $row['login_operator'];
 			$type[$y] = $row['type_operator'];
 			$prenom[$y] = $row['firstName_operator'];
 			$nom[$y] = $row['lastName_operator'];
 			$email[$y] = $row['email_operator'];
+			if($login[$y] == $_SESSION['login']){
+				$Qui[$y] = 1;
+			}else{
+				$Qui[$y] = 0;
+			}
 			$y++;
 		}
 			
@@ -25,6 +31,21 @@
 ?>
 
 <html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<script type='text/javascript' src="../Add/tri.js"></script>
+		<script>
+			function confirme(colonne, login, table)
+			{
+			var x;
+			var r=confirm("Effacer l'operateur " + login + " ?");
+			if (r==true)
+			  {
+				window.location.assign("../Backoffice/backoffice.php?action=operateurs&page=supOpe&log=" + login);
+			  }
+			}
+		</script>
+	</head>
 	<body>
 		<table>	
 			<tr>
@@ -42,6 +63,15 @@
 					<?php 	
 						if(isset($_GET['page'])){
 							if($_GET['page'] == 'addOpe'){include('../Backoffice/Operateurs/addOpe.php');}
+							else if($_GET['page'] == 'supOpe'){
+								$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
+								mysql_select_db ($SQL_Cdw_name, $base);
+								echo $sql = 'DELETE FROM operator WHERE login_operator="'.$_GET["log"].'"';
+								$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+								mysql_close();
+								header("location:../Backoffice/backoffice.php?action=operateurs");
+							}
+							if($_GET['page'] == 'chOpe'){include('../Backoffice/Operateurs/chOpe.php');}
 						}
 					?> 
 				</td>
@@ -53,35 +83,44 @@
 							echo
 							"<table id='operateurTable'>
 							<tr>
-								<th></th>
-								<th></th>
+								<th id='resultat' colspan='2' align='center'></th>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(0,true,\"productTable\")' value='Login' />
+									<input class='button_titre' type='button' onclick='sortTable(2,true,\"operateurTable\")' value='Login' />
 								</th>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(1,false,\"productTable\")' value='Type' />
+									<input class='button_titre' type='button' onclick='sortTable(3,true,\"operateurTable\")' value='Type' />
 								</th>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(2,true,\"productTable\")' value='Prenom' />
+									<input class='button_titre' type='button' onclick='sortTable(4,true,\"operateurTable\")' value='Prenom' />
 								</th>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(3,true,\"productTable\")' value='Nom' />
+									<input class='button_titre' type='button' onclick='sortTable(5,true,\"operateurTable\")' value='Nom' />
 								</th>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(3,true,\"productTable\")' value='Email' />
+									<input class='button_titre' type='button' onclick='sortTable(6,true,\"operateurTable\")' value='Email' />
 								</th>
 							</tr>";
 
 							for ($i=0; $i<$y;$i++){
-								echo 
-								'<tr>
-									<td>
-										<a href="../Backoffice/backoffice.php?action=licences">Modifier</a>
-									</td>
-									<td>
-										<a href="../Backoffice/backoffice.php?action=licences">Supprimer</a>
-									</td>
-									<td id=1 align="center">'.$login[$i].'</td>
+								if($Qui[$i] == 0){
+									echo 
+									'<tr>
+										<td align="center" style="background-color:#7A991A;">
+											<a href="../Backoffice/backoffice.php?action=operateurs&page=chOpe">Modifier</a>
+										</td>
+										<td align="center" style="background-color:#7A991A;">
+											<input class="button_titre" type="button" onclick="confirme(this,\''.$login[$i].'\',\'operateurTable\')" value="Suppr" />
+										</td>';
+								}else{
+									echo 
+									'<tr>
+										<td align="center" style="background-color:#7A991A;">
+											<a href="../Backoffice/backoffice.php?action=options&page=chprofil">Modifier</a>
+										</td>
+										<td align="center" style="background-color:#7A991A;"></td>';
+								}
+								echo
+									'<td align="center">'.$login[$i].'</td>
 									<td align="center">'.$type[$i].'</td>
 									<td align="center">'.$prenom[$i].'</td>
 									<td align="center">'.$nom[$i].'</td>
