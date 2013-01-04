@@ -52,6 +52,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 		<script type='text/javascript'  src="./Add/tri.js"></script>
+		
 	</head>
 	<body>
 		<table>

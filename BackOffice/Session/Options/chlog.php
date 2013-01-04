@@ -44,29 +44,78 @@
 ?>
 
 <html id="chlog">
+	<head>
+	<script src="./Add/JQuery.js"></script>
+	<script src="./Add/JQuery_Color.js"></script>
+	<script>
+	function verif(element,type) {
+				if (type == 1) {
+					if (element.value.length == 0) {
+						$(element).animate( {backgroundColor: "#FFFFFF"}, 250);
+					}else if(element.value.length < 3){
+						$(element).animate( {backgroundColor: "#FF4D4D"}, 250);
+					}else{
+						$(element).animate( {backgroundColor: "#9CBB3C"}, 250);
+					}
+				}else if (type == 2) {
+					if (element.value.length == 0) {
+						$(element).animate( {backgroundColor: "#FFFFFF"}, 250);
+					}else if(element.value.length < 6){
+						$(element).animate( {backgroundColor: "#FF4D4D"}, 250);
+					}else{
+						$(element).animate( {backgroundColor: "#9CBB3C"}, 250);
+					}
+				}
+			}
+			
+			/*function valider() {
+				$("input").hide();
+				$.post("./backoffice.php?action=partenaires&page=chlog"),
+				{
+				  name:"Donald Duck"
+				  //city:"Duckburg"
+				}
+			}*/
+			
+			$(document).ready(function(){
+  $("button").click(function(){
+    $.post("demo_test_post.asp",
+    {
+      name:"Donald Duck",
+      city:"Duckburg"
+    },
+    function(data,status){
+      alert("Data: " + data + "\nStatus: " + status);
+    });
+  });
+});
+	</script>
+	</head>
 	<body>
 	<table border="6">
 			<td>
 				<table>
 					<tr><td colspan="3" align="center"><h3>Nouveau Login :</h3></td></tr>
 					<?php if(isset($erreur)) echo '<tr><td colspan="3" align="center">'.$erreur.'</td></tr>'; ?>
-					<form action="./backoffice.php?action=options&page=chlog" method="post" >
+					<!--<form action="./backoffice.php?action=options&page=chlog" method="post" >-->
 						<tr>
 							<td align="right">Nouveau : </td>
-							<td><input type="text" name="nLogin" value=""></td>
+							<td><input onkeyup="verif(this,1)" type="text" name="nLogin" value=""></td>
 						</tr>
 						<tr>
 							<td align="right">Confirmer :</td>
-							<td><input type="text" name="cLogin" value=""></td>
+							<td><input onkeyup="verif(this,1)" type="text" name="cLogin" value=""></td>
 						</tr>
 						<tr>
 							<td align="right">Mot de passe :</td>
-							<td><input type="password" name="pass"></td>
+							<td><input onkeyup="verif(this,2)" type="password" name="pass"></td>
 						</tr>
 						<tr>
-						<td colspan="3" align="center"><input class="button" type="submit" name="valider" value="Valider"></td>
+						<button>Send an HTTP POST request to a page and get the result back</button>
+						<!--<td colspan="3" align="center"><button onclick="valider()" class="button" name="valider">Valider</button>-->
+						<!--<td colspan="3" align="center"><input class="button" type="submit" name="valider" value="Valider"></td>-->
 						</tr>
-					</form>	
+					<!--</form>-->	
 				</table>
 			</td>
 		</table>

@@ -3,21 +3,16 @@
 		$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 		mysql_select_db ($SQL_Cdw_name, $base);
 			
-		$sql = 'SELECT login_operator,email_operator,firstName_operator,lastName_operator,type_operator FROM operator';
+		$sql = 'SELECT * FROM partenaires';
 			
 		$y = 0;
 		$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
 		while($row = mysql_fetch_array($req)){
-			$login[$y] = $row['login_operator'];
-			$type[$y] = $row['type_operator'];
-			$prenom[$y] = $row['firstName_operator'];
-			$nom[$y] = $row['lastName_operator'];
-			$email[$y] = $row['email_operator'];
-			if($login[$y] == $_SESSION['login']){
-				$Qui[$y] = 1;
-			}else{
-				$Qui[$y] = 0;
-			}
+			$ID[$y] = $row['ID_partenaire'];
+			$time[$y] = $row['time_partenaire'];
+			$label[$y] = $row['label_partenaire'];
+			$mail[$y] = $row['mail_partenaire'];
+			$number[$y] = $row['number_partenaire'];
 			$y++;
 		}
 			
@@ -34,13 +29,13 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 		<script type='text/javascript' src="./Add/tri.js"></script>
 		<script>
-			function confirme(colonne, login, table)
+			function confirme(colonne, label, table)
 			{
 			var x;
-			var r=confirm("Effacer l'operateur " + login + " ?");
+			var r=confirm("Effacer le partenaire " + label + " ?");
 			if (r==true)
 			  {
-				window.location.assign("./backoffice.php?action=operateurs&page=supOpe&log=" + login);
+				window.location.assign("./backoffice.php?action=partenaires&page=supPar&lab=" + label);
 			  }
 			}
 		</script>
@@ -48,11 +43,11 @@
 	<body>
 		<table>	
 			<tr>
-				<td><h2  align="center">Operateurs</h2></td>
+				<td><h2  align="center">Partenaires</h2></td>
 				<td>
 					<table class="menu">
 						<tr>
-							<td><a class="menu" href="./backoffice.php?action=operateurs&page=addOpe">Ajouter</a></td>
+							<td><a class="menu" href="./backoffice.php?action=partenaires&page=addPar">Ajouter</a></td>
 						</tr>
 					</table>
 				</td>
@@ -61,11 +56,11 @@
 				<td id="pages" colspan="2">
 					<?php 	
 						if(isset($_GET['page'])){
-							if($_GET['page'] == 'addOpe'){include('./Backoffice/Operateurs/addOpe.php');}
-							else if($_GET['page'] == 'supOpe'){
+							if($_GET['page'] == 'addPar'){include('./Backoffice/Partenaires/addPar.php');}
+							else if($_GET['page'] == 'supPar'){
 								$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 								mysql_select_db ($SQL_Cdw_name, $base);
-								echo $sql = 'DELETE FROM operator WHERE login_operator="'.$_GET["log"].'"';
+								echo $sql = 'DELETE FROM partenaires WHERE label_partenaire="'.$_GET["log"].'"';
 								$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
 								mysql_close();
 								header("location:./backoffice.php?action=operateurs");
@@ -80,50 +75,37 @@
 					<?php
 						if($y > 0){
 							echo
-							"<table id='operateurTable'>
+							"<table id='partenairesTable'>
 							<tr>
 								<th id='resultat' colspan='2' align='center'></th>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(2,true,\"operateurTable\")' value='Login' />
+									<input class='button_titre' type='button' onclick='sortTable(2,true,\"operateurTable\")' value='Label' />
 								</th>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(3,true,\"operateurTable\")' value='Type' />
+									<input class='button_titre' type='button' onclick='sortTable(3,true,\"operateurTable\")' value='Nombres Clients' />
 								</th>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(4,true,\"operateurTable\")' value='Prenom' />
+									<input class='button_titre' type='button' onclick='sortTable(4,true,\"operateurTable\")' value='Mail' />
 								</th>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(5,true,\"operateurTable\")' value='Nom' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(6,true,\"operateurTable\")' value='Email' />
+									<input class='button_titre' type='button' onclick='sortTable(5,true,\"operateurTable\")' value='Date' />
 								</th>
 							</tr>";
 
 							for ($i=0; $i<$y;$i++){
-								if($Qui[$i] == 0){
-									echo 
-									'<tr>
-										<td align="center" style="background-color:#7A991A;">
-											<a href="./backoffice.php?action=operateurs&page=chOpe&log='.$login[$i].'">Modifier</a>
-										</td>
-										<td align="center" style="background-color:#7A991A;">
-											<input class="button_titre" type="button" onclick="confirme(this,\''.$login[$i].'\',\'operateurTable\')" value="Suppr" />
-										</td>';
-								}else{
-									echo 
-									'<tr>
-										<td align="center" style="background-color:#7A991A;">
-											<a href="./backoffice.php?action=options&page=chprofil">Modifier</a>
-										</td>
-										<td align="center" style="background-color:#7A991A;"></td>';
-								}
+								echo 
+								'<tr>
+									<td align="center" style="background-color:#7A991A;">
+										<a href="./backoffice.php?action=partenaires&page=chPar&lab='.$label[$i].'">Modifier</a>
+									</td>
+									<td align="center" style="background-color:#7A991A;">
+										<input class="button_titre" type="button" onclick="confirme(this,\''.$label[$i].'\',\'operateurTable\')" value="Suppr" />
+									</td>';
 								echo
-									'<td align="center">'.$login[$i].'</td>
-									<td align="center">'.$type[$i].'</td>
-									<td align="center">'.$prenom[$i].'</td>
-									<td align="center">'.$nom[$i].'</td>
-									<td align="center">'.$email[$i].'</td>
+									'<td align="center">'.$label[$i].'</td>
+									<td align="center">'.$number[$i].'</td>
+									<td align="center">'.$mail[$i].'</td>
+									<td align="center">'.$time[$i].'</td>
 								</tr>';
 							}
 							echo '</table>';
