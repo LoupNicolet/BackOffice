@@ -8,7 +8,6 @@
 		$y = 0;
 		$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
 		while($row = mysql_fetch_array($req)){
-			
 			$login[$y] = $row['login_operator'];
 			$type[$y] = $row['type_operator'];
 			$prenom[$y] = $row['firstName_operator'];
@@ -106,7 +105,7 @@
 									echo 
 									'<tr>
 										<td align="center" style="background-color:#7A991A;">
-											<a href="../Backoffice/backoffice.php?action=operateurs&page=chOpe">Modifier</a>
+											<a href="../Backoffice/backoffice.php?action=operateurs&page=chOpe&log='.$login[$i].'">Modifier</a>
 										</td>
 										<td align="center" style="background-color:#7A991A;">
 											<input class="button_titre" type="button" onclick="confirme(this,\''.$login[$i].'\',\'operateurTable\')" value="Suppr" />
