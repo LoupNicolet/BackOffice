@@ -27,7 +27,7 @@
 			$y = 0;
 		}
 	}else{
-		header ('Location: ../Session/deconnexion.php?action="co"');
+		header ('Location: ./Session/deconnexion.php?action="co"');
 		exit();
 	}
 	
@@ -35,14 +35,14 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-		<script type="text/javascript" src="../Add/tri.js"></script>
+		<script type="text/javascript" src="./Add/tri.js"></script>
 	</head>
 	<body>
 		<table>
 			<tr><h2 align="center">Telechargements</h2></tr>
 			<tr>
 				<td>
-					<form id="form" class="recherche" action="../Backoffice/backoffice.php?action=downloads" method="post">
+					<form id="form" class="recherche" action="./backoffice.php?action=downloads" method="post">
 						<div align="center">
 							<table>
 								<tr>

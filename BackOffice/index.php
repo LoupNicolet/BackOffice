@@ -16,7 +16,7 @@
 				$fp = fopen('Add/log.txt', 'a');
 				fwrite($fp, 'Connexion de : '.$_SESSION['login'].' ( le '.Date("d/m/Y").' à '.Date("H:i").' )'."\n");
 				fclose($fp);
-				header('Location: Backoffice/backoffice.php');
+				header('Location: backoffice.php');
 				exit();
 			}
 			elseif ($data[0] == 0) {

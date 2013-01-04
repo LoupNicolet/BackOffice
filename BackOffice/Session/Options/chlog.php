@@ -38,7 +38,7 @@
 			else {$erreur = 'Au moins un des champs est vide.';}
 		}
 	}else{
-		header ('Location: ../Session/deconnexion.php?action="co"');
+		header ('Location: ./Session/deconnexion.php?action="co"');
 		exit();
 	}
 ?>
@@ -50,7 +50,7 @@
 				<table>
 					<tr><td colspan="3" align="center"><h3>Nouveau Login :</h3></td></tr>
 					<?php if(isset($erreur)) echo '<tr><td colspan="3" align="center">'.$erreur.'</td></tr>'; ?>
-					<form action="../Backoffice/backoffice.php?action=options&page=chlog" method="post" >
+					<form action="./backoffice.php?action=options&page=chlog" method="post" >
 						<tr>
 							<td align="right">Nouveau : </td>
 							<td><input type="text" name="nLogin" value=""></td>

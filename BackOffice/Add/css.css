@@ -7,7 +7,7 @@ a:link,a:visited
 	display:block;
 	font-weight:bold;
 	color:#FFFFFF; /*Blanc*/
-	width:150px;
+	width:120px;
 	text-align:center;
 	padding:2px;
 	text-decoration:none;
@@ -54,7 +54,7 @@ a:link,a:visited
 #productTable th.titre,
 #operateurTable th.titre
 {
-	padding:10px;
+	padding:2px;
 	border:1px solid #98bf21; /*Vert Clair*/
 	background-color:#7A991A; /*Vert*/
 	color:#ffffff;	/*Blanc*/
@@ -80,7 +80,7 @@ a:link,a:visited
 #pages td,
 #deconnexion td
 {
-	padding:10px;
+	padding:5px;
 	width:10%;
 }
 
@@ -128,9 +128,9 @@ a:link,a:visited
 	color:#FFFFFF; /*Blanc*/
 	background-color:#7A991A; /*Vert*/
 	font-weight:bold;
-	width:120px;
+	width:100px;
 	text-align:center;
-	padding:15px;
+	padding:10px;
 	text-decoration:none;
 	border:none;
 }
@@ -166,8 +166,8 @@ a:link,a:visited
 #backoffice p
 {
 	font-weight: bold;
-	font-size: 30px;
-	padding : 10px;
+	font-size: 20px;
+	padding : 5px;
 }
 
 
@@ -180,7 +180,7 @@ form.recherche
 {
 	margin:auto;
 	background-color: #CCCCCC; /*Gris*/
-	border:1px solid #000000; /*Noir*/
+	border:6px outset #000000; /*Noir*/
 }
 
 
