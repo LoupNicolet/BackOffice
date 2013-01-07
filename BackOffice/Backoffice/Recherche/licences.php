@@ -53,16 +53,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 		<script src="./Add/JQuery.js"></script>
 		<script type='text/javascript'  src="./Add/tri.js"></script>
-		<script>
-		$(document).ready(function(){
-			$('tr#plus');
-			$('tr#plus').hide();
-			$("button").click(function(){
-				$("tr#plus").toggle(500);
-				return false;
-			});
-		});
-		</script>
+		<script type='text/javascript'  src="./Add/details.js"></script>
 	</head>
 	<body>
 		<table>

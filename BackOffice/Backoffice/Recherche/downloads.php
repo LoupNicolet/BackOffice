@@ -35,7 +35,9 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<script src="./Add/JQuery.js"></script>
 		<script type="text/javascript" src="./Add/tri.js"></script>
+		<script type='text/javascript'  src="./Add/details.js"></script>
 	</head>
 	<body>
 		<table>
@@ -46,6 +48,9 @@
 						<div align="center">
 							<table>
 								<tr>
+									<td align="center" colspan="6"><button class="button">Detail</button></td>
+								</tr>
+								<tr id="plus">
 									<td align="right">Date : </td>
 									<td>
 										<input type="text" name="time" value="<?php if (isset($_POST['time'])) echo htmlentities(trim($_POST['time'])); ?>"><br>
@@ -53,18 +58,13 @@
 										<input <?php if(isset($_POST['operateur_date']) && ($_POST['operateur_date'] == 'inf')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="inf"><?php echo '<='; ?>
 										<input <?php if(isset($_POST['operateur_date']) && ($_POST['operateur_date'] == 'eg')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="eg"><?php echo '='; ?>
 									</td>
-								</tr>
-								<tr>
 									<td align="right">Email :</td>
 									<td><input type="text" name="email" value="<?php if (isset($_POST['email'])) echo htmlentities(trim($_POST['email'])); ?>"></td>
-								</tr>
-								<tr>
 									<td align="right">Downloads :</td>
 									<td><input type="text" name="number" value="<?php if (isset($_POST['number'])) echo htmlentities(trim($_POST['number'])); ?>"></td>
 								</tr>
 								<tr>
-									<td align="right">Logiciel :</td>
-									<td>
+									<td colspan="6" align="center">
 										<?php
 											$x=0;
 											$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
@@ -83,7 +83,7 @@
 										?>
 									</td>
 								</tr>
-								<tr><td  colspan="2" align="center"><input class="button" type="submit" name="recherche" value="Rechercher"></td></tr>
+								<tr><td  colspan="6" align="center"><input class="button" type="submit" name="recherche" value="Rechercher"></td></tr>
 							</table>
 						</div>
 					</form>

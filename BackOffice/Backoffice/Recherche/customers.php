@@ -49,7 +49,9 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<script src="./Add/JQuery.js"></script>
 		<script type='text/javascript' src="./Add/tri.js"></script>
+		<script type='text/javascript'  src="./Add/details.js"></script>
 	</head>
 	<body>
 		<table>
@@ -59,39 +61,39 @@
 					<form id="form" class="recherche" action="./backoffice.php?action=customers" method="post">
 						<div align="center">
 							<table>
+							
 								<tr>
+									<td align="center" colspan="6"><button class="button">Detail</button></td>
+								</tr>
+								
+								<tr id="plus">
 									<td align="right">Email : </td>
 									<td><input type="text" name="email" value="<?php if (isset($_POST['email'])) echo htmlentities(trim($_POST['email'])); ?>"></td>
-								</tr>
-								<tr>
-									<td align="right">Name :</td>
-									<td><input type="text" name="name" value="<?php if (isset($_POST['name'])) echo htmlentities(trim($_POST['name'])); ?>"></td>
-								</tr>
-								<tr>
 									<td align="right">FirstName :</td>
 									<td><input type="text" name="firstName" value="<?php if (isset($_POST['firstName'])) echo htmlentities(trim($_POST['firstName'])); ?>"></td>
-								</tr>
-								<tr>
-									<td align="right">LastName :</td>
-									<td><input type="text" name="lastName" value="<?php if (isset($_POST['lastName'])) echo htmlentities(trim($_POST['lastName'])); ?>"></td>
-								</tr>
-								<tr>
 									<td align="right">Tel :</td>
 									<td><input type="text" name="tel" value="<?php if (isset($_POST['tel'])) echo htmlentities(trim($_POST['tel']));?>"></td>
 								</tr>
-								<tr>
+								
+								<tr id="plus">
+									<td align="right">Name :</td>
+									<td><input type="text" name="name" value="<?php if (isset($_POST['name'])) echo htmlentities(trim($_POST['name'])); ?>"></td>
+									<td align="right">LastName :</td>
+									<td><input type="text" name="lastName" value="<?php if (isset($_POST['lastName'])) echo htmlentities(trim($_POST['lastName'])); ?>"></td>
 									<td align="right">Mobile :</td>
 									<td><input type="text" name="mobile" value="<?php if (isset($_POST['mobile'])) echo htmlentities(trim($_POST['mobile'])); ?>"></td>
 								</tr>
+								
 								<tr>
-									<td align="right">Type :</td>
-									<td>
+									<td colspan="6" align="center">
 										<input <?php if(!isset($_POST['type']) || ($_POST['type'] == 'indifferent')){echo 'checked="checked"';}?> type="radio" name="type" value="indifferent">Indifferent<br>
 										<input <?php if(isset($_POST['type']) && $_POST['type'] == 'client'){echo 'checked="checked"';}?> type="radio" name="type" value="client">Client<br>
 										<input <?php if(isset($_POST['type']) && $_POST['type'] == 'prospect'){echo 'checked="checked"';}?> type="radio" name="type" value="prospect">Prospect
 									</td>
 								</tr>
-								<tr><td  colspan="2"  align="center"><input class="button" type="submit" name="recherche" value="Rechercher"></td></tr>
+								
+								<tr><td  colspan="6"  align="center"><input class="button" type="submit" name="recherche" value="Rechercher"></td></tr>
+							
 							</table>
 						</div>
 					</form>
