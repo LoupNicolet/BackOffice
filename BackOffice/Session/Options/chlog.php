@@ -47,48 +47,18 @@
 	<head>
 	<script src="./Add/JQuery.js"></script>
 	<script src="./Add/JQuery_Color.js"></script>
+	<script src="./Add/verif.js"></script>
 	<script>
-	function verif(element,type) {
-				if (type == 1) {
-					if (element.value.length == 0) {
-						$(element).animate( {backgroundColor: "#FFFFFF"}, 250);
-					}else if(element.value.length < 3){
-						$(element).animate( {backgroundColor: "#FF4D4D"}, 250);
-					}else{
-						$(element).animate( {backgroundColor: "#9CBB3C"}, 250);
-					}
-				}else if (type == 2) {
-					if (element.value.length == 0) {
-						$(element).animate( {backgroundColor: "#FFFFFF"}, 250);
-					}else if(element.value.length < 6){
-						$(element).animate( {backgroundColor: "#FF4D4D"}, 250);
-					}else{
-						$(element).animate( {backgroundColor: "#9CBB3C"}, 250);
-					}
-				}
-			}
-			
-			/*function valider() {
-				$("input").hide();
-				$.post("./backoffice.php?action=partenaires&page=chlog"),
-				{
-				  name:"Donald Duck"
-				  //city:"Duckburg"
-				}
-			}*/
-			
-			$(document).ready(function(){
-  $("button").click(function(){
-    $.post("demo_test_post.asp",
-    {
-      name:"Donald Duck",
-      city:"Duckburg"
-    },
-    function(data,status){
-      alert("Data: " + data + "\nStatus: " + status);
-    });
-  });
-});
+	function valide()
+	{
+		var login=document.forms["formVal"]["nLogin"].value;
+		var conf=document.forms["formVal"]["cLogin"].value;
+		if ((login.length < 3) || (conf.length < 3))
+		{
+			document.getElementById("erreur").innerHTML="Mauvais login";
+			return false;
+		}
+	}
 	</script>
 	</head>
 	<body>
@@ -96,8 +66,9 @@
 			<td>
 				<table>
 					<tr><td colspan="3" align="center"><h3>Nouveau Login :</h3></td></tr>
-					<?php if(isset($erreur)) echo '<tr><td colspan="3" align="center">'.$erreur.'</td></tr>'; ?>
-					<!--<form action="./backoffice.php?action=options&page=chlog" method="post" >-->
+					<tr><td colspan="3" align="center"><h4><?php echo $_SESSION['login']; ?></h4></td></tr>
+					<tr><td id="erreur" colspan="3" align="center"><?php if(isset($erreur)) echo $erreur; ?></td></tr>
+					<form name="formVal" action="./backoffice.php?action=options&page=chlog" method="post" onsubmit="return valide()" >
 						<tr>
 							<td align="right">Nouveau : </td>
 							<td><input onkeyup="verif(this,1)" type="text" name="nLogin" value=""></td>
@@ -111,11 +82,11 @@
 							<td><input onkeyup="verif(this,2)" type="password" name="pass"></td>
 						</tr>
 						<tr>
-						<button>Send an HTTP POST request to a page and get the result back</button>
+						<!--<button>Send an HTTP POST request to a page and get the result back</button>-->
 						<!--<td colspan="3" align="center"><button onclick="valider()" class="button" name="valider">Valider</button>-->
-						<!--<td colspan="3" align="center"><input class="button" type="submit" name="valider" value="Valider"></td>-->
+						<td colspan="3" align="center"><input class="button" type="submit" name="valider" value="Valider"></td>
 						</tr>
-					<!--</form>-->	
+					</form>	
 				</table>
 			</td>
 		</table>
