@@ -95,10 +95,10 @@
 							for ($i=0; $i<$y;$i++){
 								echo 
 								'<tr>
-									<td align="center" style="background-color:#7A991A;">
+									<td align="center" style="background-color:#245DB2;">
 										<a href="./backoffice.php?action=partenaires&page=chPar&lab='.$label[$i].'">Modifier</a>
 									</td>
-									<td align="center" style="background-color:#7A991A;">
+									<td align="center" style="background-color:#245DB2;">
 										<input class="button_titre" type="button" onclick="confirme(this,\''.$label[$i].'\',\'operateurTable\')" value="Suppr" />
 									</td>';
 								echo

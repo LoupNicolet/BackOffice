@@ -104,19 +104,19 @@
 								if($Qui[$i] == 0){
 									echo 
 									'<tr>
-										<td align="center" style="background-color:#7A991A;">
+										<td align="center" style="background-color:#245DB2;">
 											<a href="./backoffice.php?action=operateurs&page=chOpe&log='.$login[$i].'">Modifier</a>
 										</td>
-										<td align="center" style="background-color:#7A991A;">
+										<td align="center" style="background-color:#245DB2;">
 											<input class="button_titre" type="button" onclick="confirme(this,\''.$login[$i].'\',\'operateurTable\')" value="Suppr" />
 										</td>';
 								}else{
 									echo 
 									'<tr>
-										<td align="center" style="background-color:#7A991A;">
+										<td align="center" style="background-color:#245DB2;">
 											<a href="./backoffice.php?action=options&page=chprofil">Modifier</a>
 										</td>
-										<td align="center" style="background-color:#7A991A;"></td>';
+										<td align="center" style="background-color:#245DB2;"></td>';
 								}
 								echo
 									'<td align="center">'.$login[$i].'</td>

@@ -43,7 +43,7 @@
 			$y = 0;
 		}
 	}else{
-		header ('Location: ./Session/deconnexion.php?action="co"');
+		header ('Location: /BackOffice/Session/deconnexion.php?action="co"');
 		exit();
 	}
 	
@@ -51,8 +51,18 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<script src="./Add/JQuery.js"></script>
 		<script type='text/javascript'  src="./Add/tri.js"></script>
-		
+		<script>
+		$(document).ready(function(){
+			$('tr#plus');
+			$('tr#plus').hide();
+			$("button").click(function(){
+				$("tr#plus").toggle(500);
+				return false;
+			});
+		});
+		</script>
 	</head>
 	<body>
 		<table>
@@ -63,30 +73,55 @@
 						<div align="center">
 							<table>
 								<tr>
-									<td colspan="2"><h3 align="center">Informations Clients :</h3></td>
-									<td colspan="2"><h3 align="center">Informations Licences :</h3></td>
+									<td align="center" colspan="6"><button class="button">Detail</button></td>
 								</tr>
-								<tr>
+								
+								<tr id="plus"><td></td></tr>
+								
+								<tr id="plus">
+									<td class="titreForm" colspan="6" align="center" style="font-size:20px;"><b>Informations Clients :</b></td>
+								</tr>
+								
+								<tr id="plus"><td></td></tr>
+								
+								<tr id="plus">
 									<td align="right">Email : </td>
 									<td><input type="text" name="email" value="<?php if (isset($_POST['email'])) echo htmlentities(trim($_POST['email'])); ?>"></td>
-									<td align="right">InstallGuid : </td>
-									<td><input type="text" name="installGuid" value="<?php if (isset($_POST['installGuid'])) echo htmlentities(trim($_POST['installGuid'])); ?>"></td>
-								</tr>
-								<tr>
-									<td align="right">Name :</td>
-									<td><input type="text" name="name" value="<?php if (isset($_POST['name'])) echo htmlentities(trim($_POST['name'])); ?>"></td>
-									<td align="right">InstallKey :</td>
-									<td><input type="text" name="installKey" value="<?php if (isset($_POST['installKey'])) echo htmlentities(trim($_POST['installKey'])); ?>"></td>
-								</tr>
-								<tr>
 									<td align="right">FirstName :</td>
 									<td><input type="text" name="firstName" value="<?php if (isset($_POST['firstName'])) echo htmlentities(trim($_POST['firstName'])); ?>"></td>
-									<td align="right">Label :</td>
-									<td><input type="text" name="label" value="<?php if (isset($_POST['label'])) echo htmlentities(trim($_POST['label'])); ?>"></td>
+									<td align="right">Tel :</td>
+									<td><input type="text" name="tel" value="<?php if (isset($_POST['tel'])) echo htmlentities(trim($_POST['tel']));?>"></td>
 								</tr>
-								<tr>
+								
+								<tr id="plus">
+									<td align="right">Name :</td>
+									<td><input type="text" name="name" value="<?php if (isset($_POST['name'])) echo htmlentities(trim($_POST['name'])); ?>"></td>
 									<td align="right">LastName :</td>
 									<td><input type="text" name="lastName" value="<?php if (isset($_POST['lastName'])) echo htmlentities(trim($_POST['lastName'])); ?>"></td>
+									<td align="right">Mobile :</td>
+									<td><input type="text" name="mobile" value="<?php if (isset($_POST['mobile'])) echo htmlentities(trim($_POST['mobile'])); ?>"></td>	
+								</tr>
+								
+								<tr id="plus"><td></td></tr>
+								
+								<tr id="plus">
+									<td class="titreForm" colspan="6" align="center" style="font-size:20px;"><b>Informations Licences :</b></td>
+								</tr>
+								
+								<tr id="plus"><td></td></tr>
+								
+								<tr id="plus">
+									<td align="right">InstallGuid : </td>
+									<td><input type="text" name="installGuid" value="<?php if (isset($_POST['installGuid'])) echo htmlentities(trim($_POST['installGuid'])); ?>"></td>
+									<td align="right">Label :</td>
+									<td><input type="text" name="label" value="<?php if (isset($_POST['label'])) echo htmlentities(trim($_POST['label'])); ?>"></td>
+									<td align="right">Expire :</td>
+									<td><input type="text" name="date" value="<?php if (isset($_POST['date'])) echo htmlentities(trim($_POST['date'])); ?>"><br></td>
+								</tr>
+								
+								<tr id="plus">
+									<td align="right">InstallKey :</td>
+									<td><input type="text" name="installKey" value="<?php if (isset($_POST['installKey'])) echo htmlentities(trim($_POST['installKey'])); ?>"></td>
 									<td align="right">Number :</td>
 									<td>
 										<input type="text" name="number" value="<?php if (isset($_POST['number'])) echo htmlentities(trim($_POST['number'])); ?>"><br>
@@ -95,22 +130,33 @@
 										<input <?php if(isset($_POST['operateur_nombre']) && ($_POST['operateur_nombre'] == 'eg')){echo 'checked="checked"';}?> type="radio" name="operateur_nombre" value="eg"><?php echo '='; ?>
 									</td>
 								</tr>
-								<tr>
-									<td align="right">Tel :</td>
-									<td><input type="text" name="tel" value="<?php if (isset($_POST['tel'])) echo htmlentities(trim($_POST['tel']));?>"></td>
-									<td align="right">Expire :</td>
-									<td><input type="text" name="date" value="<?php if (isset($_POST['date'])) echo htmlentities(trim($_POST['date'])); ?>"><br></td>
-								</tr>
-								<tr>
-									<td align="right">Mobile :</td>
-									<td><input type="text" name="mobile" value="<?php if (isset($_POST['mobile'])) echo htmlentities(trim($_POST['mobile'])); ?>"></td>	
-								</tr>
+								
+								<tr id="plus"><td></td></tr>
+								
 								<tr>
 									<td align="right">Type :</td>
 									<td>
 										<input <?php if(!isset($_POST['type']) || ($_POST['type'] == 'indifferent')){echo 'checked="checked"';}?> type="radio" name="type" value="indifferent">Indifferent<br>
 										<input <?php if(isset($_POST['type']) && $_POST['type'] == 'client'){echo 'checked="checked"';}?> type="radio" name="type" value="client">Client<br>
 										<input <?php if(isset($_POST['type']) && $_POST['type'] == 'prospect'){echo 'checked="checked"';}?> type="radio" name="type" value="prospect">Prospect
+									</td>
+									<td align="center" colspan="2">
+										<?php
+											$x=0;
+											$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
+											mysql_select_db ($SQL_Cdw_name, $base);
+											$sql = 'SELECT Product_Name FROM products';
+											$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+											?><input <?php if(!isset($_POST['logiciel']) || ($_POST['logiciel'] == 'tous')){echo 'checked="checked"';}?> type="radio" name="logiciel" value="tous">Tous<br><?php
+											while($row = mysql_fetch_array($req)){
+												$mem[$x] = $row;
+												?><input <?php if(isset($_POST['logiciel']) && $_POST['logiciel'] == $row['Product_Name']){echo 'checked="checked"';}?> type="radio" name="logiciel" value=<?php echo '"'.$row['Product_Name'].'"'?>><?php echo $row['Product_Name'] ?><br><?php
+												$logiciels[$x] = $row['Product_Name'];
+												$x++;
+											}
+											mysql_free_result($req);
+											mysql_close();
+										?>
 									</td>
 									<td align="right">Etat :</td>
 									<td>
@@ -119,28 +165,11 @@
 										<input <?php if(isset($_POST['etat']) && $_POST['etat'] == 'invalide'){echo 'checked="checked"';}?> type="radio" name="etat" value="invalide">Invalide
 									</td>
 								</tr>
+								
+								<tr><td></td></tr>
+								
 								<tr>
-									<td align="center" colspan="4"><h3>Logiciels :</h3>
-										<?php
-											$x=0;
-											$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
-											mysql_select_db ($SQL_Cdw_name, $base);
-											$sql = 'SELECT Product_Name FROM products';
-											$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
-											?><input <?php if(!isset($_POST['logiciel']) || ($_POST['logiciel'] == 'tous')){echo 'checked="checked"';}?> type="radio" name="logiciel" value="tous">Tous<?php
-											while($row = mysql_fetch_array($req)){
-												$mem[$x] = $row;
-												?><input <?php if(isset($_POST['logiciel']) && $_POST['logiciel'] == $row['Product_Name']){echo 'checked="checked"';}?> type="radio" name="logiciel" value=<?php echo '"'.$row['Product_Name'].'"'?>><?php echo $row['Product_Name'] ?><?php
-												$logiciels[$x] = $row['Product_Name'];
-												$x++;
-											}
-											mysql_free_result($req);
-											mysql_close();
-										?>
-									</td>
-								</tr>
-								<tr>
-									<td align="center" colspan="4"><input class="button" type="submit" name="recherche" value="Rechercher"></td>
+									<td  align="center" colspan="6"><input class="button" type="submit" name="recherche" value="Rechercher"></td>
 								</tr>
 							</table>
 						</div>

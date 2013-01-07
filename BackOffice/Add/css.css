@@ -19,7 +19,7 @@ a:link,a:visited
 #backoffice a.menu:link,#backoffice a.menu:visited,
 #deconnexion a:link,#deconnexion a:visited
 {
-	background-color:#7A991A; /*Vert*/
+	background-color:#245DB2; /*Bleu*/
 }
 
 #backoffice a.deconnexion:link,#backoffice a.linkdec:visited
@@ -33,7 +33,7 @@ a:link,a:visited
 #backoffice a.menu:hover,#backoffice a.menu:active,
 #deconnexion a:hover,#deconnexion a:active
 {
-	background-color:#9CBB3C; /*Vert Clair*/
+	background-color:#3385FF; /*Bleu Clair*/
 }
 
 #backoffice a.deconnexion:hover,#backoffice a.deconnexion:active
@@ -55,8 +55,8 @@ a:link,a:visited
 #operateurTable th.titre
 {
 	padding:2px;
-	border:1px solid #98bf21; /*Vert Clair*/
-	background-color:#7A991A; /*Vert*/
+	border:1px solid #3385FF; /*Bleu Clair*/
+	background-color:#245DB2; /*Bleu*/
 	color:#ffffff;	/*Blanc*/
 }
 
@@ -71,19 +71,22 @@ a:link,a:visited
 #productTable td,
 #operateurTable td
  {
-	border:1px solid #98bf21; /*Vert Clair*/
+	border:1px solid #3385FF; /*Bleu Clair*/
 }
 
-#index td,
 #inscription td,
 #backoffice td.deco,
-#pages td,
-#deconnexion td
+#pages td
 {
 	padding:5px;
 	width:10%;
 }
 
+#index td,
+#deconnexion td
+{
+	padding:5px;
+}
 
 
 
@@ -98,6 +101,7 @@ a:link,a:visited
 #operateurTable
 {
 	border-collapse:collapse;
+	
 }
 
 #backoffice table
@@ -106,10 +110,12 @@ a:link,a:visited
 	width: 100%;
 }
 
+
+
 #backoffice table.menu
 {
-	/*border:1px solid #98bf21; *//*Vert Clair*/
-	background-color: #7A991A;
+	/*border:1px solid #3385FF; Bleu Clair*/
+	background-color: #245DB2;
 	border-collapse:collapse;
 }
 
@@ -126,7 +132,7 @@ a:link,a:visited
 {
 	display:block;
 	color:#FFFFFF; /*Blanc*/
-	background-color:#7A991A; /*Vert*/
+	background-color:#245DB2; /*Bleu*/
 	font-weight:bold;
 	width:100px;
 	text-align:center;
@@ -140,7 +146,7 @@ a:link,a:visited
 #pages input.button:hover,#pages input.button:active,
 #pages input.button_titre:hover,#pages input.button_titre:active
 {
-	background-color:#9CBB3C; /*Vert Clair*/
+	background-color:#3385FF; /*Bleu Clair*/
 }
 
 
@@ -148,7 +154,7 @@ a:link,a:visited
 {
 	display:block;
 	color:#FFFFFF; /*Blanc*/
-	background-color:#7A991A; /*Vert*/
+	background-color:#245DB2; /*Bleu*/
 	font-weight:bold;
 	width:100px;
 	text-align:center;
@@ -183,6 +189,37 @@ form.recherche
 	border:6px outset #000000; /*Noir*/
 }
 
+
+
+
+
+
+/*//////////////////////////////////
+////			button			////
+//////////////////////////////////*/
+
+#index button.button,
+#inscription button.button,
+#pages button.button
+{
+	display:block;
+	color:#FFFFFF; /*Blanc*/
+	background-color:#245DB2; /*Bleu*/
+	font-weight:bold;
+	width:70px;
+	text-align:center;
+	padding:10px;
+	text-decoration:none;
+	border:none;
+}
+
+#index button.button:hover,#index button.button:active,
+#inscription button.button:hover,#inscription button.button:active,
+#pages button.button:hover,#pages button.button:active,
+#pages button.button_titre:hover,#pages button.button_titre:active
+{
+	background-color:#3385FF; /*Bleu Clair*/
+}
 
 
 
