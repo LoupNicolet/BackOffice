@@ -15,6 +15,30 @@ function verif(element,type) {
 			}else{
 				$(element).animate( {backgroundColor: "#9CBB3C"}, 250);
 			}
+		}else if (type == 3) {
+			if (element.value.length == 0) {
+				$(element).animate( {backgroundColor: "#FFFFFF"}, 250);
+			}else{
+				$(element).animate( {backgroundColor: "#9CBB3C"}, 250);
+			}
+		}else if (type == 4) {
+			if (element.value.length == 0) {
+				$(element).animate( {backgroundColor: "#FFFFFF"}, 250);
+			}else if ( ( element.value.indexOf("@") == -1 ) 
+					|| ( element.value.indexOf("@") == 0 )
+					|| ( element.value.indexOf("@") != element.value.lastIndexOf("@") ) 
+					|| ( element.value.indexOf(".") == element.value.indexOf("@")-1 ) 
+					|| ( element.value.indexOf(".") == element.value.indexOf("@") +1 ) 
+					|| (element.value.indexOf("@") == element.value.length -1 ) 
+					|| (element.value.indexOf (".") == -1) 
+					|| ( element.value.lastIndexOf (".") == element.value.length -1 ) 
+					|| (element.value.indexOf (" ") != -1) 
+					|| ((element.value.indexOf(".") == element.value.lastIndexOf(".")) && (element.value.lastIndexOf(".") < element.value.indexOf("@")))
+					){
+				$(element).animate( {backgroundColor: "#FF4D4D"}, 250);
+			}else{
+				$(element).animate( {backgroundColor: "#9CBB3C"}, 250);
+			}
 		}
 	}
 	

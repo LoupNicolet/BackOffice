@@ -55,13 +55,29 @@
 ?>
 
 <html id="chprofil">
+	<head>
+		<script src="./Add/JQuery.js"></script>
+		<script src="./Add/JQuery_Color.js"></script>
+		<script src="./Add/verif.js"></script>
+		<script>
+			function valide()
+			{
+				var aPass=document.forms["formVal"]["email"].value;
+				if (aPass.length < 6))
+				{
+					document.getElementById("erreur").innerHTML="Mauvais format email";
+					return false;
+				}
+			}
+		</script>
+	</head>
 	<body>
 		<table border="6">
 			<td>
 				<table>
 					<tr><td colspan="4" align="center"><h3>Profil :</h3></td></tr>
-					<?php if(isset($erreur)) echo '<tr><td colspan="4" align="center">'.$erreur.'</td></tr>'; ?>
-					<form action="./backoffice.php?action=options&page=chprofil" method="post" >
+					<tr><td id="erreur" colspan="3" align="center"><?php if(isset($erreur)) echo $erreur; ?></td></tr>
+					<form name="formVal" onsubmit="return valide()" action="./backoffice.php?action=options&page=chprofil" method="post" >
 						<tr>
 							<td></td>
 							<td align="center"><b>Informations :</b></td>
@@ -70,17 +86,17 @@
 						<tr>
 							<td align="right">Nom :</td>
 							<td align="center"><?php echo $nom; ?></td>
-							<td><input type="text" name="nom" value=""></td>
+							<td><input onkeyup="verif(this,3)" type="text" name="nom" value=""></td>
 						</tr>
 						<tr>
 							<td align="right">Prenom :</td>
 							<td align="center"><?php echo $prenom; ?></td>
-							<td><input type="text" name="prenom" value=""></td>
+							<td><input onkeyup="verif(this,3)" type="text" name="prenom" value=""></td>
 						</tr>
 						<tr>
 							<td align="right">Email :</td>
 							<td align="center"><?php echo $email; ?></td>
-							<td><input type="text" name="email" value=""></td>
+							<td><input onkeyup="verif(this,4)" type="text" name="email" value=""></td>
 						</tr>
 						<tr>
 						<td colspan="4" align="center"><input class="button" type="submit" name="valider" value="Valider"></td>

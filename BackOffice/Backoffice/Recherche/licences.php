@@ -19,7 +19,7 @@
 				$sql = recherche_Licences($row_Customer_ID);
 				$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
 				while($row = mysql_fetch_array($req)){
-					$installGuid[$y] = $row['InstallGuid'];
+					//$installGuid[$y] = $row['InstallGuid'];
 					$installKey[$y] = $row['InstallKey'];
 					$productID[$y] = $row['ProductID'];
 					$licences[$y] = $row['Licences'];
@@ -102,8 +102,10 @@
 								<tr id="plus"><td></td></tr>
 								
 								<tr id="plus">
-									<td align="right">InstallGuid : </td>
-									<td><input type="text" name="installGuid" value="<?php if (isset($_POST['installGuid'])) echo htmlentities(trim($_POST['installGuid'])); ?>"></td>
+									<!--<td align="right">InstallGuid : </td>
+									<td><input type="text" name="installGuid" value="<?php/* if (isset($_POST['installGuid'])) echo htmlentities(trim($_POST['installGuid'])); */?>"></td>-->
+									<td align="right">InstallKey :</td>
+									<td><input type="text" name="installKey" value="<?php if (isset($_POST['installKey'])) echo htmlentities(trim($_POST['installKey'])); ?>"></td>
 									<td align="right">Label :</td>
 									<td><input type="text" name="label" value="<?php if (isset($_POST['label'])) echo htmlentities(trim($_POST['label'])); ?>"></td>
 									<td align="right">Expire :</td>
@@ -111,8 +113,8 @@
 								</tr>
 								
 								<tr id="plus">
-									<td align="right">InstallKey :</td>
-									<td><input type="text" name="installKey" value="<?php if (isset($_POST['installKey'])) echo htmlentities(trim($_POST['installKey'])); ?>"></td>
+									
+									<td></td><td></td>
 									<td align="right">Number :</td>
 									<td>
 										<input type="text" name="number" value="<?php if (isset($_POST['number'])) echo htmlentities(trim($_POST['number'])); ?>"><br>
@@ -190,11 +192,11 @@
 								<th class='titre' align='center'>
 									<input class='button_titre' type='button' onclick='sortTable(4,false,\"licencesTable\")' value='Expire' />
 								</th>
-								<th class='titre' align='center'>
+								<!--<th class='titre' align='center'>
 									<input class='button_titre' type='button' onclick='sortTable(5,true,\"licencesTable\")' value='InstallGuid' />
-								</th>
+								</th>-->
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(6,true,\"licencesTable\")' value='InstallKey' />
+									<input class='button_titre' type='button' onclick='sortTable(5,true,\"licencesTable\")' value='InstallKey' />
 								</th>
 							</tr>";
 
@@ -205,9 +207,9 @@
 									<td align="center">'.$productID[$i][0].'</td>
 									<td align="center">'.$licences[$i].'</td>
 									<td align="center">'.$revoked[$i].'</td>
-									<td align="center">'.$expiration[$i].'</td>
-									<td align="center">'.$installGuid[$i].'</td>
-									<td align="center">'.$installKey[$i].'</td>
+									<td align="center">'.$expiration[$i].'</td>';
+									//<td align="center">'.$installGuid[$i].'</td>
+									echo '<td align="center">'.$installKey[$i].'</td>
 								</tr>';
 							}
 							echo '</table>';

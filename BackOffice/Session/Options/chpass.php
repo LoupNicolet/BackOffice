@@ -37,24 +37,42 @@ if (isset($_SESSION['login'])){
 ?>
 
 <html id="chpass">
+	<head>
+		<script src="./Add/JQuery.js"></script>
+		<script src="./Add/JQuery_Color.js"></script>
+		<script src="./Add/verif.js"></script>
+		<script>
+			function valide()
+			{
+				var nPass=document.forms["formVal"]["nPass"].value;
+				var cPass=document.forms["formVal"]["cPass"].value;
+				var aPass=document.forms["formVal"]["aPass"].value;
+				if ((nPass.length < 6) || (cPass.length < 6) || (aPass.length < 6))
+				{
+					document.getElementById("erreur").innerHTML="Mauvais login";
+					return false;
+				}
+			}
+		</script>
+	</head>
 	<body>
 	<table border="6">
 			<td>
 				<table>
 					<tr><td colspan="3" align="center"><h3>Nouveau Mdp :</h3></td></tr>
-					<?php if(isset($erreur)) echo '<tr><td colspan="3" align="center">'.$erreur.'</td></tr>'; ?>
-					<form action="./backoffice.php?action=options&page=chpass" method="post" >
+					<tr><td id="erreur" colspan="3" align="center"><?php if(isset($erreur)) echo $erreur; ?></td></tr>
+					<form name="formVal" onsubmit="return valide()" action="./backoffice.php?action=options&page=chpass" method="post" >
 						<tr>
 							<td align="right">Nouveau : </td>
-							<td><input type="password" name="nPass"></td>
+							<td><input onkeyup="verif(this,2)" type="password" name="nPass"></td>
 						</tr>
 						<tr>
 							<td align="right">Confirmer :</td>
-							<td><input type="password" name="cPass"></td>
+							<td><input onkeyup="verif(this,2)" type="password" name="cPass"></td>
 						</tr>
 						<tr>
 							<td align="right">Ancien :</td>
-							<td><input type="password" name="aPass"></td>
+							<td><input onkeyup="verif(this,2)" type="password" name="aPass"></td>
 						</tr>
 						<tr>
 						<td colspan="3" align="center"><input class="button" type="submit" name="valider" value="Valider"></td>

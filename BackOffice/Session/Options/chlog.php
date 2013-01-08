@@ -45,24 +45,24 @@
 
 <html id="chlog">
 	<head>
-	<script src="./Add/JQuery.js"></script>
-	<script src="./Add/JQuery_Color.js"></script>
-	<script src="./Add/verif.js"></script>
-	<script>
-	function valide()
-	{
-		var login=document.forms["formVal"]["nLogin"].value;
-		var conf=document.forms["formVal"]["cLogin"].value;
-		if ((login.length < 3) || (conf.length < 3))
-		{
-			document.getElementById("erreur").innerHTML="Mauvais login";
-			return false;
-		}
-	}
-	</script>
+		<script src="./Add/JQuery.js"></script>
+		<script src="./Add/JQuery_Color.js"></script>
+		<script src="./Add/verif.js"></script>
+		<script>
+			function valide()
+			{
+				var login=document.forms["formVal"]["nLogin"].value;
+				var conf=document.forms["formVal"]["cLogin"].value;
+				if ((login.length < 3) || (conf.length < 3))
+				{
+					document.getElementById("erreur").innerHTML="Mauvais login";
+					return false;
+				}
+			}
+		</script>
 	</head>
 	<body>
-	<table border="6">
+		<table border="6">
 			<td>
 				<table>
 					<tr><td colspan="3" align="center"><h3>Nouveau Login :</h3></td></tr>
@@ -82,8 +82,6 @@
 							<td><input onkeyup="verif(this,2)" type="password" name="pass"></td>
 						</tr>
 						<tr>
-						<!--<button>Send an HTTP POST request to a page and get the result back</button>-->
-						<!--<td colspan="3" align="center"><button onclick="valider()" class="button" name="valider">Valider</button>-->
 						<td colspan="3" align="center"><input class="button" type="submit" name="valider" value="Valider"></td>
 						</tr>
 					</form>	

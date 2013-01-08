@@ -1,3 +1,4 @@
+
 <?php
 	if (isset($_SESSION['login'])){
 		if (isset($_POST['recherche'])){
@@ -39,7 +40,7 @@
 ?>
 <html id = 'product'>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 		<script src="./Add/JQuery.js"></script>
 		<script type="text/javascript" src="./Add/tri.js"></script>
 		<script type='text/javascript'  src="./Add/details.js"></script>

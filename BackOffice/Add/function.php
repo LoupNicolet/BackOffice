@@ -206,7 +206,7 @@
 			$prec = 1;
 		}
 		
-		$ret = ajout_si_existe('installGuid','InstallGuid',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
+		//$ret = ajout_si_existe('installGuid','InstallGuid',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		$ret = ajout_si_existe('installKey','InstallKey',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		$ret = ajout_si_existe('label','Label',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		$ret = ajout_si_existe('date','Expiration',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
@@ -309,8 +309,8 @@
 	
 	//Test si des champs Licences sont remplit
 	function Test_Licences(){
-		if ((isset($_POST['installGuid'])&& !empty($_POST['installGuid']))
-		|| (isset($_POST['installKey']) && !empty($_POST['installKey']))
+		if (/*(isset($_POST['installGuid'])&& !empty($_POST['installGuid']))
+		|| */(isset($_POST['installKey']) && !empty($_POST['installKey']))
 		|| (isset($_POST['label']) 		&& !empty($_POST['label']))
 		|| (isset($_POST['number']) 	&& !empty($_POST['number']))
 		|| (isset($_POST['date']) 		&& !empty($_POST['date']))
