@@ -10,9 +10,9 @@
 		$sql = $sql.' FROM ';
 		$sql = $sql.$table;
 		if(!empty($enrg1)){
-			$sql = $sql.' WHERE '.$enrg1.'="'.$valEnrg1.'"';
+			$sql = $sql.' WHERE '.$enrg1.' LIKE "%'.$valEnrg1.'%"';
 			if(!empty($enrg2)){
-				$sql = $sql.' AND '.$enrg2.'="'.$valEnrg2.'"';
+				$sql = $sql.' AND '.$enrg2.' LIKE "%'.$valEnrg2.'%"';
 			}
 		}
 		$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
@@ -56,7 +56,7 @@
 			if($prec == 1){
 				$sql = $sql.' AND';
 			}
-			$sql = $sql.' '.$table.'="'.$_POST[$value].'"';
+			$sql = $sql.' '.$table.' LIKE "%'.$_POST[$value].'%"';
 			$prec = 1;
 		}
 		$ret[0] = $sql;
@@ -116,6 +116,85 @@
 			$_POST['time'] = date("Y/m/d",$_POST['time']);
 		}
 		
+		return $sql;
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////
+	
+	//Construit la requete SQL en fonction de ce que l'utilisateur a renseigné
+	function recherche_product_spe($y,$val){
+		$prec = 0;
+		$sql = 'SELECT * FROM keyactivityca ';
+				for($a=0;$a<$y;$a++){
+					if($a != 0){
+						$sql = $sql.' AND ';
+					}else{
+						$sql = $sql.' WHERE ';
+					}
+					$sql = $sql.'ProductKey<>"'.$val[$a].'"';
+				}
+				if($y == 0){
+					$sql = $sql.' WHERE ';
+				}else{
+					$sql = $sql.' AND ';
+				}
+		
+		/*//$ret = ajout_si_existe('key','ProductKey',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
+		
+		if(!empty($_POST['key'])){
+			if($prec == 1){
+				$sql = $sql.' AND';
+			}
+			$sql = $sql.' '.ProductKey.' = "'.$_POST['key'].'"';
+			$prec = 1;
+		}
+		
+		
+		*/
+		
+		if($_POST['logiciel'] != 'tous'){
+			include 'define.php';
+			mysql_close();
+			$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
+			mysql_select_db ($SQL_Cdw_name, $base);
+			
+			$productID = RequeteSQL_Select('Product_ID', 'products', 'Product_Name',$_POST["logiciel"],"","");
+			
+			if($prec == 1){
+				$sql = $sql.' AND';
+			}
+			$sql = $sql.' ProductID="'.$productID[0].'"';$prec = 1;	
+		}
+		
+		/*if(!empty($_POST['number'])){
+			if($prec == 1){
+				$sql = $sql.' AND';
+			}
+			if($_POST['operateur_nombre'] == 'sup'){
+				$sql = $sql.' NumUsers>="'.$_POST['number'].'"';$prec = 1;
+			}else if($_POST['operateur_nombre'] == 'inf'){
+				$sql = $sql.' NumUsers<="'.$_POST['number'].'"';$prec = 1;
+			}else{
+				$sql = $sql.' NumUsers="'.$_POST['number'].'"';$prec = 1;
+			}
+		}
+		
+		if(!empty($_POST['time'])){
+			$_POST['time'] = strtotime($_POST['time']);
+			if($prec == 1){
+				$sql = $sql.' AND';
+			}
+			if($_POST['operateur_date'] == 'sup'){
+				$sql = $sql.' KeyActivity_Date>="'.$_POST['time'].'"';$prec = 1;
+			}else if($_POST['operateur_date'] == 'inf'){
+				$sql = $sql.' KeyActivity_Date<="'.($_POST['time']+3600*24).'"';$prec = 1;
+			}else{
+				$sql = $sql.' KeyActivity_Date>="'.($_POST['time']).'" AND KeyActivity_Date<="'.($_POST['time']+3600*24).'"';$prec = 1;
+			}
+			$_POST['time'] = date("Y/m/d",$_POST['time']);
+		}
+		$sql = $sql." ORDER BY ProductKey ASC LIMIT 1";*/
 		return $sql;
 	}
 	

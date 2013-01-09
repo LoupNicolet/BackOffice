@@ -2,29 +2,59 @@
 <?php
 	if (isset($_SESSION['login'])){
 		if (isset($_POST['recherche'])){
+
 			$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 			mysql_select_db ($SQL_Cdw_name, $base);
 			
-			if (test_product() || (isset($_POST['logiciel']) && ($_POST['logiciel'] != "tous"))){
-				$sql = recherche_product('*');	
-			}else{
-				$sql = 'SELECT * FROM keyactivityca';
-			}
-			
-			$y = 0;
-			$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
-			while($row = mysql_fetch_array($req)){
-				$key[$y] = $row['ProductKey'];
-				$productID[$y] = $row['ProductID'];
-				$number[$y] = $row['NumUsers'];
-				$time[$y] = date("Y/m/d - H:i:s",$row['KeyActivity_Date']);
+			$y=0;
+			$encore = true;
+			while($encore == true){
+				$encore = false;
+				if (/*test_product() || */(isset($_POST['logiciel']) && ($_POST['logiciel'] != "tous"))){
+					if($y == 0){
+						$sql = recherche_product_spe($y,0);	
+					}else{
+						$sql = recherche_product_spe($y,$val);
+					}
+				}else{
+					$sql = 'SELECT ProductKey FROM keyactivityca ';
+					for($a=0;$a<$y;$a++){
+						if($a != 0){
+							$sql = $sql.' AND ';
+						}else{
+							$sql = $sql.' WHERE ';
+						}
+						$sql = $sql.'ProductKey<>"'.$val[$a].'"';
+					}
+				}
+				if($req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error())){
+					while($row = mysql_fetch_array($req)){
+						$val[$y] = $row['ProductKey'];
+						$encore = true;
+					}
+					if($encore){
+						mysql_free_result($req);
+						$sql = 'SELECT * FROM keyactivityca WHERE ProductKey="'.$val[$y].'" ORDER BY KeyActivity_Date DESC LIMIT 1';
+						$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+						while($row = mysql_fetch_array($req)){
+							$key[$y] = $row['ProductKey'];
+							$productID[$y] = $row['ProductID'];
+							$number[$y] = $row['NumUsers'];
+							$time[$y] = date("Y/m/d - H:i:s",$row['KeyActivity_Date']);
+						}
+					}	
+				}
+				mysql_free_result($req);
 				$y++;
 			}
-			
-			mysql_free_result($req);
-			
+			$y = $y-1;
+
 			for($i=0;$i<$y;$i++){
 				$productID[$i] = RequeteSQL_Select('Product_Name', 'products', 'Product_ID',$productID[$i],"","");
+			}
+			
+			for($i=0;$i<$y;$i++){
+				$client[$i] = RequeteSQL_Select('label', 'productkey', 'InstallKey',$key[$i],"","");
 			}
 			
 			mysql_close();
@@ -53,13 +83,13 @@
 					<form id="form" class="recherche" action="./backoffice.php?action=product" method="post">
 						<div align="center">
 							<table>
-								<tr>
+								<!--<tr>
 									<td align="center" colspan="6"><button class="button">Detail</button></td>
 								</tr>
 								<tr id="plus">
 									<td align="right">Date : </td>
 									<td>
-										<input type="text" name="time" value="<?php if (isset($_POST['time'])) echo htmlentities(trim($_POST['time'])); ?>"><br>
+										<input type="text" name="time" value="<?php /*if (isset($_POST['time'])) echo htmlentities(trim($_POST['time'])); ?>"><br>
 										<input <?php if(!isset($_POST['operateur_date']) || ($_POST['operateur_date'] == 'sup')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="sup"><?php echo '>='; ?>
 										<input <?php if(isset($_POST['operateur_date']) && ($_POST['operateur_date'] == 'inf')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="inf"><?php echo '<='; ?>
 										<input <?php if(isset($_POST['operateur_date']) && ($_POST['operateur_date'] == 'eg')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="eg"><?php echo '='; ?>
@@ -72,8 +102,8 @@
 										<input <?php if(isset($_POST['operateur_nombre']) && ($_POST['operateur_nombre'] == 'eg')){echo 'checked="checked"';}?> type="radio" name="operateur_nombre" value="eg"><?php echo '='; ?>
 									</td>
 									<td align="right">Cle :</td>
-									<td><input type="text" name="key" value="<?php if (isset($_POST['key'])) echo htmlentities(trim($_POST['key'])); ?>"></td>
-								</tr>
+									<td><input type="text" name="key" value="<?php if (isset($_POST['key'])) echo htmlentities(trim($_POST['key'])); */?>"></td>
+								</tr>-->
 								<tr>
 									<td align="center" colspan="6">
 										<?php
@@ -115,10 +145,13 @@
 									<input class='button_titre' type='button' onclick='sortTable(1,false,\"productTable\")' value='Date' />
 								</th>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(2,true,\"productTable\")' value='Utilisateur' />
+									<input class='button_titre' type='button' onclick='sortTable(2,true,\"productTable\")' value='Client' />
 								</th>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(3,true,\"productTable\")' value='Cle' />
+									<input class='button_titre' type='button' onclick='sortTable(3,true,\"productTable\")' value='Utilisateur' />
+								</th>
+								<th class='titre' align='center'>
+									<input class='button_titre' type='button' onclick='sortTable(4,true,\"productTable\")' value='Cle' />
 								</th>
 							</tr>";
 
@@ -127,6 +160,7 @@
 								'<tr>
 									<td align="center">'.$productID[$i][0].'</td>
 									<td align="center">'.$time[$i].'</td>
+									<td align="center">'.$client[$i][0].'</td>
 									<td align="center">'.$number[$i].'</td>
 									<td align="center">'.$key[$i].'</td>
 								</tr>';
