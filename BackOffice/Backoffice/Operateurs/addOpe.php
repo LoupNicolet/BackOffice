@@ -52,7 +52,8 @@
 		else {$erreur = 'Veuillez rentrer au moins un login et un mot de passe.';}
 	}
 	}else{
-		header ('Location: ./Session/deconnexion.php?action="co"');
+		require "../Add/define.php";
+		header ($he_deconnexion);
 		exit();
 	}
 ?>
@@ -64,7 +65,7 @@
 				<table>
 					<tr><td align="center" colspan="2"><h3>Inscription à l'espace membre :</h3></td></tr>
 					<?php if(isset($erreur)) echo '<tr><td colspan="2" align="center">'.$erreur.'</td></tr>'; ?>
-					<form action="./backoffice.php?action=operateurs&page=addOpe" method="post" >
+					<form action=<?php echo $fo_addOpe_addOpe; ?> method="post" >
 						<tr>
 							<td align="right">Login : </td>
 							<td><input type="text" name="login" value=""></td>
@@ -90,7 +91,7 @@
 							<td><input type="text" name="nom"></td>
 						</tr>
 						<tr>
-							<td align="right">type :</td>
+							<td align="right">Type :</td>
 							<td><input type="text" name="type"></td>
 						</tr>
 						<td align="center" colspan="2"><input class="button" type="submit" name="valider" value="Valider"></td>

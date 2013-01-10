@@ -49,16 +49,17 @@
 	
 		mysql_close();
 	}else{
-		header ('Location: ./Session/deconnexion.php?action="co"');
+		require "../Add/define.php";
+		header ($he_deconnexion);
 		exit();
 	}
 ?>
 
 <html id="chprofil">
 	<head>
-		<script src="./Add/JQuery.js"></script>
-		<script src="./Add/JQuery_Color.js"></script>
-		<script src="./Add/verif.js"></script>
+		<script src= <?php echo $sc_JQuery; ?>></script>
+		<script src= <?php echo $sc_JQuery_Color; ?>></script>
+		<script src= <?php echo $sc_verif; ?>></script>
 		<script>
 			function valide()
 			{
@@ -77,7 +78,7 @@
 				<table>
 					<tr><td colspan="4" align="center"><h3>Profil :</h3></td></tr>
 					<tr><td id="erreur" colspan="3" align="center"><?php if(isset($erreur)) echo $erreur; ?></td></tr>
-					<form name="formVal" onsubmit="return valide()" action="./backoffice.php?action=options&page=chprofil" method="post" >
+					<form name="formVal" onsubmit="return valide()" action= <?php echo $fo_chprofil_chprofil; ?> method="post" >
 						<tr>
 							<td></td>
 							<td align="center"><b>Informations :</b></td>

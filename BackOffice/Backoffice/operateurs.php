@@ -24,7 +24,8 @@
 		mysql_free_result($req);
 		mysql_close();
 	}else{
-		header ('Location: ./Session/deconnexion.php?action="co"');
+		require "../Add/define.php";
+		header ($he_deconnexion);
 		exit();
 	}
 ?>
@@ -32,7 +33,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-		<script type='text/javascript' src="./Add/tri.js"></script>
+		<script type='text/javascript' src= <?php echo $sc_tri; ?>></script>
 		<script>
 			function confirme(colonne, login, table)
 			{
@@ -52,7 +53,7 @@
 				<td>
 					<table class="menu">
 						<tr>
-							<td><a class="menu" href="./backoffice.php?action=operateurs&page=addOpe">Ajouter</a></td>
+							<td><a class="menu" href= <?php echo $hr_operateur_addOpe ?>>Ajouter</a></td>
 						</tr>
 					</table>
 				</td>
@@ -61,16 +62,16 @@
 				<td id="pages" colspan="2">
 					<?php 	
 						if(isset($_GET['page'])){
-							if($_GET['page'] == 'addOpe'){include('./Backoffice/Operateurs/addOpe.php');}
+							if($_GET['page'] == 'addOpe'){include($in_operateur_addOpe);}
 							else if($_GET['page'] == 'supOpe'){
 								$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 								mysql_select_db ($SQL_Cdw_name, $base);
 								echo $sql = 'DELETE FROM operator WHERE login_operator="'.$_GET["log"].'"';
 								$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
 								mysql_close();
-								header("location:./backoffice.php?action=operateurs");
+								header($he_operateur_operateur);
 							}
-							if($_GET['page'] == 'chOpe'){include('./Backoffice/Operateurs/chOpe.php');}
+							if($_GET['page'] == 'chOpe'){include($in_operateur_chOpe);}
 						}
 					?> 
 				</td>
@@ -105,7 +106,7 @@
 									echo 
 									'<tr>
 										<td align="center" style="background-color:#245DB2;">
-											<a href="./backoffice.php?action=operateurs&page=chOpe&log='.$login[$i].'">Modifier</a>
+											<a href='.$hr_operateur_chOpe.$login[$i].'>Modifier</a>
 										</td>
 										<td align="center" style="background-color:#245DB2;">
 											<input class="button_titre" type="button" onclick="confirme(this,\''.$login[$i].'\',\'operateurTable\')" value="Suppr" />
@@ -114,7 +115,7 @@
 									echo 
 									'<tr>
 										<td align="center" style="background-color:#245DB2;">
-											<a href="./backoffice.php?action=options&page=chprofil">Modifier</a>
+											<a href='.$hr_operateur_chprofil.'>Modifier</a>
 										</td>
 										<td align="center" style="background-color:#245DB2;"></td>';
 								}

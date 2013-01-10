@@ -16,7 +16,7 @@
 				$fp = fopen('Add/log.txt', 'a');
 				fwrite($fp, 'Connexion de : '.$_SESSION['login'].' ( le '.Date("d/m/Y").' à '.Date("H:i").' )'."\n");
 				fclose($fp);
-				header('Location: backoffice.php');
+				header($he_index_backoffice);
 				exit();
 			}
 			elseif ($data[0] == 0) {
@@ -46,7 +46,7 @@
 						<td colspan="2" align="center"><h3>Connexion :</h3><td>
 					</tr>
 					<?php if(isset($erreur)) echo '<tr><td colspan="2" align="center">'.$erreur.'</td></tr>'; ?>
-					<form action="index.php" method="post" >
+					<form action= <?php echo $fo_index_index; ?> method="post" >
 						<tr>
 							<td align="right">Login : </td>
 							<td><input type="text" name="login" value="<?php if (isset($_POST['login'])) echo htmlentities(trim($_POST['login'])); ?>"></td>

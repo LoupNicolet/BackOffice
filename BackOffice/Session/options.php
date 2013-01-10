@@ -1,6 +1,7 @@
 <?php
 	if (!isset($_SESSION['login'])) {
-		header ('Location: ./Session/deconnexion.php?action="co"');
+		require "../Add/define.php";
+		header ($he_deconnexion);
 		exit();
 	}
 ?>
@@ -13,9 +14,9 @@
 				<td>
 					<table class="menu">
 						<tr>
-							<td><a class="menu" href="./backoffice.php?action=options&page=chlog">Changer Login</a></td>
-							<td><a class="menu" href="./backoffice.php?action=options&page=chpass">Changer Mdp</a></td>
-							<td><a class="menu" href="./backoffice.php?action=options&page=chprofil">Profil</a></td>
+							<td><a class="menu" href= <?php echo $hr_options_chlog; ?>>Changer Login</a></td>
+							<td><a class="menu" href= <?php echo $hr_options_chpass; ?>>Changer Mdp</a></td>
+							<td><a class="menu" href= <?php echo $hr_options_chprofil; ?>>Profil</a></td>
 						</tr>
 					</table>
 				</td>
@@ -24,9 +25,9 @@
 				<td id="pages" colspan="2">
 					<?php 	
 						if(isset($_GET['page'])){
-							if($_GET['page'] == 'chlog'){include('./Session/Options/chlog.php');}
-							else if($_GET['page'] == 'chpass'){include('./Session/Options/chpass.php');}
-							else if($_GET['page'] == 'chprofil'){include('./Session/Options/chprofil.php');}
+							if($_GET['page'] == 'chlog'){include($in_options_chpass);}
+							else if($_GET['page'] == 'chpass'){include($in_options_chprofil);}
+							else if($_GET['page'] == 'chprofil'){include($in_options_chlog);}
 						}
 					?> 
 				</td>

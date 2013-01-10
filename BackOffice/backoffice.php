@@ -6,7 +6,7 @@
 	session_start();
 	
 	if (isset($_SESSION['login'])) {
-	
+
 		$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 		mysql_select_db ($SQL_Cdw_name, $base);
 		
@@ -18,7 +18,7 @@
 			$_SESSION['type'] = "";
 		}
 		else{
-			header('Location: Session/deconnexion.php?action="err"');
+			header($he_deconnexion_err);
 		}
 
 		$data = RequeteSQL_Select('lastName_operator', 'operator', 'login_operator', mysql_real_escape_string($_SESSION['login']),"","");
@@ -27,7 +27,7 @@
 		$_SESSION['firstName'] = $data[0];
 		mysql_close();
 	}else{
-		header ('Location: Session/deconnexion.php?action="co"');
+		header ($he_deconnexion);
 		exit();
 	}
 ?>
@@ -44,15 +44,15 @@
 				<td>
 					<table class="menu">
 						<tr>
-							<td><a class="menu" href="backoffice.php?action=licences">Licences</a></td>
-							<td><a class="menu" href="backoffice.php?action=customers">Clients</a></td>
-							<td><a class="menu" href="backoffice.php?action=downloads">Telechargements</a></td>
-							<td><a class="menu" href="backoffice.php?action=product">Produits</a></td>
-							<td><a class="menu" href="backoffice.php?action=partenaires">Partenaires</a></td>
-							<td><a class="menu" href="backoffice.php?action=operateurs">Operateurs</a></td>
-							<td><a class="menu" href="backoffice.php?action=options">Options</a></td>
+							<td><a class="menu" href= <?php echo $hr_backoffice_licences; ?> >Licences</a></td>
+							<td><a class="menu" href= <?php echo $hr_backoffice_customers; ?> >Clients</a></td>
+							<td><a class="menu" href= <?php echo $hr_backoffice_downloads; ?> >Telechargements</a></td>
+							<td><a class="menu" href= <?php echo $hr_backoffice_product; ?> >Produits</a></td>
+							<td><a class="menu" href= <?php echo $hr_backoffice_partenaires; ?> >Partenaires</a></td>
+							<td><a class="menu" href= <?php echo $hr_backoffice_operateurs; ?> >Operateurs</a></td>
+							<td><a class="menu" href= <?php echo $hr_backoffice_options; ?> >Options</a></td>
 							<td align="center"><small><?php echo "[".htmlentities(trim($_SESSION['type']))."]"."[".htmlentities(trim($_SESSION['firstName'])).htmlentities(trim($_SESSION['lastName']))."]";?></small></td>
-							<td><a class="deconnexion" href='Session/deconnexion.php?action="dec"'>Deconnexion</a></td>
+							<td><a class="deconnexion" href= <?php echo $hr_backoffice_deconnexion; ?> >Deconnexion</a></td>
 						</tr>
 					</table>
 				</td>
@@ -61,13 +61,13 @@
 				<td id="pages">
 					<?php 	
 						if(isset($_GET['action'])){
-							if($_GET['action'] == 'licences'){include('Backoffice/Recherche/licences.php');}
-							else if($_GET['action'] == 'customers'){include('Backoffice/Recherche/customers.php');}
-							else if($_GET['action'] == 'downloads'){include('Backoffice/Recherche/downloads.php');}
-							else if($_GET['action'] == 'product'){include('Backoffice/Recherche/product.php');}
-							else if($_GET['action'] == 'partenaires'){include('BackOffice/partenaires.php');}
-							else if($_GET['action'] == 'operateurs'){include('BackOffice/operateurs.php');}
-							else if($_GET['action'] == 'options'){include('Session/options.php');}
+							if($_GET['action'] == 'licences'){include($in_backoffice_licences);}
+							else if($_GET['action'] == 'customers'){include($in_backoffice_customers);}
+							else if($_GET['action'] == 'downloads'){include($in_backoffice_downloads);}
+							else if($_GET['action'] == 'product'){include($in_backoffice_product);}
+							else if($_GET['action'] == 'partenaires'){include($in_backoffice_partenaires);}
+							else if($_GET['action'] == 'operateurs'){include($in_backoffice_operateurs);}
+							else if($_GET['action'] == 'options'){include($in_backoffice_options);}
 						}
 					?> 
 				</td>

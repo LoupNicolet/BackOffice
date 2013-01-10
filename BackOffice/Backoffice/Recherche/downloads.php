@@ -27,7 +27,8 @@
 			$y = 0;
 		}
 	}else{
-		header ('Location: ./Session/deconnexion.php?action="co"');
+		require "../Add/define.php";
+		header ($he_deconnexion);
 		exit();
 	}
 	
@@ -35,16 +36,16 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-		<script src="./Add/JQuery.js"></script>
-		<script type="text/javascript" src="./Add/tri.js"></script>
-		<script type='text/javascript'  src="./Add/details.js"></script>
+		<script src= <?php echo $sc_JQuery; ?> ></script>
+		<script type='text/javascript' src= <?php echo $sc_tri; ?> ></script>
+		<script type='text/javascript'  src= <?php echo $sc_details; ?> ></script>
 	</head>
 	<body>
 		<table>
 			<tr><h2 align="center">Telechargements</h2></tr>
 			<tr>
 				<td>
-					<form id="form" class="recherche" action="./backoffice.php?action=downloads" method="post">
+					<form id="form" class="recherche" action=<?php echo $fo_downloads_downloads; ?> method="post">
 						<div align="center">
 							<table>
 								<tr>

@@ -1,4 +1,5 @@
 <?php
+	require "../Add/define.php";
     session_start();
 	if (isset($_SESSION['login'])) {
 		session_unset();  
@@ -24,7 +25,7 @@
 			<td>
 				<table align="center">
 					<tr><td colspan="2" align="center"><h3><?php echo $message;?></h3></td></tr>
-					<td align="center"><a href="../index.php">Ok</a></td>
+					<td align="center"><a href= <?php echo $hr_deconnexion_index; ?> >Ok</a></td>
 				</table>
 			</td>
 		</table>

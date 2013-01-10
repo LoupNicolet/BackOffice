@@ -49,7 +49,8 @@
 	
 		mysql_close();
 	}else{
-		header ('Location: ./Session/deconnexion.php?action="co"');
+		require "../Add/define.php";
+		header ($he_deconnexion);
 		exit();
 	}
 ?>
@@ -61,7 +62,7 @@
 				<table>
 					<tr><td colspan="4" align="center"><h3>Profil de <?php echo $_GET['log']; ?> :</h3></td></tr>
 					<?php if(isset($erreur)) echo '<tr><td colspan="4" align="center">'.$erreur.'</td></tr>'; ?>
-					<form action= <?php echo '"./backoffice.php?action=operateurs&page=chOpe&log='.$_GET['log'].'"' ?> method="post" >
+					<form action= <?php echo $fo_chOpe_chOpe.$_GET['log']; ?> method="post" >
 						<tr>
 							<td></td>
 							<td align="center"><b>Informations :</b></td>

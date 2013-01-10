@@ -31,16 +31,17 @@ if (isset($_SESSION['login'])){
 			else {$erreur = 'Au moins un des champs est vide.';}
 		}
 	}else{
-		header ('Location: ./Session/deconnexion.php?action="co"');
+		require "../Add/define.php";
+		header ($he_deconnexion);
 		exit();
 	}
 ?>
 
 <html id="chpass">
 	<head>
-		<script src="./Add/JQuery.js"></script>
-		<script src="./Add/JQuery_Color.js"></script>
-		<script src="./Add/verif.js"></script>
+		<script src= <?php echo $sc_JQuery; ?>></script>
+		<script src= <?php echo $sc_JQuery_Color; ?>></script>
+		<script src= <?php echo $sc_verif; ?>></script>
 		<script>
 			function valide()
 			{
@@ -61,7 +62,7 @@ if (isset($_SESSION['login'])){
 				<table>
 					<tr><td colspan="3" align="center"><h3>Nouveau Mdp :</h3></td></tr>
 					<tr><td id="erreur" colspan="3" align="center"><?php if(isset($erreur)) echo $erreur; ?></td></tr>
-					<form name="formVal" onsubmit="return valide()" action="./backoffice.php?action=options&page=chpass" method="post" >
+					<form name="formVal" onsubmit="return valide()" action= <?php echo $fo_chpass_chpass; ?> method="post" >
 						<tr>
 							<td align="right">Nouveau : </td>
 							<td><input onkeyup="verif(this,2)" type="password" name="nPass"></td>

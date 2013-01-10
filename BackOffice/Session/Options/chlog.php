@@ -38,16 +38,17 @@
 			else {$erreur = 'Au moins un des champs est vide.';}
 		}
 	}else{
-		header ('Location: ./Session/deconnexion.php?action="co"');
+		require "../Add/define.php";
+		header ($he_deconnexion);
 		exit();
 	}
 ?>
 
 <html id="chlog">
 	<head>
-		<script src="./Add/JQuery.js"></script>
-		<script src="./Add/JQuery_Color.js"></script>
-		<script src="./Add/verif.js"></script>
+		<script src= <?php echo $sc_JQuery; ?>></script>
+		<script src= <?php echo $sc_JQuery_Color; ?>></script>
+		<script src= <?php echo $sc_verif; ?>></script>
 		<script>
 			function valide()
 			{
@@ -68,7 +69,7 @@
 					<tr><td colspan="3" align="center"><h3>Nouveau Login :</h3></td></tr>
 					<tr><td colspan="3" align="center"><h4><?php echo $_SESSION['login']; ?></h4></td></tr>
 					<tr><td id="erreur" colspan="3" align="center"><?php if(isset($erreur)) echo $erreur; ?></td></tr>
-					<form name="formVal" action="./backoffice.php?action=options&page=chlog" method="post" onsubmit="return valide()" >
+					<form name="formVal" action= <?php echo $fo_chlog_chlog; ?> method="post" onsubmit="return valide()" >
 						<tr>
 							<td align="right">Nouveau : </td>
 							<td><input onkeyup="verif(this,1)" type="text" name="nLogin" value=""></td>
