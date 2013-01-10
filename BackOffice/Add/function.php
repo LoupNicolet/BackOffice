@@ -87,7 +87,7 @@
 	//Construit la requete SQL en fonction de ce que l'utilisateur a renseigné
 	function recherche_product($champ){
 		$prec = 0;
-		$sql = 'SELECT '.$champ.' FROM keyactivityCA WHERE';
+		$sql = 'SELECT DISTINCT '.$champ.' FROM keyactivityCA WHERE';
 		
 		$ret = ajout_si_existe('key','ProductKey',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		
@@ -140,7 +140,7 @@
 	///////////////////////////////////////////////////////////////////////////////
 	
 	//Construit la requete SQL en fonction de ce que l'utilisateur a renseigné
-	function recherche_product_spe($y,$val){
+	/*function recherche_product_spe($y,$val){
 		$prec = 0;
 		$sql = 'SELECT * FROM keyactivityCA ';
 				for($a=0;$a<$y;$a++){
@@ -157,7 +157,7 @@
 					$sql = $sql.' AND ';
 				}
 		
-		/*//$ret = ajout_si_existe('key','ProductKey',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
+		///*$ret = ajout_si_existe('key','ProductKey',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		
 		if(!empty($_POST['key'])){
 			if($prec == 1){
@@ -169,7 +169,7 @@
 		
 		
 		*/
-		
+		/*
 		if($_POST['logiciel'] != 'tous'){
 			include 'define.php';
 			mysql_close();
@@ -212,8 +212,8 @@
 			$_POST['time'] = date("Y/m/d",$_POST['time']);
 		}
 		$sql = $sql." ORDER BY ProductKey ASC LIMIT 1";*/
-		return $sql;
-	}
+		//return $sql;
+	//}
 	
 	///////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////
