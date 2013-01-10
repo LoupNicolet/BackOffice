@@ -1,4 +1,5 @@
 <?php
+	date_default_timezone_set("Europe/Paris");
 	if (isset($_SESSION['login'])){
 		if (isset($_POST['recherche'])){
 			$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
@@ -12,6 +13,7 @@
 			
 			$y = 0;
 			$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+			
 			while($row = mysql_fetch_array($req)){
 				$time[$y] = date("Y/m/d - H:i:s",$row['timestamp']);
 				$email[$y] = $row['mail'];

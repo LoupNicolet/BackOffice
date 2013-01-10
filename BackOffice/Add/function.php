@@ -51,7 +51,7 @@
 	///////////////////////////////////////////////////////////////////////////////
 	
 	//verifie si la valeur est renseigné et l'ajoute à la requete SQL
-	function ajout_si_existe($value,$table,$sql,$prec){
+	function ajout_si_existe_like($value,$table,$sql,$prec){
 		if(!empty($_POST[$value])){
 			if($prec == 1){
 				$sql = $sql.' AND';
@@ -67,10 +67,27 @@
 	///////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////
 	
+	//verifie si la valeur est renseigné et l'ajoute à la requete SQL
+	function ajout_si_existe($value,$table,$sql,$prec){
+		if(!empty($_POST[$value])){
+			if($prec == 1){
+				$sql = $sql.' AND';
+			}
+			$sql = $sql.' '.$table.' = "'.$_POST[$value].'"';
+			$prec = 1;
+		}
+		$ret[0] = $sql;
+		$ret[1] = $prec;
+		return $ret;
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////
+	
 	//Construit la requete SQL en fonction de ce que l'utilisateur a renseigné
 	function recherche_product($champ){
 		$prec = 0;
-		$sql = 'SELECT '.$champ.' FROM keyactivityca WHERE';
+		$sql = 'SELECT '.$champ.' FROM keyactivityCA WHERE';
 		
 		$ret = ajout_si_existe('key','ProductKey',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		
@@ -125,7 +142,7 @@
 	//Construit la requete SQL en fonction de ce que l'utilisateur a renseigné
 	function recherche_product_spe($y,$val){
 		$prec = 0;
-		$sql = 'SELECT * FROM keyactivityca ';
+		$sql = 'SELECT * FROM keyactivityCA ';
 				for($a=0;$a<$y;$a++){
 					if($a != 0){
 						$sql = $sql.' AND ';
@@ -206,7 +223,7 @@
 		$prec = 0;
 		$sql = 'SELECT '.$champ.' FROM downloadkey WHERE';
 		
-		$ret = ajout_si_existe('email','mail',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
+		$ret = ajout_si_existe_like('email','mail',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		$ret = ajout_si_existe('number','downloads',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		
 		if($_POST['logiciel'] != 'tous'){
@@ -249,12 +266,12 @@
 		$prec = 0;
 		$sql = 'SELECT '.$champ.' FROM customers WHERE';
 		
-		$ret = ajout_si_existe('email','Customer_Email',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
-		$ret = ajout_si_existe('name','Customer_Name',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
-		$ret = ajout_si_existe('firstName','Customer_FirstName',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
-		$ret = ajout_si_existe('lastName','Customer_LastName',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
-		$ret = ajout_si_existe('tel','Customer_Telephon',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
-		$ret = ajout_si_existe('mobile','Customer_Mobile',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
+		$ret = ajout_si_existe_like('email','Customer_Email',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
+		$ret = ajout_si_existe_like('name','Customer_Name',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
+		$ret = ajout_si_existe_like('firstName','Customer_FirstName',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
+		$ret = ajout_si_existe_like('lastName','Customer_LastName',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
+		$ret = ajout_si_existe_like('tel','Customer_Telephon',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
+		$ret = ajout_si_existe_like('mobile','Customer_Mobile',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		
 		if($_POST['type'] != 'indifferent'){
 			if($_POST['type'] == 'client'){
@@ -287,7 +304,7 @@
 		
 		//$ret = ajout_si_existe('installGuid','InstallGuid',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		$ret = ajout_si_existe('installKey','InstallKey',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
-		$ret = ajout_si_existe('label','Label',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
+		$ret = ajout_si_existe_like('label','Label',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		$ret = ajout_si_existe('date','Expiration',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		
 		if(!empty($_POST['number'])){

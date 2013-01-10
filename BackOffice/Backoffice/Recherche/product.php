@@ -1,5 +1,6 @@
 
 <?php
+	date_default_timezone_set("Europe/Paris");
 	if (isset($_SESSION['login'])){
 		if (isset($_POST['recherche'])){
 
@@ -17,7 +18,7 @@
 						$sql = recherche_product_spe($y,$val);
 					}
 				}else{
-					$sql = 'SELECT ProductKey FROM keyactivityca ';
+					$sql = 'SELECT ProductKey FROM keyactivityCA ';
 					for($a=0;$a<$y;$a++){
 						if($a != 0){
 							$sql = $sql.' AND ';
@@ -34,7 +35,7 @@
 					}
 					if($encore){
 						mysql_free_result($req);
-						$sql = 'SELECT * FROM keyactivityca WHERE ProductKey="'.$val[$y].'" ORDER BY KeyActivity_Date DESC LIMIT 1';
+						$sql = 'SELECT * FROM keyactivityCA WHERE ProductKey="'.$val[$y].'" ORDER BY KeyActivity_Date DESC LIMIT 1';
 						$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
 						while($row = mysql_fetch_array($req)){
 							$key[$y] = $row['ProductKey'];

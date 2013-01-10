@@ -65,7 +65,7 @@
 							else if($_GET['action'] == 'customers'){include($in_backoffice_customers);}
 							else if($_GET['action'] == 'downloads'){include($in_backoffice_downloads);}
 							else if($_GET['action'] == 'product'){include($in_backoffice_product);}
-							else if($_GET['action'] == 'partenaires'){include($in_backoffice_partenaires);}
+							//else if($_GET['action'] == 'partenaires'){include($in_backoffice_partenaires);}
 							else if($_GET['action'] == 'operateurs'){include($in_backoffice_operateurs);}
 							else if($_GET['action'] == 'options'){include($in_backoffice_options);}
 						}

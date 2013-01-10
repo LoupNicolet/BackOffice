@@ -1,8 +1,8 @@
 <?php
-	$SQL_Cdw_name = 'cloudiway';
+	$SQL_Cdw_name = 'bcpsoft';
 	$SQL_Cdw_serveur = '127.0.0.1';
-	$SQL_Cdw_login = 'root';
-	$SQL_Cdw_pass = '';
+	$SQL_Cdw_login = 'backoffice_part';
+	$SQL_Cdw_pass = 'back';
 	
 	//All
 	$he_deconnexion = 'Location: /BackOffice/Session/deconnexion.php?action="co"';
@@ -72,8 +72,8 @@
 	$in_backoffice_customers = 'Backoffice/Recherche/customers.php';
 	$in_backoffice_downloads = 'Backoffice/Recherche/downloads.php';
 	$in_backoffice_product = 'Backoffice/Recherche/product.php';
-	$in_backoffice_partenaires = 'BackOffice/partenaires.php';
-	$in_backoffice_operateurs = 'BackOffice/operateurs.php';
+	$in_backoffice_partenaires = 'Backoffice/partenaires.php';
+	$in_backoffice_operateurs = 'Backoffice/operateurs.php';
 	$in_backoffice_options = 'Session/options.php';
 	
 	//index.php

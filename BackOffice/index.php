@@ -4,8 +4,7 @@
 	
 	if (isset($_POST['connexion']) && $_POST['connexion'] == 'Connexion') {
 		if ((isset($_POST['login']) && !empty($_POST['login'])) && (isset($_POST['pass']) && !empty($_POST['pass']))) {
-			
-			$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
+			$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass) or die('Erreur Connexion ! '.$SQL_Cdw_name.'<br>'.$SQL_Cdw_serveur.'<br>'.$SQL_Cdw_login.'<br>'.$SQL_Cdw_pass.'<br />'.$base.'<br />'.mysql_error());
 			mysql_select_db ($SQL_Cdw_name, $base);
 			$data = RequeteSQL_Select('count(*)','operator','login_operator',mysql_real_escape_string($_POST['login']),'pass_operator',mysql_real_escape_string(md5($_POST['pass'])));
 			mysql_close();
