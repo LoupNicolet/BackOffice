@@ -1,3 +1,4 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <?php
 	require "../Add/define.php";
     session_start();
@@ -16,6 +17,7 @@
 
 <html id="deconnexion">
 	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
 		<title>Accueil</title>
 		<link rel="stylesheet" type="text/css" href="../Add/css.css">
 	</head>

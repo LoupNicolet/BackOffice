@@ -1,4 +1,5 @@
-<?php
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+   <?php
 	require 'Add/define.php';
 	require 'Add/function.php';
 	date_default_timezone_set("Europe/Paris");
@@ -33,34 +34,37 @@
 
 <html id="index">
 	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
 		<title>Accueil</title>
 		<link rel="stylesheet" type="text/css" href="Add/css.css">
 	</head>
 	
 	<body>
 		<table border="6">
-			<td>
-				<table>
-					<tr>
-						<td colspan="2" align="center"><h3>Connexion :</h3><td>
-					</tr>
-					<?php if(isset($erreur)) echo '<tr><td colspan="2" align="center">'.$erreur.'</td></tr>'; ?>
-					<form action= <?php echo $fo_index_index; ?> method="post" >
+			<tr>
+				<td>
+					<table>
 						<tr>
-							<td align="right">Login : </td>
-							<td><input type="text" name="login" value="<?php if (isset($_POST['login'])) echo htmlentities(trim($_POST['login'])); ?>"></td>
+							<td colspan="2" align="center"><h3>Connexion :</h3><td>
 						</tr>
-						<tr>
-							<td align="right">Mot de passe :</td>
-							<td><input type="password" name="pass" value=""></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td><input class="button" type="submit" name="connexion" value="Connexion"></td>
-						</tr>
-					</form>
-				</table>
-			</td>
+						<?php if(isset($erreur)) echo '<tr><td colspan="2" align="center">'.$erreur.'</td></tr>'; ?>
+						<form action= <?php echo $fo_index_index; ?> method="post" >
+							<tr>
+								<td align="right">Login : </td>
+								<td><input type="text" name="login" value="<?php if (isset($_POST['login'])) echo htmlentities(trim($_POST['login'])); ?>"></td>
+							</tr>
+							<tr>
+								<td align="right">Mot de passe :</td>
+								<td><input type="password" name="pass" value=""></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><input class="button" type="submit" name="connexion" value="Connexion"></td>
+							</tr>
+						</form>
+					</table>
+				</td>
+			</tr>
 		</table>
 	</body>
 </html>
