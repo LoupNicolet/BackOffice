@@ -1,7 +1,7 @@
 <?php
 	require 'Add/define.php';
 	require 'Add/function.php';
-	
+	date_default_timezone_set("Europe/Paris");
 	if (isset($_POST['connexion']) && $_POST['connexion'] == 'Connexion') {
 		if ((isset($_POST['login']) && !empty($_POST['login'])) && (isset($_POST['pass']) && !empty($_POST['pass']))) {
 			$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass) or die('Erreur Connexion ! '.$SQL_Cdw_name.'<br>'.$SQL_Cdw_serveur.'<br>'.$SQL_Cdw_login.'<br>'.$SQL_Cdw_pass.'<br />'.$base.'<br />'.mysql_error());
@@ -12,8 +12,8 @@
 			if ($data[0] == 1) {
 				session_start();
 				$_SESSION['login'] = $_POST['login'];
-				$fp = fopen('Add/log.txt', 'a');
-				fwrite($fp, 'Connexion de : '.$_SESSION['login'].' ( le '.Date("d/m/Y").' à '.Date("H:i").' )'."\n");
+				$fp = fopen($open_index_log, 'a');
+				fwrite($fp, 'Connexion de : '.$_SESSION['login'].' ( le '.date("d/m/Y").' à '.date("H:i").' )'."\n");
 				fclose($fp);
 				header($he_index_backoffice);
 				exit();

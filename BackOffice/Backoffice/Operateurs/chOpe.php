@@ -56,13 +56,40 @@
 ?>
 
 <html id="chprofil">
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<script src= <?php echo $sc_JQuery; ?> ></script>
+		<script src= <?php echo $sc_JQuery_Color; ?>></script>
+		<script src= <?php echo $sc_verif; ?>></script>
+		<script>
+			function valide()
+			{
+				var email=document.forms["formVal"]["email"];
+				if ( ( email.value.indexOf("@") == -1 )
+					|| ( email.value.indexOf("@") == 0 )
+					|| ( email.value.indexOf("@") != email.value.lastIndexOf("@") ) 
+					|| ( email.value.indexOf(".") == email.value.indexOf("@")-1 ) 
+					|| ( email.value.indexOf(".") == email.value.indexOf("@") +1 ) 
+					|| (email.value.indexOf("@") == email.value.length -1 ) 
+					|| (email.value.indexOf (".") == -1) 
+					|| ( email.value.lastIndexOf (".") == email.value.length -1 ) 
+					|| (email.value.indexOf (" ") != -1) 
+					|| ((email.value.indexOf(".") == email.value.lastIndexOf(".")) && (email.value.lastIndexOf(".") < email.value.indexOf("@")))
+					)
+				{
+					document.getElementById("erreur").innerHTML="Mauvais format d'Email";
+					return false;
+				}
+			}
+		</script>
+	</head>
 	<body>
 		<table border="6">
 			<td>
 				<table>
 					<tr><td colspan="4" align="center"><h3>Profil de <?php echo $_GET['log']; ?> :</h3></td></tr>
-					<?php if(isset($erreur)) echo '<tr><td colspan="4" align="center">'.$erreur.'</td></tr>'; ?>
-					<form action= <?php echo $fo_chOpe_chOpe.$_GET['log']; ?> method="post" >
+					<tr><td id="erreur" colspan="3" align="center"><?php if(isset($erreur)) echo $erreur; ?></td></tr>
+					<form name="formVal" onsubmit="return valide()" action= <?php echo $fo_chOpe_chOpe.$_GET['log']; ?> method="post" >
 						<tr>
 							<td></td>
 							<td align="center"><b>Informations :</b></td>
@@ -71,17 +98,17 @@
 						<tr>
 							<td align="right">Nom :</td>
 							<td align="center"><?php echo $nom_ope; ?></td>
-							<td><input type="text" name="nom" value=""></td>
+							<td><input onkeyup="verif(this,3)" type="text" name="nom" value=""></td>
 						</tr>
 						<tr>
 							<td align="right">Prenom :</td>
 							<td align="center"><?php echo $prenom_ope; ?></td>
-							<td><input type="text" name="prenom" value=""></td>
+							<td><input onkeyup="verif(this,3)" type="text" name="prenom" value=""></td>
 						</tr>
 						<tr>
 							<td align="right">Email :</td>
 							<td align="center"><?php echo $email_ope; ?></td>
-							<td><input type="text" name="email" value=""></td>
+							<td><input onkeyup="verif(this,4)" type="text" name="email" value=""></td>
 						</tr>
 						<tr>
 						<td colspan="4" align="center"><input class="button" type="submit" name="valider" value="Valider"></td>

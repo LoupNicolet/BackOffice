@@ -44,11 +44,11 @@
 				<td>
 					<table class="menu">
 						<tr>
-							<td><a class="menu" href= <?php echo $hr_backoffice_licences; ?> >Licences</a></td>
+							<!--<td><a class="menu" href= <?php //echo $hr_backoffice_licences; ?> >Licences</a></td>-->
 							<td><a class="menu" href= <?php echo $hr_backoffice_customers; ?> >Clients</a></td>
 							<td><a class="menu" href= <?php echo $hr_backoffice_downloads; ?> >Telechargements</a></td>
-							<td><a class="menu" href= <?php echo $hr_backoffice_product; ?> >Produits</a></td>
-							<td><a class="menu" href= <?php echo $hr_backoffice_partenaires; ?> >Partenaires</a></td>
+							<td><a class="menu" href= <?php echo $hr_backoffice_product; ?> >Licences</a></td>
+							<!--<td><a class="menu" href= <?php //echo $hr_backoffice_partenaires; ?> >Partenaires</a></td>-->
 							<td><a class="menu" href= <?php echo $hr_backoffice_operateurs; ?> >Operateurs</a></td>
 							<td><a class="menu" href= <?php echo $hr_backoffice_options; ?> >Options</a></td>
 							<td align="center"><small><?php echo "[".htmlentities(trim($_SESSION['type']))."]"."[".htmlentities(trim($_SESSION['firstName'])).htmlentities(trim($_SESSION['lastName']))."]";?></small></td>
@@ -61,8 +61,8 @@
 				<td id="pages">
 					<?php 	
 						if(isset($_GET['action'])){
-							if($_GET['action'] == 'licences'){include($in_backoffice_licences);}
-							else if($_GET['action'] == 'customers'){include($in_backoffice_customers);}
+							//if($_GET['action'] == 'licences'){include($in_backoffice_licences);}
+							if($_GET['action'] == 'customers'){include($in_backoffice_customers);}
 							else if($_GET['action'] == 'downloads'){include($in_backoffice_downloads);}
 							else if($_GET['action'] == 'product'){include($in_backoffice_product);}
 							//else if($_GET['action'] == 'partenaires'){include($in_backoffice_partenaires);}

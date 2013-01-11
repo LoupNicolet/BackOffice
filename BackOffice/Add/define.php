@@ -5,7 +5,7 @@
 	$SQL_Cdw_pass = 'back';
 	
 	//All
-	$he_deconnexion = 'Location: /BackOffice/Session/deconnexion.php?action="co"';
+	$he_deconnexion = 'Location: ./Session/deconnexion.php?action="co"';
 	$sc_tri = "./Add/Script/tri.js";
 	$sc_details = "./Add/Script/details.js";
 	$sc_JQuery = "./Add/Script/JQuery.js";
@@ -79,6 +79,7 @@
 	//index.php
 	$he_index_backoffice = 'Location: backoffice.php';
 	$fo_index_index = "index.php";
+	$open_index_log = "Add/log.txt";
 ?>
 	
 	

@@ -41,13 +41,28 @@
 		<script src= <?php echo $sc_JQuery; ?> ></script>
 		<script type='text/javascript' src= <?php echo $sc_tri; ?> ></script>
 		<script type='text/javascript'  src= <?php echo $sc_details; ?> ></script>
+		<script src= <?php echo $sc_JQuery_Color; ?>></script>
+		<script src= <?php echo $sc_verif; ?>></script>
+		<script>
+			function valide()
+			{
+				var element=document.forms["formVal"]["time"];
+				if ((element.value != "")&&(( element.value.indexOf("/") != 4) 
+					|| ( element.value.lastIndexOf("/") != 7 )
+					|| (element.value.lastIndexOf("/") != (element.value.length - 3))))
+				{
+					alert("Mauvais format de Date ");
+					return false;
+				}
+			}
+		</script>
 	</head>
 	<body>
 		<table>
 			<tr><h2 align="center">Telechargements</h2></tr>
 			<tr>
 				<td>
-					<form id="form" class="recherche" action=<?php echo $fo_downloads_downloads; ?> method="post">
+					<form name="formVal" id="form" class="recherche" action=<?php echo $fo_downloads_downloads; ?> method="post" onsubmit="return valide()">
 						<div align="center">
 							<table>
 								<tr>
@@ -55,8 +70,10 @@
 								</tr>
 								<tr id="plus">
 									<td align="right">Date : </td>
+									
 									<td>
-										<input type="text" name="time" value="<?php if (isset($_POST['time'])) echo htmlentities(trim($_POST['time'])); ?>"><br>
+										<small>yyyy/mm/dd</small>
+										<input type="text" onkeyup="verif(this,5)" name="time" value="<?php if (isset($_POST['time'])){ echo htmlentities(trim($_POST['time']));}?>"><br>
 										<input <?php if(!isset($_POST['operateur_date']) || ($_POST['operateur_date'] == 'sup')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="sup"><?php echo '>='; ?>
 										<input <?php if(isset($_POST['operateur_date']) && ($_POST['operateur_date'] == 'inf')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="inf"><?php echo '<='; ?>
 										<input <?php if(isset($_POST['operateur_date']) && ($_POST['operateur_date'] == 'eg')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="eg"><?php echo '='; ?>

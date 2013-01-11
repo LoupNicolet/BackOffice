@@ -59,40 +59,79 @@
 ?>
 
 <html id="addOpe">
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<script src= <?php echo $sc_JQuery; ?> ></script>
+		<script src= <?php echo $sc_JQuery_Color; ?>></script>
+		<script src= <?php echo $sc_verif; ?>></script>
+		<script>
+			function valide()
+			{
+				var login=document.forms["formVal"]["login"];
+				var mdp=document.forms["formVal"]["pass"];
+				var email=document.forms["formVal"]["email"];
+				if (login.value.length < 3)
+				{
+					document.getElementById("erreur").innerHTML="Mauvais format de Login (min 3)";
+					return false;
+				}
+				if (mdp.value.length < 6)
+				{
+					document.getElementById("erreur").innerHTML="Mauvais format de mot de passe (min 6)";
+					return false;
+				}
+				if ( ( email.value.indexOf("@") == -1 )
+					|| ( email.value.indexOf("@") == 0 )
+					|| ( email.value.indexOf("@") != email.value.lastIndexOf("@") ) 
+					|| ( email.value.indexOf(".") == email.value.indexOf("@")-1 ) 
+					|| ( email.value.indexOf(".") == email.value.indexOf("@") +1 ) 
+					|| (email.value.indexOf("@") == email.value.length -1 ) 
+					|| (email.value.indexOf (".") == -1) 
+					|| ( email.value.lastIndexOf (".") == email.value.length -1 ) 
+					|| (email.value.indexOf (" ") != -1) 
+					|| ((email.value.indexOf(".") == email.value.lastIndexOf(".")) && (email.value.lastIndexOf(".") < email.value.indexOf("@")))
+					)
+				{
+					document.getElementById("erreur").innerHTML="Mauvais format d'Email";
+					return false;
+				}
+			}
+		</script>
+	</head>
 	<body>
 		<table border="6">
 			<td>
 				<table>
-					<tr><td align="center" colspan="2"><h3>Inscription à l'espace membre :</h3></td></tr>
-					<?php if(isset($erreur)) echo '<tr><td colspan="2" align="center">'.$erreur.'</td></tr>'; ?>
-					<form action=<?php echo $fo_addOpe_addOpe; ?> method="post" >
+					<tr><td align="center" colspan="2"><h3>Inscription d'un opérateur :</h3></td></tr>
+					<tr><td id="erreur" colspan="3" align="center"><?php if(isset($erreur)) echo $erreur; ?></td></tr>
+					<form name="formVal" onsubmit="return valide()" action=<?php echo $fo_addOpe_addOpe; ?> method="post" >
 						<tr>
 							<td align="right">Login : </td>
-							<td><input type="text" name="login" value=""></td>
+							<td><input onkeyup="verif(this,1)" type="text" name="login" value=""></td>
 						</tr>
 						<tr>
 							<td align="right">Mot de passe :</td>
-							<td><input type="password" name="pass" value=""></td>
+							<td><input onkeyup="verif(this,2)" type="password" name="pass" value=""></td>
 						</tr>
 						<tr>
 							<td align="right">Confirmation :</td>
-							<td><input type="password" name="pass_confirm"></td>
+							<td><input onkeyup="verif(this,2)" type="password" name="pass_confirm"></td>
 						</tr>
 						<tr>
 							<td align="right">Email :</td>
-							<td><input type="text" name="email"></td>
+							<td><input onkeyup="verif(this,4)" type="text" name="email"></td>
 						</tr>
 						<tr>
 							<td align="right">Prenom :</td>
-							<td><input type="text" name="prenom"></td>
+							<td><input onkeyup="verif(this,3)" type="text" name="prenom"></td>
 						</tr>
 						<tr>
 							<td align="right">Nom :</td>
-							<td><input type="text" name="nom"></td>
+							<td><input onkeyup="verif(this,3)" type="text" name="nom"></td>
 						</tr>
 						<tr>
 							<td align="right">Type :</td>
-							<td><input type="text" name="type"></td>
+							<td><input onkeyup="verif(this,3)" type="text" name="type"></td>
 						</tr>
 						<td align="center" colspan="2"><input class="button" type="submit" name="valider" value="Valider"></td>
 					</form>

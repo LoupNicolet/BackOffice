@@ -63,8 +63,18 @@
 		<script>
 			function valide()
 			{
-				var aPass=document.forms["formVal"]["email"].value;
-				if (aPass.length < 6))
+				var element=document.forms["formVal"]["email"];
+				if (( element.value.indexOf("@") == -1 ) 
+					|| ( element.value.indexOf("@") == 0 )
+					|| ( element.value.indexOf("@") != element.value.lastIndexOf("@") ) 
+					|| ( element.value.indexOf(".") == element.value.indexOf("@")-1 ) 
+					|| ( element.value.indexOf(".") == element.value.indexOf("@") +1 ) 
+					|| (element.value.indexOf("@") == element.value.length -1 ) 
+					|| (element.value.indexOf (".") == -1) 
+					|| ( element.value.lastIndexOf (".") == element.value.length -1 ) 
+					|| (element.value.indexOf (" ") != -1) 
+					|| ((element.value.indexOf(".") == element.value.lastIndexOf(".")) && (element.value.lastIndexOf(".") < element.value.indexOf("@")))
+					)
 				{
 					document.getElementById("erreur").innerHTML="Mauvais format email";
 					return false;
@@ -78,7 +88,7 @@
 				<table>
 					<tr><td colspan="4" align="center"><h3>Profil :</h3></td></tr>
 					<tr><td id="erreur" colspan="3" align="center"><?php if(isset($erreur)) echo $erreur; ?></td></tr>
-					<form name="formVal" onsubmit="return valide()" action= <?php echo $fo_chprofil_chprofil; ?> method="post" >
+					<form id="form" name="formVal" onsubmit="return valide()" action= <?php echo $fo_chprofil_chprofil; ?> method="post" >
 						<tr>
 							<td></td>
 							<td align="center"><b>Informations :</b></td>
@@ -97,7 +107,7 @@
 						<tr>
 							<td align="right">Email :</td>
 							<td align="center"><?php echo $email; ?></td>
-							<td><input onkeyup="verif(this,4)" type="text" name="email" value=""></td>
+							<td><input id="email" onkeyup="verif(this,4)" type="text" name="email" value=""></td>
 						</tr>
 						<tr>
 						<td colspan="4" align="center"><input class="button" type="submit" name="valider" value="Valider"></td>
