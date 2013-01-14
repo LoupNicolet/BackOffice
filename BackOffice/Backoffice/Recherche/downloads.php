@@ -20,6 +20,9 @@
 				$email[$y] = $row['mail'];
 				$number[$y] = $row['downloads'];
 				$logiciel[$y] = $row['Application'];
+				if($logiciel[$y] == "CloudMailMover"){
+					$logiciel[$y] = "CloudXFer";
+				}
 				$y++;
 			}
 			
@@ -87,17 +90,15 @@
 								<tr>
 									<td colspan="6" align="center">
 										<?php
-											$x=0;
 											$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 											mysql_select_db ($SQL_Cdw_name, $base);
 											$sql = 'SELECT Product_Name FROM products';
 											$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
 											?><input <?php if(!isset($_POST['logiciel']) || ($_POST['logiciel'] == 'tous')){echo 'checked="checked"';}?> type="radio" name="logiciel" value="tous">Tous<br><?php
 											while($row = mysql_fetch_array($req)){
-												$mem[$x] = $row;
-												?><input <?php if(isset($_POST['logiciel']) && $_POST['logiciel'] == $row['Product_Name']){echo 'checked="checked"';}?> type="radio" name="logiciel" value=<?php echo '"'.$row['Product_Name'].'"'?>><?php echo $row['Product_Name'] ?><br><?php
-												$logiciels[$x] = $row['Product_Name'];
-												$x++;
+												if(($row['Product_Name'] != "S2GS")&&($row['Product_Name'] != "Mig6")){
+													?><input <?php if(isset($_POST['logiciel']) && $_POST['logiciel'] == $row['Product_Name']){echo 'checked="checked"';}?> type="radio" name="logiciel" value=<?php echo '"'.$row['Product_Name'].'"'?>><?php if($row['Product_Name'] == "CloudMailMover"){ echo "CloudXFer"; }else{ echo $row['Product_Name']; } ?><br><?php
+												}
 											}
 											mysql_free_result($req);
 											mysql_close();

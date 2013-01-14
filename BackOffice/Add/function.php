@@ -85,7 +85,7 @@
 	///////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////
 	
-	function recherche_product($key,$date){
+	function recherche_licences($key,$date){
 		$prec = 1;
 		$sql = 'SELECT * FROM keyactivityCA WHERE ProductKey="'.$key.'" AND KeyActivity_Date="'.$date.'"';
 		
@@ -214,7 +214,7 @@
 	///////////////////////////////////////////////////////////////////////////////
 	
 	//Construit la requete SQL en fonction de ce que l'utilisateur a renseigné
-	function recherche_Licences($row_Customer_ID){
+	/*function recherche_Licences($row_Customer_ID){
 		$prec = 0;
 		$sql = 'SELECT * FROM productkey WHERE';
 
@@ -270,15 +270,15 @@
 		}
 		
 		return $sql;
-	}
+	}*/
 	
 	///////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////
 	
 	//Test si des champs product sont remplit
-	function Test_Product(){
+	function Test_Licences(){
 		if ((isset($_POST['time']) 	&& !empty($_POST['time']))
-		|| (isset($_POST['cle']) 		&& !empty($_POST['cle']))  
+		|| (isset($_POST['key']) 		&& !empty($_POST['key']))  
 		|| (isset($_POST['number']) 	&& (!empty($_POST['number'])))
 		){
 			return true;
@@ -325,9 +325,9 @@
 	///////////////////////////////////////////////////////////////////////////////
 	
 	//Test si des champs Licences sont remplit
-	function Test_Licences(){
+	/*function Test_Licences(){
 		if (/*(isset($_POST['installGuid'])&& !empty($_POST['installGuid']))
-		|| */(isset($_POST['installKey']) && !empty($_POST['installKey']))
+		|| *//*(isset($_POST['installKey']) && !empty($_POST['installKey']))
 		|| (isset($_POST['label']) 		&& !empty($_POST['label']))
 		|| (isset($_POST['number']) 	&& !empty($_POST['number']))
 		|| (isset($_POST['date']) 		&& !empty($_POST['date']))
@@ -336,5 +336,5 @@
 		}else{
 			return false;
 		}
-	}
+	}*/
 ?>

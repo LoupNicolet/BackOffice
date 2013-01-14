@@ -1,45 +1,63 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <?php
+	date_default_timezone_set("Europe/Paris");
 	if (isset($_SESSION['login'])){
 		if (isset($_POST['recherche'])){
+
 			$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 			mysql_select_db ($SQL_Cdw_name, $base);
-			
-			if (test_Customer() || (isset($_POST['type']) && ($_POST['type'] != "indifferent"))){
-				$sql = recherche_Customer('Customer_ID');	
-			}else{
-				$sql = 'SELECT Customer_ID FROM customers';
+		
+			$a=0;
+			$sql = 'SELECT ProductKey, max( KeyActivity_Date ) FROM keyactivityCA GROUP BY ProductKey';
+			$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+			while($row = mysql_fetch_array($req)){
+				$valKey[$a] = $row['ProductKey'];
+				$valDate[$a] = $row['max( KeyActivity_Date )'];
+				$a++;
 			}
-			
-			$customer_ID = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
-			$row_Customer_ID = mysql_fetch_array($customer_ID);
-			
-			$y = 0;
-			
-			do{
-				$sql = recherche_Licences($row_Customer_ID);
+			mysql_free_result($req);
+	
+			$y=0;
+			for($i=0;$i<$a;$i++){
+				if (Test_Licences() || (isset($_POST['logiciel']) && ($_POST['logiciel'] != "tous"))){
+					$sql = recherche_licences($valKey[$i],$valDate[$i]);
+				}else{
+					$sql = 'SELECT * FROM keyactivityCA WHERE ProductKey="'.$valKey[$i].'" AND KeyActivity_Date="'.$valDate[$i].'"';
+				}
 				$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
 				while($row = mysql_fetch_array($req)){
-					//$installGuid[$y] = $row['InstallGuid'];
-					$installKey[$y] = $row['InstallKey'];
+					$key[$y] = $row['ProductKey'];
 					$productID[$y] = $row['ProductID'];
-					$licences[$y] = $row['Licences'];
-					$expiration[$y] = $row['Expiration'];
-					$revoked[$y] = $row['Revoked'];
-					$label[$y] = $row['Label'];
+					$number[$y] = $row['NumUsers'];
+					$time[$y] = date("Y/m/d - H:i:s",$row['KeyActivity_Date']);
 					$y++;
 				}
-			}while($row_Customer_ID = mysql_fetch_array($customer_ID));
-			
-			mysql_free_result($req);
-				
-			for($i=0;$i<$y;$i++){
-				if($revoked[$i] == 1){$revoked[$i] = "Revoked";
-				}else if($revoked[$i] == 0){$revoked[$i] = "/";
-				}else{$revoked[$i] = 'undefined';}
-				$productID[$i] = RequeteSQL_Select('Product_Name', 'products', 'Product_ID',$productID[$i],"","");
+				mysql_free_result($req);
 			}
+			$b=0;
+			for($i=0;$i<$y;$i++){
+				$productID[$i] = RequeteSQL_Select('Product_Name', 'products', 'Product_ID',$productID[$i],"","");
+				if($productID[$i][0] == "CloudMailMover"){
+					$productID[$i][0] = "CloudXFer";
+				}
+				$sql = 'SELECT Label,Licences,Revoked,CustomerID FROM productkey WHERE InstallKey="'.$key[$i].'"';
+				$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+				while($row = mysql_fetch_array($req)){
+					$label[$b] = $row['Label'];
+					$licences[$b] = $row['Licences'];
+					$revoked[$b] = $row['Revoked'];
+					$customerID[$b] = $row['CustomerID'];
+					$b++;
+				}
+				mysql_free_result($req);
+				if($licences[$i] < $number[$i]){
+					$depp[$i] = 1;
+				}else{
+					$depp[$i] = 0;
+				}
+			}	
 			mysql_close();
+			
 		}else{
 			$y = 0;
 		}
@@ -50,122 +68,91 @@
 	}
 	
 ?>
-<html>
+<html id = 'licences'>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
 		<script src= <?php echo $sc_JQuery; ?> ></script>
 		<script type='text/javascript' src= <?php echo $sc_tri; ?> ></script>
 		<script type='text/javascript'  src= <?php echo $sc_details; ?> ></script>
+		<script src= <?php echo $sc_JQuery_Color; ?>></script>
+		<script src= <?php echo $sc_verif; ?>></script>
+		<script>
+			function valide()
+			{
+				var element=document.forms["formVal"]["time"];
+				var element2=document.forms["formVal"]["key"];
+				if ((element.value != "")
+					&&(( element.value.indexOf("/") != 4) 
+					|| ( element.value.lastIndexOf("/") != 7 )
+					|| (element.value.lastIndexOf("/") != (element.value.length - 3))))
+				{
+					alert("Mauvais format de Date ");
+					return false;
+				}
+				if ((element2.value != "")
+					&&(( element2.value.indexOf("-") != 5) 
+					|| ( element2.value.lastIndexOf("-") != 29 )
+					|| ( element2.value.charAt(11) != "-" )
+					|| ( element2.value.charAt(17) != "-" )
+					|| ( element2.value.charAt(23) != "-" )
+					|| ( element2.value.length != 35))
+					)
+				{
+					alert("Mauvais format de Cle");
+					return false;
+				}
+			}
+		</script>
 	</head>
 	<body>
 		<table>
 			<tr><h2 align="center">Licences</h2></tr>
 			<tr>
 				<td>
-					<form id="form" class="recherche" action=<?php echo $fo_licences_licences; ?> method="post">
+					<form name="formVal" id="form" onsubmit="return valide()" class="recherche" action= <?php echo $fo_licences_licences; ?> method="post">
 						<div align="center">
 							<table>
 								<tr>
 									<td align="center" colspan="6"><button class="button">Detail</button></td>
 								</tr>
-								
-								<tr id="plus"><td></td></tr>
-								
 								<tr id="plus">
-									<td class="titreForm" colspan="6" align="center" style="font-size:20px;"><b>Informations Clients :</b></td>
-								</tr>
-								
-								<tr id="plus"><td></td></tr>
-								
-								<tr id="plus">
-									<td align="right">Email : </td>
-									<td><input type="text" name="email" value="<?php if (isset($_POST['email'])) echo htmlentities(trim($_POST['email'])); ?>"></td>
-									<td align="right">FirstName :</td>
-									<td><input type="text" name="firstName" value="<?php if (isset($_POST['firstName'])) echo htmlentities(trim($_POST['firstName'])); ?>"></td>
-									<td align="right">Tel :</td>
-									<td><input type="text" name="tel" value="<?php if (isset($_POST['tel'])) echo htmlentities(trim($_POST['tel']));?>"></td>
-								</tr>
-								
-								<tr id="plus">
-									<td align="right">Name :</td>
-									<td><input type="text" name="name" value="<?php if (isset($_POST['name'])) echo htmlentities(trim($_POST['name'])); ?>"></td>
-									<td align="right">LastName :</td>
-									<td><input type="text" name="lastName" value="<?php if (isset($_POST['lastName'])) echo htmlentities(trim($_POST['lastName'])); ?>"></td>
-									<td align="right">Mobile :</td>
-									<td><input type="text" name="mobile" value="<?php if (isset($_POST['mobile'])) echo htmlentities(trim($_POST['mobile'])); ?>"></td>	
-								</tr>
-								
-								<tr id="plus"><td></td></tr>
-								
-								<tr id="plus">
-									<td class="titreForm" colspan="6" align="center" style="font-size:20px;"><b>Informations Licences :</b></td>
-								</tr>
-								
-								<tr id="plus"><td></td></tr>
-								
-								<tr id="plus">
-									<!--<td align="right">InstallGuid : </td>
-									<td><input type="text" name="installGuid" value="<?php/* if (isset($_POST['installGuid'])) echo htmlentities(trim($_POST['installGuid'])); */?>"></td>-->
-									<td align="right">InstallKey :</td>
-									<td><input type="text" name="installKey" value="<?php if (isset($_POST['installKey'])) echo htmlentities(trim($_POST['installKey'])); ?>"></td>
-									<td align="right">Label :</td>
-									<td><input type="text" name="label" value="<?php if (isset($_POST['label'])) echo htmlentities(trim($_POST['label'])); ?>"></td>
-									<td align="right">Expire :</td>
-									<td><input type="text" name="date" value="<?php if (isset($_POST['date'])) echo htmlentities(trim($_POST['date'])); ?>"><br></td>
-								</tr>
-								
-								<tr id="plus">
-									
-									<td></td><td></td>
-									<td align="right">Number :</td>
+									<td align="right">Date : </td>
+									<td>
+										<small>yyyy/mm/dd</small>
+										<input type="text" onkeyup="verif(this,5)" name="time" value="<?php if (isset($_POST['time'])) echo htmlentities(trim($_POST['time'])); ?>"><br>
+										<input <?php if(!isset($_POST['operateur_date']) || ($_POST['operateur_date'] == 'sup')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="sup"><?php echo '>='; ?>
+										<input <?php if(isset($_POST['operateur_date']) && ($_POST['operateur_date'] == 'inf')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="inf"><?php echo '<='; ?>
+										<input <?php if(isset($_POST['operateur_date']) && ($_POST['operateur_date'] == 'eg')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="eg"><?php echo '='; ?>
+									</td>
+									<td align="right">Nb Utilisateursr:</td>
 									<td>
 										<input type="text" name="number" value="<?php if (isset($_POST['number'])) echo htmlentities(trim($_POST['number'])); ?>"><br>
 										<input <?php if(!isset($_POST['operateur_nombre']) || ($_POST['operateur_nombre'] == 'sup')){echo 'checked="checked"';}?> type="radio" name="operateur_nombre" value="sup"><?php echo '>='; ?>
 										<input <?php if(isset($_POST['operateur_nombre']) && ($_POST['operateur_nombre'] == 'inf')){echo 'checked="checked"';}?> type="radio" name="operateur_nombre" value="inf"><?php echo '<='; ?>
 										<input <?php if(isset($_POST['operateur_nombre']) && ($_POST['operateur_nombre'] == 'eg')){echo 'checked="checked"';}?> type="radio" name="operateur_nombre" value="eg"><?php echo '='; ?>
 									</td>
+									<td align="right">Cle :</td>
+									<td><input type="text" onkeyup="verif(this,6)" name="key" value="<?php if (isset($_POST['key'])) echo htmlentities(trim($_POST['key'])); ?>"></td>
 								</tr>
-								
-								<tr id="plus"><td></td></tr>
-								
 								<tr>
-									<td align="right">Type :</td>
-									<td>
-										<input <?php if(!isset($_POST['type']) || ($_POST['type'] == 'indifferent')){echo 'checked="checked"';}?> type="radio" name="type" value="indifferent">Indifferent<br>
-										<input <?php if(isset($_POST['type']) && $_POST['type'] == 'client'){echo 'checked="checked"';}?> type="radio" name="type" value="client">Client<br>
-										<input <?php if(isset($_POST['type']) && $_POST['type'] == 'prospect'){echo 'checked="checked"';}?> type="radio" name="type" value="prospect">Prospect
-									</td>
-									<td align="center" colspan="2">
+									<td align="center" colspan="6">
 										<?php
-											$x=0;
 											$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 											mysql_select_db ($SQL_Cdw_name, $base);
 											$sql = 'SELECT Product_Name FROM products';
 											$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
 											?><input <?php if(!isset($_POST['logiciel']) || ($_POST['logiciel'] == 'tous')){echo 'checked="checked"';}?> type="radio" name="logiciel" value="tous">Tous<br><?php
 											while($row = mysql_fetch_array($req)){
-												$mem[$x] = $row;
-												?><input <?php if(isset($_POST['logiciel']) && $_POST['logiciel'] == $row['Product_Name']){echo 'checked="checked"';}?> type="radio" name="logiciel" value=<?php echo '"'.$row['Product_Name'].'"'?>><?php echo $row['Product_Name'] ?><br><?php
-												$logiciels[$x] = $row['Product_Name'];
-												$x++;
+												if(($row['Product_Name'] != "S2GS")&&($row['Product_Name'] != "Mig6")){
+													?><input <?php if(isset($_POST['logiciel']) && $_POST['logiciel'] == $row['Product_Name']){echo 'checked="checked"';}?> type="radio" name="logiciel" value=<?php echo '"'.$row['Product_Name'].'"'?>><?php if($row['Product_Name'] == "CloudMailMover"){ echo "CloudXFer"; }else{ echo $row['Product_Name']; } ?><br><?php
+												}
 											}
 											mysql_free_result($req);
 											mysql_close();
 										?>
 									</td>
-									<td align="right">Etat :</td>
-									<td>
-										<input <?php if(!isset($_POST['etat']) || ($_POST['etat'] == 'indifferent')){echo 'checked="checked"';}?> type="radio" name="etat" value="indifferent">Indifferent<br>
-										<input <?php if(isset($_POST['etat']) && $_POST['etat'] == 'valide'){echo 'checked="checked"';}?> type="radio" name="etat" value="valide">Valide<br>
-										<input <?php if(isset($_POST['etat']) && $_POST['etat'] == 'invalide'){echo 'checked="checked"';}?> type="radio" name="etat" value="invalide">Invalide
-									</td>
 								</tr>
-								
-								<tr><td></td></tr>
-								
-								<tr>
-									<td  align="center" colspan="6"><input class="button" type="submit" name="recherche" value="Rechercher"></td>
-								</tr>
+								<tr><td  colspan="6" align="center"><input class="button" type="submit" name="recherche" value="Rechercher"></td></tr>
 							</table>
 						</div>
 					</form>
@@ -180,38 +167,38 @@
 							"<table id='licencesTable'>
 							<tr>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(0,true,\"licencesTable\")' value='Label' />
+									<input class='button_titre' type='button' onclick='sortTable(0,true,\"licencesTable\")' value='Logiciel' />
 								</th>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(1,true,\"licencesTable\")' value='Logiciel' />
+									<input class='button_titre' type='button' onclick='sortTable(1,false,\"licencesTable\")' value='Date' />
 								</th>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(2,true,\"licencesTable\")' value='Nombre' />
+									<input class='button_titre' type='button' onclick='sortTable(3,true,\"licencesTable\")' value='Label' />
 								</th>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(3,true,\"licencesTable\")' value='Revoked' />
+									<input class='button_titre' type='button' onclick='sortTable(4,true,\"licencesTable\")' value='Licences' />
 								</th>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(4,false,\"licencesTable\")' value='Expire' />
+									<input class='button_titre' type='button' onclick='sortTable(5,true,\"licencesTable\")' value='Utilisateurs' />
 								</th>
-								<!--<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(5,true,\"licencesTable\")' value='InstallGuid' />
-								</th>-->
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(5,true,\"licencesTable\")' value='InstallKey' />
+									<input class='button_titre' type='button' onclick='sortTable(6,true,\"licencesTable\")' value='Etat' />
+								</th>
+								<th class='titre' align='center'>
+									<input class='button_titre' type='button' onclick='sortTable(7,true,\"licencesTable\")' value='Cle' />
 								</th>
 							</tr>";
 
 							for ($i=0; $i<$y;$i++){
 								echo 
-								'<tr>
-									<td id=1 align="center">'.$label[$i].'</td>
+								'<tr ';if($depp[$i]==1){ echo 'style="background-color:#FF6666;color:#FFFFFF;"';} echo '>
 									<td align="center">'.$productID[$i][0].'</td>
+									<td align="center">'.$time[$i].'</td>
+									<td align="center">'.$label[$i].'</td>
 									<td align="center">'.$licences[$i].'</td>
+									<td align="center">'.$number[$i].'</td>
 									<td align="center">'.$revoked[$i].'</td>
-									<td align="center">'.$expiration[$i].'</td>';
-									//<td align="center">'.$installGuid[$i].'</td>
-									echo '<td align="center">'.$installKey[$i].'</td>
+									<td align="center">'.$key[$i].'</td>
 								</tr>';
 							}
 							echo '</table>';

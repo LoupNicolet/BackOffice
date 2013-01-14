@@ -25,12 +25,9 @@
 	
 	//downloads.php
 	$fo_downloads_downloads = "./backoffice.php?action=downloads";
-
+	
 	//licences.php
 	$fo_licences_licences = "./backoffice.php?action=licences";
-
-	//product.php
-	$fo_product_product = "./backoffice.php?action=product";
 
 	//addOpe.php
 	$fo_addOpe_addOpe = "./backoffice.php?action=operateurs&page=addOpe";
@@ -63,16 +60,12 @@
 	$hr_backoffice_licences = "backoffice.php?action=licences";
 	$hr_backoffice_customers = "backoffice.php?action=customers";
 	$hr_backoffice_downloads = "backoffice.php?action=downloads";
-	$hr_backoffice_product = "backoffice.php?action=product";
-	$hr_backoffice_partenaires = "backoffice.php?action=partenaires";
 	$hr_backoffice_operateurs = "backoffice.php?action=operateurs";
 	$hr_backoffice_options = "backoffice.php?action=options";
 	$hr_backoffice_deconnexion = 'Session/deconnexion.php?action="dec"';
 	$in_backoffice_licences = 'Backoffice/Recherche/licences.php';
 	$in_backoffice_customers = 'Backoffice/Recherche/customers.php';
 	$in_backoffice_downloads = 'Backoffice/Recherche/downloads.php';
-	$in_backoffice_product = 'Backoffice/Recherche/product.php';
-	$in_backoffice_partenaires = 'Backoffice/partenaires.php';
 	$in_backoffice_operateurs = 'Backoffice/operateurs.php';
 	$in_backoffice_options = 'Session/options.php';
 	
