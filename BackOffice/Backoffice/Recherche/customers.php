@@ -51,9 +51,35 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
-		<script src= <?php echo $sc_JQuery; ?> ></script>
+		<script type='text/javascript' src= <?php echo $sc_JQuery; ?> ></script>
 		<script type='text/javascript' src= <?php echo $sc_tri; ?> ></script>
-		<script type='text/javascript'  src= <?php echo $sc_details; ?> ></script>
+		<script type='text/javascript' src= <?php echo $sc_details; ?> ></script>
+		<script type='text/javascript' src= <?php echo $sc_JQuery_Color; ?>></script>
+		<script type='text/javascript' src= <?php echo $sc_verif; ?>></script>
+		<script type='text/javascript' src= <?php echo $sc_modif; ?>></script>
+		<script>
+			function requete(xmlhttp){
+				var val = "0";
+				if(valType==1){
+					 val = document.getElementById("tfCase").value
+				}else if(valType == 2){
+					if(valeur == "Client"){
+						val = "1";
+					}
+				}
+				xmlhttp.send(	
+									"id=customers"
+									+"&value="+val
+									+"&col="+colonne
+									+"&Customer_Name="+document.getElementById(""+0+ligne).innerHTML
+									+"&Customer_LastName="+document.getElementById(""+1+ligne).innerHTML
+									+"&Customer_FirstName="+document.getElementById(""+2+ligne).innerHTML
+									+"&Customer_Email="+document.getElementById(""+3+ligne).innerHTML
+									+"&Customer_Telephon="+document.getElementById(""+4+ligne).innerHTML
+									+"&Customer_Mobile="+document.getElementById(""+5+ligne).innerHTML
+								);
+			}
+		</script>
 	</head>
 	<body>
 		<table>
@@ -135,13 +161,13 @@
 							for ($i=0; $i<$y;$i++){
 								echo 
 								'<tr>
-									<td id=1 align="center">'.$name[$i].'</td>
-									<td align="center">'.$lastName[$i].'</td>
-									<td align="center">'.$firstName[$i].'</td>
-									<td align="center">'.$email[$i].'</td>
-									<td align="center">'.$telephon[$i].'</td>
-									<td align="center">'.$mobile[$i].'</td>
-									<td align="center">'.$prospect[$i].'</td>
+									<td id="0'.($i+1).'" onclick="clic(this,1,'.($i+1).')" align="center">'.$name[$i].'</td>
+									<td id="1'.($i+1).'" onclick="clic(this,1,'.($i+1).')" align="center">'.$lastName[$i].'</td>
+									<td id="2'.($i+1).'" onclick="clic(this,1,'.($i+1).')" align="center">'.$firstName[$i].'</td>
+									<td id="3'.($i+1).'" onclick="clic(this,1,'.($i+1).')" align="center">'.$email[$i].'</td>
+									<td id="4'.($i+1).'" onclick="clic(this,1,'.($i+1).')" align="center">'.$telephon[$i].'</td>
+									<td id="5'.($i+1).'" onclick="clic(this,1,'.($i+1).')" align="center">'.$mobile[$i].'</td>
+									<td id="6'.($i+1).'" onclick="clic(this,2,'.($i+1).')" align="center">'.$prospect[$i].'</td>
 								</tr>';
 							}
 							echo '</table>';

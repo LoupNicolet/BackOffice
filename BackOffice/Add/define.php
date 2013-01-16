@@ -11,6 +11,7 @@
 	$sc_JQuery = "./Add/Script/JQuery.js";
 	$sc_JQuery_Color = "./Add/Script/JQuery_Color.js";
 	$sc_verif = "./Add/Script/verif.js";
+	$sc_modif = "./Add/Script/modif.js";
 	
 	//operateur.php
 	$he_operateur_operateur = "location: ./backoffice.php?action=operateurs";

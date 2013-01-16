@@ -42,19 +42,33 @@
 				}
 				$sql = 'SELECT Label,Licences,Revoked,CustomerID FROM productkey WHERE InstallKey="'.$key[$i].'"';
 				$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+				/////////////////////////
+				$label[$i] = "";
+				$licences[$i] = "";
+				$revoked[$i] = "";
+				$customerID[$i] = "";
+				/////////////////////////////
 				while($row = mysql_fetch_array($req)){
-					$label[$b] = $row['Label'];
-					$licences[$b] = $row['Licences'];
-					$revoked[$b] = $row['Revoked'];
-					$customerID[$b] = $row['CustomerID'];
+					$label[$i] = $row['Label'];
+					$licences[$i] = $row['Licences'];
+					$revoked[$i] = $row['Revoked'];
+					$customerID[$i] = $row['CustomerID'];
 					$b++;
 				}
 				mysql_free_result($req);
-				if($licences[$i] < $number[$i]){
-					$depp[$i] = 1;
-				}else{
-					$depp[$i] = 0;
-				}
+					if($licences[$i] < $number[$i]){
+						$depp[$i] = 1;
+					}else{
+						$depp[$i] = 0;
+					}
+					
+					if($revoked[$i] == 1){
+						$revoked[$i] = "Desactive";
+					}else if($revoked[$i] == 0){
+						$revoked[$i] = "Active";
+					}else{
+						$revoked[$i] = 'undefined';
+					}
 			}	
 			mysql_close();
 			
@@ -70,12 +84,14 @@
 ?>
 <html id = 'licences'>
 	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
-		<script src= <?php echo $sc_JQuery; ?> ></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" >
+		<script type='text/javascript' src= <?php echo $sc_JQuery; ?> ></script>
 		<script type='text/javascript' src= <?php echo $sc_tri; ?> ></script>
-		<script type='text/javascript'  src= <?php echo $sc_details; ?> ></script>
-		<script src= <?php echo $sc_JQuery_Color; ?>></script>
-		<script src= <?php echo $sc_verif; ?>></script>
+		<script type='text/javascript' src= <?php echo $sc_details; ?> ></script>
+		<script type='text/javascript' src= <?php echo $sc_JQuery_Color; ?>></script>
+		<script type='text/javascript' src= <?php echo $sc_verif; ?>></script>
+		<script type='text/javascript' src= <?php echo $sc_modif; ?>></script>
+		
 		<script>
 			function valide()
 			{
@@ -102,6 +118,25 @@
 					return false;
 				}
 			}
+			
+			function requete(xmlhttp){
+				var val = "0";
+				if(valType==1){
+					 val = document.getElementById("tfCase").value
+				}else if(valType == 3){
+					if(valeur == "Active"){
+						val = "1";
+					}
+				}
+				xmlhttp.send(	
+									"id=productkey"
+									+"&value="+val
+									+"&col="+colonne
+									+"&Label="+document.getElementById(""+2+ligne).innerHTML
+									+"&Licences="+document.getElementById(""+3+ligne).innerHTML
+									+"&InstallKey="+document.getElementById(""+6+ligne).innerHTML
+								);
+			}
 		</script>
 	</head>
 	<body>
@@ -124,7 +159,7 @@
 										<input <?php if(isset($_POST['operateur_date']) && ($_POST['operateur_date'] == 'inf')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="inf"><?php echo '<='; ?>
 										<input <?php if(isset($_POST['operateur_date']) && ($_POST['operateur_date'] == 'eg')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="eg"><?php echo '='; ?>
 									</td>
-									<td align="right">Nb Utilisateursr:</td>
+									<td align="right">Nb Utilisateurs :</td>
 									<td>
 										<input type="text" name="number" value="<?php if (isset($_POST['number'])) echo htmlentities(trim($_POST['number'])); ?>"><br>
 										<input <?php if(!isset($_POST['operateur_nombre']) || ($_POST['operateur_nombre'] == 'sup')){echo 'checked="checked"';}?> type="radio" name="operateur_nombre" value="sup"><?php echo '>='; ?>
@@ -173,32 +208,32 @@
 									<input class='button_titre' type='button' onclick='sortTable(1,false,\"licencesTable\")' value='Date' />
 								</th>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(3,true,\"licencesTable\")' value='Label' />
+									<input class='button_titre' type='button' onclick='sortTable(2,true,\"licencesTable\")' value='Label' />
 								</th>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(4,true,\"licencesTable\")' value='Licences' />
+									<input class='button_titre' type='button' onclick='sortTable(3,true,\"licencesTable\")' value='Licences' />
 								</th>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(5,true,\"licencesTable\")' value='Utilisateurs' />
+									<input class='button_titre' type='button' onclick='sortTable(4,true,\"licencesTable\")' value='Utilisateurs' />
 								</th>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(6,true,\"licencesTable\")' value='Etat' />
+									<input class='button_titre' type='button' onclick='sortTable(5,true,\"licencesTable\")' value='Etat' />
 								</th>
 								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(7,true,\"licencesTable\")' value='Cle' />
+									<input class='button_titre' type='button' onclick='sortTable(6,true,\"licencesTable\")' value='Cle' />
 								</th>
 							</tr>";
 
 							for ($i=0; $i<$y;$i++){
 								echo 
 								'<tr ';if($depp[$i]==1){ echo 'style="background-color:#FF6666;color:#FFFFFF;"';} echo '>
-									<td align="center">'.$productID[$i][0].'</td>
-									<td align="center">'.$time[$i].'</td>
-									<td align="center">'.$label[$i].'</td>
-									<td align="center">'.$licences[$i].'</td>
-									<td align="center">'.$number[$i].'</td>
-									<td align="center">'.$revoked[$i].'</td>
-									<td align="center">'.$key[$i].'</td>
+									<td id="0'.($i+1).'" align="center">'.$productID[$i][0].'</td>
+									<td id="1'.($i+1).'" align="center">'.$time[$i].'</td>
+									<td id="2'.($i+1).'" onclick="clic(this,1,'.($i+1).')" align="center">'.$label[$i].'</td>
+									<td id="3'.($i+1).'" onclick="clic(this,1,'.($i+1).')" align="center">'.$licences[$i].'</td>
+									<td id="4'.($i+1).'" align="center">'.$number[$i].'</td>
+									<td id="5'.($i+1).'" onclick="clic(this,3,'.($i+1).')" align="center">'.$revoked[$i].'</td>
+									<td id="6'.($i+1).'" align="center">'.$key[$i].'</td>
 								</tr>';
 							}
 							echo '</table>';
