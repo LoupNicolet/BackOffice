@@ -1,12 +1,17 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">-->
 <?php
 	if (isset($_SESSION['login'])){
+		if (isset($_GET['id'])){
+			$_POST['recherche'] = "id";
+		}
 		if (isset($_POST['recherche'])){
 			$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 			mysql_select_db ($SQL_Cdw_name, $base);
 			
 			if (test_Customer() || (isset($_POST['type']) && ($_POST['type'] != "indifferent"))){
 				$sql = recherche_Customer('*');	
+			}else if (isset($_GET['id'])){
+				$sql = 'SELECT * FROM customers WHERE Customer_ID="'.$_GET['id'].'"';
 			}else{
 				$sql = 'SELECT * FROM customers';
 			}
@@ -48,9 +53,9 @@
 	}
 	
 ?>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
+<!--<html>
+	<head>-->
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" >
 		<script type='text/javascript' src= <?php echo $sc_JQuery; ?> ></script>
 		<script type='text/javascript' src= <?php echo $sc_tri; ?> ></script>
 		<script type='text/javascript' src= <?php echo $sc_details; ?> ></script>
@@ -80,8 +85,8 @@
 								);
 			}
 		</script>
-	</head>
-	<body>
+	<!--</head>
+	<body>-->
 		<table>
 			<tr><h2 align="center">Clients</h2></tr>
 			<tr>
@@ -176,5 +181,5 @@
 				</td>
 			</tr>
 		</table>
-	</body>
-</html>
+	<!--</body>
+</html>-->

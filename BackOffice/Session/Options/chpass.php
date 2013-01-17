@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">-->
 <?php
 if (isset($_SESSION['login'])){
 		// on teste si le visiteur a soumis le formulaire
@@ -38,9 +38,9 @@ if (isset($_SESSION['login'])){
 	}
 ?>
 
-<html id="chpass">
+<!--<html id="chpass">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > -->
 		<script src= <?php echo $sc_JQuery; ?>></script>
 		<script src= <?php echo $sc_JQuery_Color; ?>></script>
 		<script src= <?php echo $sc_verif; ?>></script>
@@ -57,8 +57,8 @@ if (isset($_SESSION['login'])){
 				}
 			}
 		</script>
-	</head>
-	<body>
+	<!--</head>
+	<body>-->
 	<table border="6">
 			<td>
 				<table>
@@ -84,5 +84,5 @@ if (isset($_SESSION['login'])){
 				</table>
 			</td>
 		</table>
-	</body>
-</html>
+	<!--</body>
+</html>-->

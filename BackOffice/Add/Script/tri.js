@@ -50,7 +50,7 @@ function DESC(a, b){
 
  
 function sortTable(colonne, type, table){
-
+	var ordre;
 	if(cur_col != colonne){sens = false;}
 	
 	if(sens){
@@ -66,23 +66,22 @@ function sortTable(colonne, type, table){
 		cur_col = colonne;
 	}
 	
-	mybody = document.getElementById(table).getElementsByTagName('tbody')[0];
-	lignes = mybody.getElementsByTagName('tr');
+	var mybody = document.getElementById(table).getElementsByTagName('tbody')[0];
+	var lignes = mybody.getElementsByTagName('tr');
 	
 	var tamp = new Array();
 	var z = new Array();
 	var i=0;
 	z.length=0;
 	tamp.length=0;
-	
 	while(lignes[++i]){
-		if(type){
+		  if(type){
 			tamp.push([lignes[i],lignes[i].getElementsByTagName('td')[colonne].innerHTML]);
-		}else{
-			var date = new Date(lignes[i].getElementsByTagName('td')[colonne].innerHTML);
-			tamp.push([lignes[i],date]);
-			delete date;
-		}
+		  }else{
+			  var date = new Date(lignes[i].getElementsByTagName('td')[colonne].innerHTML);
+			  tamp.push([lignes[i],date.getTime()]);
+			  delete date;
+		  }
 	}
 	
 	tamp.sort(ordre);

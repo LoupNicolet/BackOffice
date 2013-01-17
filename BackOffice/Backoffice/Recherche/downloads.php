@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">-->
 <?php
 	date_default_timezone_set("Europe/Paris");
 	if (isset($_SESSION['login'])){
@@ -16,7 +16,7 @@
 			$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
 			
 			while($row = mysql_fetch_array($req)){
-				$time[$y] = date("Y/m/d - H:i:s",$row['timestamp']);
+				$time[$y] = date("Y/m/d  H:i:s",$row['timestamp']);// - H:i:s
 				$email[$y] = $row['mail'];
 				$number[$y] = $row['downloads'];
 				$logiciel[$y] = $row['Application'];
@@ -39,9 +39,9 @@
 	}
 	
 ?>
-<html>
+<!--<html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > -->
 		<script src= <?php echo $sc_JQuery; ?> ></script>
 		<script type='text/javascript' src= <?php echo $sc_tri; ?> ></script>
 		<script type='text/javascript'  src= <?php echo $sc_details; ?> ></script>
@@ -60,8 +60,8 @@
 				}
 			}
 		</script>
-	</head>
-	<body>
+	<!--</head>
+	<body>-->
 		<table>
 			<tr><h2 align="center">Telechargements</h2></tr>
 			<tr>
@@ -147,5 +147,5 @@
 				</td>
 			</tr>
 		</table>
-	</body>
-</html>
+	<!--</body>
+</html>-->

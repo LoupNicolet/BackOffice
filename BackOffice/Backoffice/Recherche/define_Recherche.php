@@ -5,6 +5,6 @@
 	$SQL_Cdw_pass = 'back';
 	
 	$Tab_customers = array('Customer_Name','Customer_LastName','Customer_FirstName','Customer_Email','Customer_Telephon','Customer_Mobile','Customer_Prospect');
-	$Tab_licences = array('','','Label','Licences','','Revoked','InstallKey');
+	$Tab_licences = array('','','','Label','Licences','','Revoked','InstallKey');
 	
 ?>

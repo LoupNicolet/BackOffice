@@ -29,6 +29,7 @@
 	
 	//licences.php
 	$fo_licences_licences = "./backoffice.php?action=licences";
+	$hr_licences_customers = "./backoffice.php?action=customers";
 
 	//addOpe.php
 	$fo_addOpe_addOpe = "./backoffice.php?action=operateurs&page=addOpe";

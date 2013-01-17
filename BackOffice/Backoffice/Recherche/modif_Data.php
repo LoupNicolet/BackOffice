@@ -24,7 +24,7 @@
 		$sql = 'UPDATE '.$_POST['id'].' SET '.$Tab_licences[$_POST['col']].'="'.$_POST["value"].'" WHERE ';
 		$first = true;
 		for($i=0;$i<count($Tab_licences);$i++){
-			if(($_POST['col'] != $i) && ($i != 0) && ($i != 1) && ($i != 4) && ($i != 5)){
+			if(($_POST['col'] != $i) && ($i != 0) && ($i != 1) && ($i != 2) && ($i != 5) && ($i != 6)){
 				if($first == false){
 					$sql = $sql." AND ";
 				}

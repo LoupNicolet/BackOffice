@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">-->
 <?php
 	if (isset($_SESSION['login'])) {
 		$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
@@ -31,9 +31,9 @@
 	}
 ?>
 
-<html>
+<!--<html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > -->
 		<script type='text/javascript' src= <?php echo $sc_tri; ?>></script>
 		<script>
 			function confirme(colonne, login, table)
@@ -46,8 +46,8 @@
 			  }
 			}
 		</script>
-	</head>
-	<body>
+	<!--</head>
+	<body>-->
 		<table>	
 			<tr>
 				<td><h2  align="center">Operateurs</h2></td>
@@ -134,5 +134,5 @@
 				</td>
 			</tr>
 		</table>
-	</body>
-</html>
+	<!--</body>
+</html>-->
