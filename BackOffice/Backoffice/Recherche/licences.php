@@ -2,82 +2,61 @@
 <?php
 	date_default_timezone_set("Europe/Paris");
 	if (isset($_SESSION['login'])){
-		if (isset($_POST['recherche'])){
-
+		//if (isset($_POST['recherche'])){
 			$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 			mysql_select_db ($SQL_Cdw_name, $base);
-		
-			$a=0;
-			$sql = 'SELECT ProductKey, max( KeyActivity_Date ) FROM keyactivityCA GROUP BY ProductKey';
+			
+			if (Test_Licences() || (isset($_POST['logiciel']) && ($_POST['logiciel'] != "tous"))){
+					$sql = recherche_licences();
+				}else{
+					/*$sql = 'SELECT C.Customer_ID AS ID,P.Product_Name AS Logiciel,max(K.KeyActivity_Date) AS Date,C.Customer_Name AS Client,Pk.Label AS Label,Pk.licences AS Licences,Pk.Revoked AS Etat,K.ProductKey AS Cle
+							FROM keyactivityCA AS K,productkey AS Pk,customers As C,products As P
+							WHERE K.ProductKey = Pk.InstallKey AND Pk.CustomerID = C.Customer_ID AND K.ProductID = P.Product_ID
+							GROUP BY K.ProductKey';
+				*/
+				$sql = 'SELECT C.Customer_ID AS ID,P.Product_Name AS Logiciel,max(K.KeyActivity_Date) AS Date,C.Customer_Name AS Client,Pk.Label AS Label,Pk.Licences AS Licences,Pk.Revoked AS Etat,Pk.InstallKey AS Cle
+						FROM productkey AS Pk
+						LEFT JOIN keyactivityca AS K ON Pk.InstallKey = K.ProductKey
+						LEFT JOIN products AS P ON Pk.ProductID = P.Product_ID
+						LEFT JOIN customers AS C ON Pk.CustomerID = C.Customer_ID
+						GROUP BY Pk.InstallKey';
+				}
 			$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+			$y=0;
 			while($row = mysql_fetch_array($req)){
-				$valKey[$a] = $row['ProductKey'];
-				$valDate[$a] = $row['max( KeyActivity_Date )'];
-				$a++;
+				$ID[$y] = $row['ID'];
+				$Logiciel[$y] = $row['Logiciel'];
+				$Date[$y] = $row['Date'];
+				$Client[$y] = $row['Client'];
+				$Label[$y] = $row['Label'];
+				$Licences[$y] = $row['Licences'];
+				$Etat[$y] = $row['Etat'];
+				$Cle[$y] = $row['Cle'];
+				$y++;
 			}
 			mysql_free_result($req);
-	
-			$y=0;
-			for($i=0;$i<$a;$i++){
-				if (Test_Licences() || (isset($_POST['logiciel']) && ($_POST['logiciel'] != "tous"))){
-					$sql = recherche_licences($valKey[$i],$valDate[$i]);
-				}else{
-					$sql = 'SELECT * FROM keyactivityCA WHERE ProductKey="'.$valKey[$i].'" AND KeyActivity_Date="'.$valDate[$i].'"';
-				}
-				$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
-				while($row = mysql_fetch_array($req)){
-					$key[$y] = $row['ProductKey'];
-					$productID[$y] = $row['ProductID'];
-					$number[$y] = $row['NumUsers'];
-					$time[$y] = date("Y/m/d H:i:s",$row['KeyActivity_Date']);// - H:i:s
-					$y++;
-				}
-				mysql_free_result($req);
-			}
-			$b=0;
 			for($i=0;$i<$y;$i++){
-				$productID[$i] = RequeteSQL_Select('Product_Name', 'products', 'Product_ID',$productID[$i],"","");
-				if($productID[$i][0] == "CloudMailMover"){
-					$productID[$i][0] = "CloudXFer";
+				$Utilisateurs[$i] = RequeteSQL_Select('NumUsers', 'keyactivityca', 'KeyActivity_Date',$Date[$i],"ProductKey",$Cle[$i]);
+				if($Date[$i] != null){
+					$Date[$i] = date("Y/m/d H:i:s",$Date[$i]);
 				}
-				$sql = 'SELECT Label,Licences,Revoked,CustomerID FROM productkey WHERE InstallKey="'.$key[$i].'"';
-				$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
-				/////////////////////////
-				$label[$i] = "";
-				$licences[$i] = "";
-				$revoked[$i] = "";
-				$customerID[$i] = "";
-				/////////////////////////////
-				while($row = mysql_fetch_array($req)){
-					$label[$i] = $row['Label'];
-					$licences[$i] = $row['Licences'];
-					$revoked[$i] = $row['Revoked'];
-					$customerID[$i] = $row['CustomerID'];
-					$b++;
-				}
-				mysql_free_result($req);
-				
-				$client[$i] = RequeteSQL_Select('Customer_Name', 'customers', 'Customer_ID',$customerID[$i],"","");
-				
-				if($licences[$i] < $number[$i]){
+				if($Licences[$i] < $Utilisateurs[$i][0]){
 					$depp[$i] = 1;
 				}else{
 					$depp[$i] = 0;
 				}
-				
-				if($revoked[$i] == 1){
-					$revoked[$i] = "Desactive";
-				}else if($revoked[$i] == 0){
-					$revoked[$i] = "Active";
+				if($Etat[$i] == 1){
+					$Etat[$i] = "Desactive";
+				}else if($Etat[$i] == 0){
+					$Etat[$i] = "Active";
 				}else{
-					$revoked[$i] = 'undefined';
+					$Etat[$i] = 'undefined';
 				}
-			}	
+			}
 			mysql_close();
-			
-		}else{
+		/*}else{
 			$y = 0;
-		}
+		}*/
 	}else{
 		require "../Add/define.php";
 		header ($he_deconnexion);
@@ -231,14 +210,14 @@
 							for ($i=0; $i<$y;$i++){
 								echo 
 								'<tr ';if($depp[$i]==1){ echo 'style="background-color:#FF6666;color:#FFFFFF;"';} echo '>
-									<td id="0'.($i+1).'" align="center">'.$productID[$i][0].'</td>
-									<td id="1'.($i+1).'" align="center">'.$time[$i].'</td>
-									<td id="2'.($i+1).'" align="center"><a href="'.$hr_licences_customers.'&id='.$customerID[$i].'">'.$client[$i][0].'</a></td>
-									<td id="3'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$customerID[$i].'\')" align="center">'.$label[$i].'</td>
-									<td id="4'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$customerID[$i].'\')" align="center">'.$licences[$i].'</td>
-									<td id="5'.($i+1).'" align="center">'.$number[$i].'</td>
-									<td id="6'.($i+1).'" onclick="clic(this,3,'.($i+1).',\''.$customerID[$i].'\')" align="center">'.$revoked[$i].'</td>
-									<td id="7'.($i+1).'" align="center">'.$key[$i].'</td>
+									<td id="0'.($i+1).'" align="center">'.$Logiciel[$i].'</td>
+									<td id="1'.($i+1).'" align="center">'.$Date[$i].'</td>
+									<td id="2'.($i+1).'" align="center"><a href="'.$hr_licences_customers.'&id='.$ID[$i].'">'.$Client[$i].'</a></td>
+									<td id="3'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$ID[$i].'\')" align="center">'.$Label[$i].'</td>
+									<td id="4'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$ID[$i].'\')" align="center">'.$Licences[$i].'</td>
+									<td id="5'.($i+1).'" align="center">'.$Utilisateurs[$i][0].'</td>
+									<td id="6'.($i+1).'" onclick="clic(this,3,'.($i+1).',\''.$ID[$i].'\')" align="center">'.$Etat[$i].'</td>
+									<td id="7'.($i+1).'" align="center">'.$Cle[$i].'</td>
 								</tr>';
 							}
 							echo '</table>';

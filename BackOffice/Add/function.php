@@ -25,14 +25,6 @@
 	///////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////
 	
-	/*function RequeteSQL_Insert($table, $val1, $val2, $val3){
-		$sql = 'INSERT INTO '.$table.' VALUES("", "'.$val1.'", "'.$val2.'", "'.$val3.'")';
-		mysql_query($sql) or die('Erreur SQL !'.$sql.'<br />'.mysql_error());
-	}*/
-	
-	///////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////
-	
 	function RequeteSQL_Update($table, $att1, $val1, $att2, $val2, $att3, $val3, $enrg1, $valEnrg1, $enrg2, $valEnrg2){
 		$sql = 'UPDATE '.$table.' SET '.$att1.'="'.$val1.'"';
 		if(!empty($att2)){
@@ -85,24 +77,79 @@
 	///////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////
 	
-	function recherche_licences($key,$date){
-		$prec = 1;
-		$sql = 'SELECT * FROM keyactivityCA WHERE ProductKey="'.$key.'" AND KeyActivity_Date="'.$date.'"';
+	function recherche_licences(){
+		$prec = 0;
+		/*$sql = 'SELECT 
 		
-		$ret = ajout_si_existe('key','ProductKey',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
-		
-		if($_POST['logiciel'] != 'tous'){
-			include 'define.php';
-			mysql_close();
-			$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
-			mysql_select_db ($SQL_Cdw_name, $base);
-			
-			$productID = RequeteSQL_Select('Product_ID', 'products', 'Product_Name',$_POST["logiciel"],"","");
-			
+				 C.Customer_ID AS ID,
+				 P.Product_Name AS Logiciel,
+				 max(K.KeyActivity_Date) AS Date,
+				 C.Customer_Name AS Client,
+				 Pk.Label AS Label,
+				 Pk.licences AS Licences,
+				 Pk.Revoked AS Etat,
+				 K.ProductKey AS Cle
+
+				 FROM 
+
+				 keyactivityCA AS K,
+				 productkey AS Pk,
+				 customers As C,
+				 products As P
+
+				 WHERE 
+
+				 K.ProductKey = Pk.InstallKey
+				 AND Pk.CustomerID = C.Customer_ID
+				 AND K.ProductID = P.Product_ID
+				 ';*/
+				
+		$sql = 'SELECT 
+				
+				C.Customer_ID AS ID,
+				P.Product_Name AS Logiciel,
+				max(K.KeyActivity_Date) AS Date,
+				C.Customer_Name AS Client,
+				Pk.Label AS Label,
+				Pk.Licences AS Licences,
+				Pk.Revoked AS Etat,
+				Pk.InstallKey AS Cle
+				
+				FROM
+
+				productkey AS Pk
+				
+				LEFT JOIN
+
+				keyactivityca AS K ON Pk.InstallKey = K.ProductKey
+						
+				LEFT JOIN 
+				
+				products AS P ON Pk.ProductID = P.Product_ID
+					
+				LEFT JOIN 
+				
+				customers AS C ON Pk.CustomerID = C.Customer_ID
+				
+				WHERE ';
+				
+				
+		if(!empty($_POST['key'])){
 			if($prec == 1){
 				$sql = $sql.' AND';
 			}
-			$sql = $sql.' ProductID="'.$productID[0].'"';$prec = 1;	
+			$sql = $sql.' K.ProductKey = "'.$_POST['key'].'"';
+			$prec == 1;
+		}
+		if($_POST['logiciel'] != 'tous'){
+			if($prec == 1){
+					$sql = $sql.' AND';
+				}
+			if($_POST['logiciel'] == "CloudXFer"){
+					$_POST['logiciel'] = "CloudMailMover";
+			}
+			$sql = $sql.' P.Product_Name = "'.$_POST['logiciel'].'"';
+			$prec = 1;
 		}
 		
 		if(!empty($_POST['number'])){
@@ -110,29 +157,31 @@
 				$sql = $sql.' AND';
 			}
 			if($_POST['operateur_nombre'] == 'sup'){
-				$sql = $sql.' NumUsers>="'.$_POST['number'].'"';$prec = 1;
+				$sql = $sql.' K.NumUsers>="'.$_POST['number'].'"';
 			}else if($_POST['operateur_nombre'] == 'inf'){
-				$sql = $sql.' NumUsers<="'.$_POST['number'].'"';$prec = 1;
+				$sql = $sql.' K.NumUsers<="'.$_POST['number'].'"';
 			}else{
-				$sql = $sql.' NumUsers="'.$_POST['number'].'"';$prec = 1;
+				$sql = $sql.' K.NumUsers="'.$_POST['number'].'"';
 			}
+			$prec = 1;
 		}
 		
 		if(!empty($_POST['time'])){
-			$_POST['time'] = strtotime($_POST['time']);
 			if($prec == 1){
 				$sql = $sql.' AND';
 			}
+			$_POST['time'] = strtotime($_POST['time']);
 			if($_POST['operateur_date'] == 'sup'){
-				$sql = $sql.' KeyActivity_Date>="'.$_POST['time'].'"';$prec = 1;
+				$sql = $sql.' K.KeyActivity_Date>="'.$_POST['time'].'"';
 			}else if($_POST['operateur_date'] == 'inf'){
-				$sql = $sql.' KeyActivity_Date<="'.($_POST['time']+3600*24).'"';$prec = 1;
+				$sql = $sql.' K.KeyActivity_Date<="'.($_POST['time']+3600*24).'"';
 			}else{
-				$sql = $sql.' KeyActivity_Date>="'.($_POST['time']).'" AND KeyActivity_Date<="'.($_POST['time']+3600*24).'"';$prec = 1;
+				$sql = $sql.' K.KeyActivity_Date>="'.($_POST['time']).'" AND K.KeyActivity_Date<="'.($_POST['time']+3600*24).'"';
 			}
 			$_POST['time'] = date("Y/m/d",$_POST['time']);
 		}
-		
+		//$sql = $sql.'GROUP BY K.ProductKey';
+		$sql = $sql.'GROUP BY Pk.InstallKey';
 		return $sql;
 	}
 	
