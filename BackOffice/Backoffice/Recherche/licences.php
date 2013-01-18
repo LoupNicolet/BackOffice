@@ -135,8 +135,6 @@
 									"id=productkey"
 									+"&value="+val
 									+"&col="+colonne
-									+"&Label="+document.getElementById(""+3+ligne).innerHTML
-									+"&Licences="+document.getElementById(""+4+ligne).innerHTML
 									+"&InstallKey="+document.getElementById(""+7+ligne).innerHTML
 								);
 			}
@@ -236,10 +234,10 @@
 									<td id="0'.($i+1).'" align="center">'.$productID[$i][0].'</td>
 									<td id="1'.($i+1).'" align="center">'.$time[$i].'</td>
 									<td id="2'.($i+1).'" align="center"><a href="'.$hr_licences_customers.'&id='.$customerID[$i].'">'.$client[$i][0].'</a></td>
-									<td id="3'.($i+1).'" onclick="clic(this,1,'.($i+1).')" align="center">'.$label[$i].'</td>
-									<td id="4'.($i+1).'" onclick="clic(this,1,'.($i+1).')" align="center">'.$licences[$i].'</td>
+									<td id="3'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$customerID[$i].'\')" align="center">'.$label[$i].'</td>
+									<td id="4'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$customerID[$i].'\')" align="center">'.$licences[$i].'</td>
 									<td id="5'.($i+1).'" align="center">'.$number[$i].'</td>
-									<td id="6'.($i+1).'" onclick="clic(this,3,'.($i+1).')" align="center">'.$revoked[$i].'</td>
+									<td id="6'.($i+1).'" onclick="clic(this,3,'.($i+1).',\''.$customerID[$i].'\')" align="center">'.$revoked[$i].'</td>
 									<td id="7'.($i+1).'" align="center">'.$key[$i].'</td>
 								</tr>';
 							}

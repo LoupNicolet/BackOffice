@@ -5,37 +5,9 @@
 	mysql_select_db ($SQL_Cdw_name, $base);
 	
 	if((isset($_POST['id'])) && ($_POST['id'] == "customers")){
-		$sql = 'UPDATE '.$_POST['id'].' SET '.$Tab_customers[$_POST['col']].'="'.$_POST["value"].'" WHERE ';
-		$first = true;
-		for($i=0;$i<(count($Tab_customers)-1);$i++){
-			if($_POST['col'] != $i){
-				if($first == false){
-					$sql = $sql." AND ";
-				}
-				$first = false;
-				if($_POST[$Tab_customers[$i]] != null){
-					$sql = $sql.$Tab_customers[$i].'="'.$_POST[$Tab_customers[$i]].'"';
-				}else{
-					$sql = $sql.$Tab_customers[$i].' IS NULL';
-				}
-			}
-		}	
+		$sql = 'UPDATE '.$_POST['id'].' SET '.$Tab_customers[$_POST['col']].'="'.$_POST["value"].'" WHERE Customer_ID="'.$_POST["idc"].'"';
 	}else if((isset($_POST['id'])) && ($_POST['id'] == "productkey")){
-		$sql = 'UPDATE '.$_POST['id'].' SET '.$Tab_licences[$_POST['col']].'="'.$_POST["value"].'" WHERE ';
-		$first = true;
-		for($i=0;$i<count($Tab_licences);$i++){
-			if(($_POST['col'] != $i) && ($i != 0) && ($i != 1) && ($i != 2) && ($i != 5) && ($i != 6)){
-				if($first == false){
-					$sql = $sql." AND ";
-				}
-				$first = false;
-				if($_POST[$Tab_licences[$i]] != null){
-					$sql = $sql.$Tab_licences[$i].'="'.$_POST[$Tab_licences[$i]].'"';
-				}else{
-					$sql = $sql.$Tab_licences[$i].' IS NULL';
-				}
-			}
-		}	
+		$sql = 'UPDATE '.$_POST['id'].' SET '.$Tab_licences[$_POST['col']].'="'.$_POST["value"].'" WHERE InstallKey="'.$_POST["InstallKey"].'"';
 	}
 	$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
 	if($req){

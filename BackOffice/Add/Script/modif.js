@@ -4,14 +4,16 @@ var savtd = "";
 var colonne = "";
 var ligne = "";
 var valType = "";
+var id = "";
 
-function clic(td,type,row)
+function clic(td,type,row,idc)
 {	
+	id = idc;
 	valType = type;
 	if(debut == 1){
 		colonne = td.cellIndex
 		ligne = row;
-		valeur = document.getElementById(""+colonne+ligne).innerHTML;					
+		valeur = document.getElementById(""+colonne+ligne).innerHTML;
 		savtd = td;
 		if(valType==1){
 			td.innerHTML='<input id="tfCase" type="text" onkeyup="verif(this,3)" name="case" value=""><input type="button" onclick="valider(this)" name="RcaseV" value="Modifier"><input type="button" onclick="annuler(this)" name="RcaseF" value="Annuler">';
