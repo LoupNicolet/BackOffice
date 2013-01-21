@@ -1,11 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <?php
-
 	require 'Add/define.php';
 	require 'Add/function.php';
-	
 	session_start();
-	
 	if (isset($_SESSION['login'])) {
 
 		$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
@@ -21,7 +18,6 @@
 		else{
 			header($he_deconnexion_err);
 		}
-
 		$data = RequeteSQL_Select('lastName_operator', 'operator', 'login_operator', mysql_real_escape_string($_SESSION['login']),"","");
 		$_SESSION['lastName'] = $data[0];
 		$data = RequeteSQL_Select('firstName_operator', 'operator', 'login_operator', mysql_real_escape_string($_SESSION['login']),"","");
@@ -39,7 +35,6 @@
 		<title>BackOffice</title>
 		<link rel="stylesheet" type="text/css" href="Add/css.css">
 	</head>
-
 	<body>
 		<table border=6>
 			<tr>

@@ -1,11 +1,15 @@
-var sens = false;
+var sens = true;
 var cur_col = -1;
 			
 function dASC(a, b){
+	if(isNaN(a[1])){a[1] = 0;}
+	if(isNaN(b[1])){b[1] = 0;}
 	return(a[1] - b[1]);
 }
 
 function dDESC(a, b){
+	if(isNaN(a[1])){a[1] = 0;}
+	if(isNaN(b[1])){b[1] = 0;}
 	return(b[1] - a[1]);
 }
 
@@ -16,13 +20,9 @@ function ASC(a, b){
 	var c2 = replaceSpec(b[1]);
 
 	if (isNaN(x) || isNaN(y)){
-		if (c1 > c2){
-			return 1;
-		} else if(c1 < c2){
-			return -1;
-		} else {
-			return 0;
-		}
+		if (c1 > c2){return 1;}
+		else if(c1 < c2){return -1;}
+		else {return 0;}
 	} else {
 		return(a[1] - b[1]);
 	}
@@ -33,25 +33,18 @@ function DESC(a, b){
 	var	y = parseInt(b[1], 10);
 	var	c1 = replaceSpec(a[1]);
 	var	c2 = replaceSpec(b[1]);
-
 	if (isNaN(x) || isNaN(y)){
-		if (c1 > c2){
-			return -1;
-		} else if(c1 < c2){
-			return 1;
-		} else {
-			return 0;
-		}
+		if (c1 > c2){return -1;} 
+		else if(c1 < c2){return 1;}
+		else {return 0;}
 	} else {
 		return(b[1] - a[1]);
 	}
 }
 
-
- 
 function sortTable(colonne, type, table){
 	var ordre;
-	if(cur_col != colonne){sens = false;}
+	if(cur_col != colonne){sens = !type;}
 	
 	if(sens){
 		if(type){ordre = DESC;}
@@ -85,7 +78,6 @@ function sortTable(colonne, type, table){
 	}
 	
 	tamp.sort(ordre);
-	
 	var j=0;
 	while(tamp[++j]){
 		mybody.appendChild(tamp[j][0]);

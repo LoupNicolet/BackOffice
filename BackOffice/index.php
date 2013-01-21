@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-   <?php
+<?php
 	require 'Add/define.php';
 	require 'Add/function.php';
 	date_default_timezone_set("Europe/Paris");
@@ -38,7 +38,6 @@
 		<title>Accueil</title>
 		<link rel="stylesheet" type="text/css" href="Add/css.css">
 	</head>
-	
 	<body>
 		<table border="6">
 			<tr>

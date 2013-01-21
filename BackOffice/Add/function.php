@@ -1,5 +1,6 @@
 <?php
 	date_default_timezone_set("Europe/Paris");
+	
 	//Recheche des enregistrements pour une table et plusieurs arguments
 	function RequeteSQL_Select($recherche, $table, $enrg1, $valEnrg1, $enrg2, $valEnrg2){
 		$sql = 'SELECT ';
@@ -28,7 +29,7 @@
 	function RequeteSQL_Update($table, $att1, $val1, $att2, $val2, $att3, $val3, $enrg1, $valEnrg1, $enrg2, $valEnrg2){
 		$sql = 'UPDATE '.$table.' SET '.$att1.'="'.$val1.'"';
 		if(!empty($att2)){
-			$sql = $sql.', '.$att2.'="'.$val2.'"';
+			$sql = $sql.', '.$att2.'="'.$val2.'"'; 
 		}
 		if(!empty($att3)){
 			$sql = $sql.', '.$att3.'="'.$val3.'"';
@@ -43,7 +44,7 @@
 	///////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////
 	
-	//verifie si la valeur est renseigné et l'ajoute à la requete SQL
+	//verifie si la valeur est renseigné et l'ajoute à la requete SQL (avec opérateur LIKE)
 	function ajout_si_existe_like($value,$table,$sql,$prec){
 		if(!empty($_POST[$value])){
 			if($prec == 1){
@@ -60,7 +61,7 @@
 	///////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////
 	
-	//verifie si la valeur est renseigné et l'ajoute à la requete SQL
+	//verifie si la valeur est renseigné et l'ajoute à la requete SQL (avec opérateur =)
 	function ajout_si_existe($value,$table,$sql,$prec){
 		if(!empty($_POST[$value])){
 			if($prec == 1){
@@ -79,68 +80,48 @@
 	
 	function recherche_licences(){
 		$prec = 0;
-		/*$sql = 'SELECT 
-		
-				 C.Customer_ID AS ID,
-				 P.Product_Name AS Logiciel,
-				 max(K.KeyActivity_Date) AS Date,
-				 C.Customer_Name AS Client,
-				 Pk.Label AS Label,
-				 Pk.licences AS Licences,
-				 Pk.Revoked AS Etat,
-				 K.ProductKey AS Cle
-
-				 FROM 
-
-				 keyactivityCA AS K,
-				 productkey AS Pk,
-				 customers As C,
-				 products As P
-
-				 WHERE 
-
-				 K.ProductKey = Pk.InstallKey
-				 AND Pk.CustomerID = C.Customer_ID
-				 AND K.ProductID = P.Product_ID
-				 ';*/
-				
 		$sql = 'SELECT 
-				
-				C.Customer_ID AS ID,
-				P.Product_Name AS Logiciel,
-				max(K.KeyActivity_Date) AS Date,
-				C.Customer_Name AS Client,
-				Pk.Label AS Label,
-				Pk.Licences AS Licences,
-				Pk.Revoked AS Etat,
-				Pk.InstallKey AS Cle
-				
+					C.Customer_ID AS ID,
+					P.Product_Name AS Logiciel,
+					max(K.KeyActivity_Date) AS Date,
+					Ku.InitialisationDate AS Date2,
+					C.Customer_Name AS Client,
+					Pk.Label AS Label,
+					Pk.Licences AS Licences,
+					Pk.Revoked AS Etat,
+					Pk.InstallKey AS Cle	
 				FROM
-
-				productkey AS Pk
-				
-				LEFT JOIN
-
-				keyactivityca AS K ON Pk.InstallKey = K.ProductKey
-						
-				LEFT JOIN 
-				
-				products AS P ON Pk.ProductID = P.Product_ID
-					
-				LEFT JOIN 
-				
-				customers AS C ON Pk.CustomerID = C.Customer_ID
-				
+					productkey AS Pk
+					LEFT JOIN keyactivityca AS K ON Pk.InstallKey = K.ProductKey
+					LEFT JOIN products AS P ON Pk.ProductID = P.Product_ID
+					LEFT JOIN customers AS C ON Pk.CustomerID = C.Customer_ID
+					LEFT JOIN keyusage AS Ku ON Pk.RowID = Ku.KeyRowID
 				WHERE ';
+		
+		if(!empty($_POST['label'])){
+			if($prec == 1){
+				$sql = $sql.' AND';
+			}
+			$sql = $sql.' Pk.Label LIKE "%'.$_POST['label'].'%"';
+			$prec = 1;
+		}
 				
+		if(!empty($_POST['client'])){
+			if($prec == 1){
+				$sql = $sql.' AND';
+			}
+			$sql = $sql.' C.Customer_Name LIKE "%'.$_POST['client'].'%"';
+			$prec = 1;
+		}
 				
 		if(!empty($_POST['key'])){
 			if($prec == 1){
 				$sql = $sql.' AND';
 			}
 			$sql = $sql.' K.ProductKey = "'.$_POST['key'].'"';
-			$prec == 1;
+			$prec = 1;
 		}
+		
 		if($_POST['logiciel'] != 'tous'){
 			if($prec == 1){
 					$sql = $sql.' AND';
@@ -149,6 +130,32 @@
 					$_POST['logiciel'] = "CloudMailMover";
 			}
 			$sql = $sql.' P.Product_Name = "'.$_POST['logiciel'].'"';
+			$prec = 1;
+		}
+		
+		if($_POST['etat'] != 'Indifferent'){
+			if($prec == 1){
+					$sql = $sql.' AND';
+				}
+			if($_POST['etat'] == "Active"){
+				$etat = "0";
+			}else{
+				$etat = "1";
+			}
+			$sql = $sql.' Pk.Revoked = "'.$etat.'"';
+			$prec = 1;
+		}
+		
+		if($_POST['type'] != 'Indifferent'){
+			if($prec == 1){
+					$sql = $sql.' AND';
+				}
+			if($_POST['type'] == "Client"){
+				$type = "0";
+			}else{
+				$type = "1";
+			}
+			$sql = $sql.' C.Customer_Prospect = "'.$type.'"';
 			$prec = 1;
 		}
 		
@@ -166,21 +173,48 @@
 			$prec = 1;
 		}
 		
-		if(!empty($_POST['time'])){
+		if(!empty($_POST['numberL'])){
 			if($prec == 1){
 				$sql = $sql.' AND';
 			}
-			$_POST['time'] = strtotime($_POST['time']);
-			if($_POST['operateur_date'] == 'sup'){
-				$sql = $sql.' K.KeyActivity_Date>="'.$_POST['time'].'"';
-			}else if($_POST['operateur_date'] == 'inf'){
-				$sql = $sql.' K.KeyActivity_Date<="'.($_POST['time']+3600*24).'"';
+			if($_POST['operateur_nombreL'] == 'sup'){
+				$sql = $sql.' Pk.Licences>="'.$_POST['numberL'].'"';
+			}else if($_POST['operateur_nombreL'] == 'inf'){
+				$sql = $sql.' Pk.Licences<="'.$_POST['numberL'].'"';
 			}else{
-				$sql = $sql.' K.KeyActivity_Date>="'.($_POST['time']).'" AND K.KeyActivity_Date<="'.($_POST['time']+3600*24).'"';
+				$sql = $sql.' Pk.Licences="'.$_POST['numberL'].'"';
 			}
-			$_POST['time'] = date("Y/m/d",$_POST['time']);
+			$prec = 1;
 		}
-		//$sql = $sql.'GROUP BY K.ProductKey';
+		
+		if(!empty($_POST['date1'])){
+			if($prec == 1){
+				$sql = $sql.' AND';
+			}
+			$_POST['date1'] = strtotime($_POST['date1']);
+			if($_POST['operateur_date1'] == 'sup'){
+				$sql = $sql.' Ku.InitialisationDate>="'.$_POST['date1'].'"';$prec = 1;
+			}else if($_POST['operateur_date1'] == 'inf'){
+				$sql = $sql.' Ku.InitialisationDate<="'.($_POST['date1']+3600*24).'"';$prec = 1;
+			}else{
+				$sql = $sql.' Ku.InitialisationDate>="'.($_POST['date1']).'" AND Ku.InitialisationDate<="'.($_POST['date1']+3600*24).'"';$prec = 1;
+			}
+			$_POST['date1'] = date("Y/m/d",$_POST['date1']);
+		}
+		if(!empty($_POST['date2'])){
+			if($prec == 1){
+				$sql = $sql.' AND';
+			}
+			$_POST['date2'] = strtotime($_POST['date2']);
+			if($_POST['operateur_date2'] == 'sup'){
+				$sql = $sql.' K.KeyActivity_Date>="'.$_POST['date2'].'"';$prec = 1;
+			}else if($_POST['operateur_date2'] == 'inf'){
+				$sql = $sql.' K.KeyActivity_Date<="'.($_POST['date2']+3600*24).'"';$prec = 1;
+			}else{
+				$sql = $sql.' K.KeyActivity_Date>="'.($_POST['date2']).'" AND K.KeyActivity_Date<="'.($_POST['date2']+3600*24).'"';$prec = 1;
+			}
+			$_POST['date2'] = date("Y/m/d",$_POST['date2']);
+		}
 		$sql = $sql.'GROUP BY Pk.InstallKey';
 		return $sql;
 	}
@@ -194,7 +228,19 @@
 		$sql = 'SELECT '.$champ.' FROM downloadkey WHERE';
 		
 		$ret = ajout_si_existe_like('email','mail',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
-		$ret = ajout_si_existe('number','downloads',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
+		
+		//$ret = ajout_si_existe('number','downloads',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
+		
+		if($_POST['number'] != 'Tous'){
+			if($prec == 1){
+				$sql = $sql.' AND';
+			}
+			if($_POST['number'] == 'Non-Telecharge'){
+				$sql = $sql.' downloads="0"';$prec = 1;
+			}else if($_POST['number'] == 'Telecharge'){
+				$sql = $sql.' downloads="1" OR downloads="2"';$prec = 1;
+			}
+		}
 		
 		if($_POST['logiciel'] != 'tous'){
 			if(!empty($_POST['logiciel'])){
@@ -326,9 +372,13 @@
 	
 	//Test si des champs product sont remplit
 	function Test_Licences(){
-		if ((isset($_POST['time']) 	&& !empty($_POST['time']))
-		|| (isset($_POST['key']) 		&& !empty($_POST['key']))  
-		|| (isset($_POST['number']) 	&& (!empty($_POST['number'])))
+		if ((isset($_POST['date1']) 	&& !empty($_POST['date1']))
+		|| (isset($_POST['date2']) 		&& !empty($_POST['date2']))
+		|| (isset($_POST['key']) 		&& !empty($_POST['key']))
+		|| (isset($_POST['client']) 	&& !empty($_POST['client'])) 
+		|| (isset($_POST['label']) 		&& !empty($_POST['label']))
+		|| (isset($_POST['numberL']) 	&& !empty($_POST['numberL']))		
+		|| (isset($_POST['number']) 	&& !empty($_POST['number']))
 		){
 			return true;
 		}else{
@@ -341,10 +391,9 @@
 	
 	//Test si des champs Downloads sont remplit
 	function Test_Downloads(){
-		if ((isset($_POST['time']) 	&& !empty($_POST['time']))
+		if ((isset($_POST['time']) 		&& !empty($_POST['time']))
 		|| (isset($_POST['email']) 		&& !empty($_POST['email'])) 
-		|| (isset($_POST['downloads']) 	&& !empty($_POST['downloads'])) 
-		|| (isset($_POST['number']) 	&& !empty($_POST['number'])) 
+		|| (isset($_POST['downloads']) 	&& !empty($_POST['downloads']))  
 		){
 			return true;
 		}else{

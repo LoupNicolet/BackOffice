@@ -1,4 +1,3 @@
-<!--<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">-->
 <?php
 	if (isset($_SESSION['login'])){
 	
@@ -14,7 +13,6 @@
 		}
 		mysql_free_result($req);
 		
-		// on teste si le visiteur a soumis le formulaire
 		if (isset($_POST['valider']) && $_POST['valider'] == 'Valider') {
 			if ((isset($_POST['nom']) && !empty($_POST['nom'])) || (isset($_POST['prenom']) && !empty($_POST['prenom'])) || (isset($_POST['email']) && !empty($_POST['email']))) {
 				
@@ -32,7 +30,6 @@
 					$nEmail = $_POST['email'];
 				}
 				
-				//On modifie dans la base
 				RequeteSQL_Update('operator', 'email_operator', $nEmail, 'firstName_operator', $nPrenom, 'lastName_operator', $nNom, 'login_operator', $_GET['log'],"","");
 				$erreur = 'Changement effectué.';
 							
@@ -47,76 +44,67 @@
 			}
 			else {$erreur = 'Veulliez remplir au moins un champs.';}
 		}
-	
 		mysql_close();
 	}else{
 		require "../Add/define.php";
 		header ($he_deconnexion);
 		exit();
-	}
+	}type='text/javascript'
 ?>
-
-<!--<html id="chprofil">
-	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > -->
-		<script src= <?php echo $sc_JQuery; ?> ></script>
-		<script src= <?php echo $sc_JQuery_Color; ?>></script>
-		<script src= <?php echo $sc_verif; ?>></script>
-		<script>
-			function valide()
-			{
-				var email=document.forms["formVal"]["email"];
-				if ( ( email.value.indexOf("@") == -1 )
-					|| ( email.value.indexOf("@") == 0 )
-					|| ( email.value.indexOf("@") != email.value.lastIndexOf("@") ) 
-					|| ( email.value.indexOf(".") == email.value.indexOf("@")-1 ) 
-					|| ( email.value.indexOf(".") == email.value.indexOf("@") +1 ) 
-					|| (email.value.indexOf("@") == email.value.length -1 ) 
-					|| (email.value.indexOf (".") == -1) 
-					|| ( email.value.lastIndexOf (".") == email.value.length -1 ) 
-					|| (email.value.indexOf (" ") != -1) 
-					|| ((email.value.indexOf(".") == email.value.lastIndexOf(".")) && (email.value.lastIndexOf(".") < email.value.indexOf("@")))
-					)
-				{
-					document.getElementById("erreur").innerHTML="Mauvais format d'Email";
-					return false;
-				}
-			}
-		</script>
-	<!--</head>
-	<body>-->
-		<table border="6">
-			<td>
-				<table>
-					<tr><td colspan="4" align="center"><h3>Profil de <?php echo $_GET['log']; ?> :</h3></td></tr>
-					<tr><td id="erreur" colspan="3" align="center"><?php if(isset($erreur)) echo $erreur; ?></td></tr>
-					<form name="formVal" onsubmit="return valide()" action= <?php echo $fo_chOpe_chOpe.$_GET['log']; ?> method="post" >
-						<tr>
-							<td></td>
-							<td align="center"><b>Informations :</b></td>
-							<td><b>Modifier :</b></td>
-						</tr>
-						<tr>
-							<td align="right">Nom :</td>
-							<td align="center"><?php echo $nom_ope; ?></td>
-							<td><input onkeyup="verif(this,3)" type="text" name="nom" value=""></td>
-						</tr>
-						<tr>
-							<td align="right">Prenom :</td>
-							<td align="center"><?php echo $prenom_ope; ?></td>
-							<td><input onkeyup="verif(this,3)" type="text" name="prenom" value=""></td>
-						</tr>
-						<tr>
-							<td align="right">Email :</td>
-							<td align="center"><?php echo $email_ope; ?></td>
-							<td><input onkeyup="verif(this,4)" type="text" name="email" value=""></td>
-						</tr>
-						<tr>
-						<td colspan="4" align="center"><input class="button" type="submit" name="valider" value="Valider"></td>
-						</tr>
-					</form>	
-				</table>
-			</td>
+<script type='text/javascript' src= <?php echo $sc_JQuery; ?> ></script>
+<script type='text/javascript' src= <?php echo $sc_JQuery_Color; ?>></script>
+<script type='text/javascript' src= <?php echo $sc_verif; ?>></script>
+<script type='text/javascript'>
+	function valide()
+	{
+		var email=document.forms["formVal"]["email"];
+		if ( ( email.value.indexOf("@") == -1 )
+			|| ( email.value.indexOf("@") == 0 )
+			|| ( email.value.indexOf("@") != email.value.lastIndexOf("@") ) 
+			|| ( email.value.indexOf(".") == email.value.indexOf("@")-1 ) 
+			|| ( email.value.indexOf(".") == email.value.indexOf("@") +1 ) 
+			|| (email.value.indexOf("@") == email.value.length -1 ) 
+			|| (email.value.indexOf (".") == -1) 
+			|| ( email.value.lastIndexOf (".") == email.value.length -1 ) 
+			|| (email.value.indexOf (" ") != -1) 
+			|| ((email.value.indexOf(".") == email.value.lastIndexOf(".")) && (email.value.lastIndexOf(".") < email.value.indexOf("@")))
+			)
+		{
+			document.getElementById("erreur").innerHTML="Mauvais format d'Email";
+			return false;
+		}
+	}
+</script>
+<table border="6">
+	<td>
+		<table>
+			<tr><td colspan="4" align="center"><h3>Profil de <?php echo $_GET['log']; ?> :</h3></td></tr>
+			<tr><td id="erreur" colspan="3" align="center"><?php if(isset($erreur)) echo $erreur; ?></td></tr>
+			<form name="formVal" onsubmit="return valide()" action= <?php echo $fo_chOpe_chOpe.$_GET['log']; ?> method="post" >
+				<tr>
+					<td></td>
+					<td align="center"><b>Informations :</b></td>
+					<td><b>Modifier :</b></td>
+				</tr>
+				<tr>
+					<td align="right">Nom :</td>
+					<td align="center"><?php echo $nom_ope; ?></td>
+					<td><input onkeyup="verif(this,3)" type="text" name="nom" value=""></td>
+				</tr>
+				<tr>
+					<td align="right">Prenom :</td>
+					<td align="center"><?php echo $prenom_ope; ?></td>
+					<td><input onkeyup="verif(this,3)" type="text" name="prenom" value=""></td>
+				</tr>
+				<tr>
+					<td align="right">Email :</td>
+					<td align="center"><?php echo $email_ope; ?></td>
+					<td><input onkeyup="verif(this,4)" type="text" name="email" value=""></td>
+				</tr>
+				<tr>
+				<td colspan="4" align="center"><input class="button" type="submit" name="valider" value="Valider"></td>
+				</tr>
+			</form>	
 		</table>
-	<!--</body>
-</html>-->
+	</td>
+</table>

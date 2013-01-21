@@ -56,39 +56,39 @@ function valide_Case()
 }
 		
 function valider(button){
-		if(valide_Case()){
-			var rep=confirm("Modifier "+valeur+" en "+document.getElementById("tfCase").value+" ?");
-			if(rep){
-				var xmlhttp;
-				xmlhttp=new XMLHttpRequest();
-				xmlhttp.onreadystatechange=function()
-				 {
-					  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-					  {
-						var reponse = xmlhttp.responseText;
-						if(valType==2){
-							if(reponse == "1"){
-								reponse = "Prospect";
-							}else{
-								reponse = "Client";
-							}
-						}else if(valType==3){
-							if(reponse == "1"){
-								reponse = "Desactive";
-							}else{
-								reponse = "Active";
-							}
-						}
-						savtd.innerHTML = reponse;
-						debut = 2;
-					  }
-				 }
-				xmlhttp.open("POST","./Backoffice/Recherche/modif_Data.php",true);
-				xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-				requete(xmlhttp);
-			}else{
-				savtd.innerHTML = valeur;
+	if(valide_Case()){
+		var rep=confirm("Modifier "+valeur+" en "+document.getElementById("tfCase").value+" ?");
+		if(rep){
+			var xmlhttp;
+			xmlhttp=new XMLHttpRequest();
+			xmlhttp.onreadystatechange=function()
+			{
+			  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			  {
+				var reponse = xmlhttp.responseText;
+				if(valType==2){
+					if(reponse == "1"){
+						reponse = "Prospect";
+					}else{
+						reponse = "Client";
+					}
+				}else if(valType==3){
+					if(reponse == "1"){
+						reponse = "Desactive";
+					}else{
+						reponse = "Active";
+					}
+				}
+				savtd.innerHTML = reponse;
 				debut = 2;
+			  }
 			}
+			xmlhttp.open("POST","./Backoffice/Recherche/modif_Data.php",true);
+			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			requete(xmlhttp);
+		}else{
+			savtd.innerHTML = valeur;
+			debut = 2;
 		}
+	}
 }
