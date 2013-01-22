@@ -6,7 +6,7 @@
 		$sql = 'SELECT login_operator,email_operator,firstName_operator,lastName_operator,type_operator FROM operator';
 			
 		$y = 0;
-		$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+		$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
 		while($row = mysql_fetch_array($req)){
 			$login[$y] = $row['login_operator'];
 			$type[$y] = $row['type_operator'];
@@ -60,8 +60,8 @@
 					else if($_GET['page'] == 'supOpe'){
 						$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 						mysql_select_db ($SQL_Cdw_name, $base);
-						echo $sql = 'DELETE FROM operator WHERE login_operator="'.$_GET["log"].'"';
-						$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+						echo $sql = 'DELETE FROM operator WHERE login_operator="'.mysql_real_escape_string($_GET["log"]).'"';
+						$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
 						mysql_close();
 						header($he_operateur_operateur);
 					}

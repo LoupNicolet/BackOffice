@@ -4,8 +4,8 @@
 		$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 		mysql_select_db ($SQL_Cdw_name, $base);	
 			
-		$sql = 'SELECT email_operator,firstName_operator,lastName_operator FROM operator WHERE login_operator="'.$_SESSION['login'].'"';
-		$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+		$sql = 'SELECT email_operator,firstName_operator,lastName_operator FROM operator WHERE login_operator="'.mysql_real_escape_string($_SESSION['login']).'"';
+		$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
 		while($row = mysql_fetch_array($req)){
 			$email = $row['email_operator'];
 			$prenom = $row['firstName_operator'];
@@ -30,11 +30,11 @@
 					$nEmail = $_POST['email'];
 				}
 				
-				RequeteSQL_Update('operator', 'email_operator', $nEmail, 'firstName_operator', $nPrenom, 'lastName_operator', $nNom, 'login_operator', $_SESSION['login'],"","");
+				RequeteSQL_Update('operator', 'email_operator', mysql_real_escape_string($nEmail), 'firstName_operator', mysql_real_escape_string($nPrenom), 'lastName_operator', mysql_real_escape_string($nNom), 'login_operator', mysql_real_escape_string($_SESSION['login']),"","");
 				$erreur = 'Changement effectué.';
 							
-				$sql = 'SELECT email_operator,firstName_operator,lastName_operator FROM operator WHERE login_operator="'.$_SESSION['login'].'"';
-				$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+				$sql = 'SELECT email_operator,firstName_operator,lastName_operator FROM operator WHERE login_operator="'.mysql_real_escape_string($_SESSION['login']).'"';
+				$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
 				while($row = mysql_fetch_array($req)){
 					$email = $row['email_operator'];
 					$prenom = $row['firstName_operator'];

@@ -9,13 +9,13 @@
 			}else{
 				$sql = 'SELECT C.Customer_ID AS ID,P.Product_Name AS Logiciel,max(K.KeyActivity_Date) AS Date, Ku.InitialisationDate AS Date2,C.Customer_Name AS Client,Pk.Label AS Label,Pk.Licences AS Licences,Pk.Revoked AS Etat,Pk.InstallKey AS Cle
 						FROM productkey AS Pk
-						LEFT JOIN keyactivityca AS K ON Pk.InstallKey = K.ProductKey
+						LEFT JOIN keyactivityCA AS K ON Pk.InstallKey = K.ProductKey
 						LEFT JOIN products AS P ON Pk.ProductID = P.Product_ID
 						LEFT JOIN customers AS C ON Pk.CustomerID = C.Customer_ID
 						LEFT JOIN keyusage AS Ku ON Pk.RowID = Ku.KeyRowID
 						GROUP BY Pk.InstallKey';
 			}
-		$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+		$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
 		$y=0;
 		while($row = mysql_fetch_array($req)){
 			$ID[$y] = $row['ID'];
@@ -31,7 +31,7 @@
 		}
 		mysql_free_result($req);
 		for($i=0;$i<$y;$i++){
-			$Utilisateurs[$i] = RequeteSQL_Select('NumUsers', 'keyactivityca', 'KeyActivity_Date',$Date[$i],"ProductKey",$Cle[$i]);
+			$Utilisateurs[$i] = RequeteSQL_Select('NumUsers', 'keyactivityCA', 'KeyActivity_Date',mysql_real_escape_string($Date[$i]),"ProductKey",mysql_real_escape_string($Cle[$i]));
 			if($Date[$i] != null){
 				$Date[$i] = date("Y/m/d H:i:s",$Date[$i]);
 			}
@@ -175,7 +175,7 @@
 									$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 									mysql_select_db ($SQL_Cdw_name, $base);
 									$sql = 'SELECT Product_Name FROM products';
-									$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+									$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
 									?><input <?php if(!isset($_POST['logiciel']) || ($_POST['logiciel'] == 'tous')){echo 'checked="checked"';}?> type="radio" name="logiciel" value="tous">Tous<br><?php
 									while($row = mysql_fetch_array($req)){
 										if(($row['Product_Name'] != "S2GS")&&($row['Product_Name'] != "Mig6")){
@@ -241,7 +241,7 @@
 							<td id="0'.($i+1).'" align="center">'.$Logiciel[$i].'</td>
 							<td id="1'.($i+1).'" align="center">'.$Date2[$i].'</td>
 							<td id="2'.($i+1).'" align="center">'.$Date[$i].'</td>
-							<td id="3'.($i+1).'" align="center"><a href="'.$hr_licences_customers.'&tri='.$Client[$i].'&id='.$ID[$i].'">'.$Client[$i].'</a></td>
+							<td id="3'.($i+1).'" align="center"><a target="_blank" href="'.$hr_licences_customers.'&tri='.$Client[$i].'&id='.$ID[$i].'">'.$Client[$i].'</a></td>
 							<td id="4'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$ID[$i].'\')" align="center">'.$Label[$i].'</td>
 							<td id="5'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$ID[$i].'\')" align="center">'.$Licences[$i].'</td>
 							<td id="6'.($i+1).'" align="center">'.$Utilisateurs[$i][0].'</td>

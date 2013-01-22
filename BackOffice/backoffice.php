@@ -54,6 +54,7 @@
 			</tr>
 			<tr>
 				<td id="pages">
+					
 					<?php 	
 						if(isset($_GET['action'])){
 							if($_GET['action'] == 'customers'){include($in_backoffice_customers);}

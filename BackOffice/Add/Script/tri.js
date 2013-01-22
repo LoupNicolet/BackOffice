@@ -2,6 +2,7 @@ var sens = true;
 var cur_col = -1;
 			
 function dASC(a, b){
+
 	if(isNaN(a[1])){a[1] = 0;}
 	if(isNaN(b[1])){b[1] = 0;}
 	return(a[1] - b[1]);
@@ -13,12 +14,27 @@ function dDESC(a, b){
 	return(b[1] - a[1]);
 }
 
+function nASC(a, b){
+	var c1 = replaceSpec(a[1]);
+	var c2 = replaceSpec(b[1]);
+	if (c1 > c2){return 1;}
+	else if(c1 < c2){return -1;}
+	else {return 0;}
+}
+
+function nDESC(a, b){
+	var	c1 = replaceSpec(a[1]);
+	var	c2 = replaceSpec(b[1]);
+	if (c1 > c2){return -1;} 
+	else if(c1 < c2){return 1;}
+	else {return 0;}
+}
+
 function ASC(a, b){
 	var x = parseInt(a[1], 10);
 	var y = parseInt(b[1], 10);
 	var c1 = replaceSpec(a[1]);
 	var c2 = replaceSpec(b[1]);
-
 	if (isNaN(x) || isNaN(y)){
 		if (c1 > c2){return 1;}
 		else if(c1 < c2){return -1;}
@@ -47,13 +63,13 @@ function sortTable(colonne, type, table){
 	if(cur_col != colonne){sens = !type;}
 	
 	if(sens){
-		if(type){ordre = DESC;}
+		if(type){if(table == "customersTable" && (colonne == 4 || colonne == 5)){ordre = nDESC;}else{ordre = DESC;}}
 		else{ordre = dDESC;}
 		sens = false;
 		cur_col = colonne;
 	}
 	else{
-		if(type){ordre = ASC;}
+		if(type){if(table == "customersTable" && colonne == 4 || colonne == 5){ordre = nASC;}else{ordre = ASC;}}
 		else{ordre = dASC;}
 		sens = true;
 		cur_col = colonne;
@@ -69,7 +85,7 @@ function sortTable(colonne, type, table){
 	tamp.length=0;
 	while(lignes[++i]){
 		  if(type){
-			tamp.push([lignes[i],lignes[i].getElementsByTagName('td')[colonne].innerHTML]);
+				tamp.push([lignes[i],lignes[i].getElementsByTagName('td')[colonne].innerHTML]);
 		  }else{
 			  var date = new Date(lignes[i].getElementsByTagName('td')[colonne].innerHTML);
 			  tamp.push([lignes[i],date.getTime()]);

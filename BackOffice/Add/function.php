@@ -5,19 +5,19 @@
 	function RequeteSQL_Select($recherche, $table, $enrg1, $valEnrg1, $enrg2, $valEnrg2){
 		$sql = 'SELECT ';
 		if(!empty($recherche)){
-			$sql = $sql.$recherche;
+			$sql = $sql.mysql_real_escape_string($recherche);
 		}else{
 			$sql = $sql.'*';
 		}
 		$sql = $sql.' FROM ';
-		$sql = $sql.$table;
+		$sql = $sql.mysql_real_escape_string($table);
 		if(!empty($enrg1)){
-			$sql = $sql.' WHERE '.$enrg1.' LIKE "%'.$valEnrg1.'%"';
+			$sql = $sql.' WHERE '.mysql_real_escape_string($enrg1).' LIKE "%'.mysql_real_escape_string($valEnrg1).'%"';
 			if(!empty($enrg2)){
-				$sql = $sql.' AND '.$enrg2.' LIKE "%'.$valEnrg2.'%"';
+				$sql = $sql.' AND '.mysql_real_escape_string($enrg2).' LIKE "%'.mysql_real_escape_string($valEnrg2).'%"';
 			}
 		}
-		$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+		$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
 		$retData = mysql_fetch_array($req);
 		mysql_free_result($req);
 		return $retData;
@@ -27,16 +27,16 @@
 	///////////////////////////////////////////////////////////////////////////////
 	
 	function RequeteSQL_Update($table, $att1, $val1, $att2, $val2, $att3, $val3, $enrg1, $valEnrg1, $enrg2, $valEnrg2){
-		$sql = 'UPDATE '.$table.' SET '.$att1.'="'.$val1.'"';
+		$sql = 'UPDATE '.mysql_real_escape_string($table).' SET '.mysql_real_escape_string($att1).'="'.mysql_real_escape_string($val1).'"';
 		if(!empty($att2)){
-			$sql = $sql.', '.$att2.'="'.$val2.'"'; 
+			$sql = $sql.', '.mysql_real_escape_string($att2).'="'.mysql_real_escape_string($val2).'"'; 
 		}
 		if(!empty($att3)){
-			$sql = $sql.', '.$att3.'="'.$val3.'"';
+			$sql = $sql.', '.mysql_real_escape_string($att3).'="'.mysql_real_escape_string($val3).'"';
 		}
-		$sql = $sql.' WHERE '.$enrg1.'="'.$valEnrg1.'"';
+		$sql = $sql.' WHERE '.mysql_real_escape_string($enrg1).'="'.mysql_real_escape_string($valEnrg1).'"';
 		if(!empty($enrg2)){
-			$sql = $sql.' AND '.$enrg2.'="'.$valEnrg2.'"';
+			$sql = $sql.' AND '.mysql_real_escape_string($enrg2).'="'.mysql_real_escape_string($valEnrg2).'"';
 		}
 		mysql_query($sql) or die('Erreur SQL !'.$sql.'<br />'.mysql_error());
 	}
@@ -50,7 +50,7 @@
 			if($prec == 1){
 				$sql = $sql.' AND';
 			}
-			$sql = $sql.' '.$table.' LIKE "%'.$_POST[$value].'%"';
+			$sql = $sql.' '.mysql_real_escape_string($table).' LIKE "%'.mysql_real_escape_string($_POST[$value]).'%"';
 			$prec = 1;
 		}
 		$ret[0] = $sql;
@@ -67,7 +67,7 @@
 			if($prec == 1){
 				$sql = $sql.' AND';
 			}
-			$sql = $sql.' '.$table.' = "'.$_POST[$value].'"';
+			$sql = $sql.' '.mysql_real_escape_string($table).' = "'.mysql_real_escape_string($_POST[$value]).'"';
 			$prec = 1;
 		}
 		$ret[0] = $sql;
@@ -92,7 +92,7 @@
 					Pk.InstallKey AS Cle	
 				FROM
 					productkey AS Pk
-					LEFT JOIN keyactivityca AS K ON Pk.InstallKey = K.ProductKey
+					LEFT JOIN keyactivityCA AS K ON Pk.InstallKey = K.ProductKey
 					LEFT JOIN products AS P ON Pk.ProductID = P.Product_ID
 					LEFT JOIN customers AS C ON Pk.CustomerID = C.Customer_ID
 					LEFT JOIN keyusage AS Ku ON Pk.RowID = Ku.KeyRowID
@@ -102,7 +102,7 @@
 			if($prec == 1){
 				$sql = $sql.' AND';
 			}
-			$sql = $sql.' Pk.Label LIKE "%'.$_POST['label'].'%"';
+			$sql = $sql.' Pk.Label LIKE "%'.mysql_real_escape_string($_POST['label']).'%"';
 			$prec = 1;
 		}
 				
@@ -110,7 +110,7 @@
 			if($prec == 1){
 				$sql = $sql.' AND';
 			}
-			$sql = $sql.' C.Customer_Name LIKE "%'.$_POST['client'].'%"';
+			$sql = $sql.' C.Customer_Name LIKE "%'.mysql_real_escape_string($_POST['client']).'%"';
 			$prec = 1;
 		}
 				
@@ -118,7 +118,7 @@
 			if($prec == 1){
 				$sql = $sql.' AND';
 			}
-			$sql = $sql.' K.ProductKey = "'.$_POST['key'].'"';
+			$sql = $sql.' K.ProductKey = "'.mysql_real_escape_string($_POST['key']).'"';
 			$prec = 1;
 		}
 		
@@ -129,7 +129,7 @@
 			if($_POST['logiciel'] == "CloudXFer"){
 					$_POST['logiciel'] = "CloudMailMover";
 			}
-			$sql = $sql.' P.Product_Name = "'.$_POST['logiciel'].'"';
+			$sql = $sql.' P.Product_Name = "'.mysql_real_escape_string($_POST['logiciel']).'"';
 			$prec = 1;
 		}
 		
@@ -142,7 +142,7 @@
 			}else{
 				$etat = "1";
 			}
-			$sql = $sql.' Pk.Revoked = "'.$etat.'"';
+			$sql = $sql.' Pk.Revoked = "'.mysql_real_escape_string($etat).'"';
 			$prec = 1;
 		}
 		
@@ -155,7 +155,7 @@
 			}else{
 				$type = "1";
 			}
-			$sql = $sql.' C.Customer_Prospect = "'.$type.'"';
+			$sql = $sql.' C.Customer_Prospect = "'.mysql_real_escape_string($type).'"';
 			$prec = 1;
 		}
 		
@@ -164,11 +164,11 @@
 				$sql = $sql.' AND';
 			}
 			if($_POST['operateur_nombre'] == 'sup'){
-				$sql = $sql.' K.NumUsers>="'.$_POST['number'].'"';
+				$sql = $sql.' K.NumUsers>="'.mysql_real_escape_string($_POST['number']).'"';
 			}else if($_POST['operateur_nombre'] == 'inf'){
-				$sql = $sql.' K.NumUsers<="'.$_POST['number'].'"';
+				$sql = $sql.' K.NumUsers<="'.mysql_real_escape_string($_POST['number']).'"';
 			}else{
-				$sql = $sql.' K.NumUsers="'.$_POST['number'].'"';
+				$sql = $sql.' K.NumUsers="'.mysql_real_escape_string($_POST['number']).'"';
 			}
 			$prec = 1;
 		}
@@ -178,11 +178,11 @@
 				$sql = $sql.' AND';
 			}
 			if($_POST['operateur_nombreL'] == 'sup'){
-				$sql = $sql.' Pk.Licences>="'.$_POST['numberL'].'"';
+				$sql = $sql.' Pk.Licences>="'.mysql_real_escape_string($_POST['numberL']).'"';
 			}else if($_POST['operateur_nombreL'] == 'inf'){
-				$sql = $sql.' Pk.Licences<="'.$_POST['numberL'].'"';
+				$sql = $sql.' Pk.Licences<="'.mysql_real_escape_string($_POST['numberL']).'"';
 			}else{
-				$sql = $sql.' Pk.Licences="'.$_POST['numberL'].'"';
+				$sql = $sql.' Pk.Licences="'.mysql_real_escape_string($_POST['numberL']).'"';
 			}
 			$prec = 1;
 		}
@@ -193,11 +193,11 @@
 			}
 			$_POST['date1'] = strtotime($_POST['date1']);
 			if($_POST['operateur_date1'] == 'sup'){
-				$sql = $sql.' Ku.InitialisationDate>="'.$_POST['date1'].'"';$prec = 1;
+				$sql = $sql.' Ku.InitialisationDate>="'.mysql_real_escape_string($_POST['date1']).'"';$prec = 1;
 			}else if($_POST['operateur_date1'] == 'inf'){
-				$sql = $sql.' Ku.InitialisationDate<="'.($_POST['date1']+3600*24).'"';$prec = 1;
+				$sql = $sql.' Ku.InitialisationDate<="'.mysql_real_escape_string(($_POST['date1']+3600*24)).'"';$prec = 1;
 			}else{
-				$sql = $sql.' Ku.InitialisationDate>="'.($_POST['date1']).'" AND Ku.InitialisationDate<="'.($_POST['date1']+3600*24).'"';$prec = 1;
+				$sql = $sql.' Ku.InitialisationDate>="'.mysql_real_escape_string($_POST['date1']).'" AND Ku.InitialisationDate<="'.mysql_real_escape_string(($_POST['date1']+3600*24)).'"';$prec = 1;
 			}
 			$_POST['date1'] = date("Y/m/d",$_POST['date1']);
 		}
@@ -207,11 +207,11 @@
 			}
 			$_POST['date2'] = strtotime($_POST['date2']);
 			if($_POST['operateur_date2'] == 'sup'){
-				$sql = $sql.' K.KeyActivity_Date>="'.$_POST['date2'].'"';$prec = 1;
+				$sql = $sql.' K.KeyActivity_Date>="'.mysql_real_escape_string($_POST['date2']).'"';$prec = 1;
 			}else if($_POST['operateur_date2'] == 'inf'){
-				$sql = $sql.' K.KeyActivity_Date<="'.($_POST['date2']+3600*24).'"';$prec = 1;
+				$sql = $sql.' K.KeyActivity_Date<="'.mysql_real_escape_string(($_POST['date2']+3600*24)).'"';$prec = 1;
 			}else{
-				$sql = $sql.' K.KeyActivity_Date>="'.($_POST['date2']).'" AND K.KeyActivity_Date<="'.($_POST['date2']+3600*24).'"';$prec = 1;
+				$sql = $sql.' K.KeyActivity_Date>="'.mysql_real_escape_string($_POST['date2']).'" AND K.KeyActivity_Date<="'.mysql_real_escape_string($_POST['date2']+3600*24).'"';$prec = 1;
 			}
 			$_POST['date2'] = date("Y/m/d",$_POST['date2']);
 		}
@@ -225,12 +225,10 @@
 	//Construit la requete SQL en fonction de ce que l'utilisateur a renseigné
 	function recherche_downloads($champ){
 		$prec = 0;
-		$sql = 'SELECT '.$champ.' FROM downloadkey WHERE';
+		$sql = 'SELECT '.mysql_real_escape_string($champ).' FROM downloadkey WHERE';
 		
 		$ret = ajout_si_existe_like('email','mail',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
-		
-		//$ret = ajout_si_existe('number','downloads',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
-		
+
 		if($_POST['number'] != 'Tous'){
 			if($prec == 1){
 				$sql = $sql.' AND';
@@ -238,7 +236,7 @@
 			if($_POST['number'] == 'Non-Telecharge'){
 				$sql = $sql.' downloads="0"';$prec = 1;
 			}else if($_POST['number'] == 'Telecharge'){
-				$sql = $sql.' downloads="1" OR downloads="2"';$prec = 1;
+				$sql = $sql.' ( downloads="1" OR downloads="2" )';$prec = 1;
 			}
 		}
 		
@@ -251,7 +249,7 @@
 				if($logiciel == 'BCP Anywhere'){
 					$logiciel = 'BCPAnywhere';
 				}
-				$sql = $sql.' Application="'.$logiciel.'"';
+				$sql = $sql.' Application="'.mysql_real_escape_string($logiciel).'"';
 				$prec = 1;
 			}
 			
@@ -263,11 +261,11 @@
 				$sql = $sql.' AND';
 			}
 			if($_POST['operateur_date'] == 'sup'){
-				$sql = $sql.' timestamp>="'.$_POST['time'].'"';$prec = 1;
+				$sql = $sql.' timestamp>="'.mysql_real_escape_string($_POST['time']).'"';$prec = 1;
 			}else if($_POST['operateur_date'] == 'inf'){
-				$sql = $sql.' timestamp<="'.($_POST['time']+3600*24).'"';$prec = 1;
+				$sql = $sql.' timestamp<="'.mysql_real_escape_string($_POST['time']+3600*24).'"';$prec = 1;
 			}else{
-				$sql = $sql.' timestamp>="'.($_POST['time']).'" AND timestamp<="'.($_POST['time']+3600*24).'"';$prec = 1;
+				$sql = $sql.' timestamp>="'.mysql_real_escape_string($_POST['time']).'" AND timestamp<="'.mysql_real_escape_string($_POST['time']+3600*24).'"';$prec = 1;
 			}
 			$_POST['time'] = date("Y/m/d",$_POST['time']);
 		}
@@ -280,7 +278,7 @@
 	//Construit la requete SQL en fonction de ce que l'utilisateur a renseigné
 	function recherche_Customer($champ){
 		$prec = 0;
-		$sql = 'SELECT '.$champ.' FROM customers WHERE';
+		$sql = 'SELECT '.mysql_real_escape_string($champ).' FROM customers WHERE';
 		
 		$ret = ajout_si_existe_like('email','Customer_Email',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		$ret = ajout_si_existe_like('name','Customer_Name',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
@@ -304,68 +302,6 @@
 		}
 		return $sql;
 	}
-	
-	///////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////
-	
-	//Construit la requete SQL en fonction de ce que l'utilisateur a renseigné
-	/*function recherche_Licences($row_Customer_ID){
-		$prec = 0;
-		$sql = 'SELECT * FROM productkey WHERE';
-
-		if(!empty($_POST['email']) || !empty($_POST['name']) || !empty($_POST['firstName']) || !empty($_POST['lastName']) || !empty($_POST['tel']) || !empty($_POST['mobile'])  || !empty($_POST['type'])){
-			$sql = $sql.' CustomerID="'.$row_Customer_ID["Customer_ID"].'"';
-			$prec = 1;
-		}
-		
-		//$ret = ajout_si_existe('installGuid','InstallGuid',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
-		$ret = ajout_si_existe('installKey','InstallKey',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
-		$ret = ajout_si_existe_like('label','Label',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
-		$ret = ajout_si_existe('date','Expiration',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
-		
-		if(!empty($_POST['number'])){
-			if($prec == 1){
-				$sql = $sql.' AND';
-			}
-			if($_POST['operateur_nombre'] == 'sup'){
-				$sql = $sql.' Licences>="'.$_POST['number'].'"';$prec = 1;
-			}else if($_POST['operateur_nombre'] == 'inf'){
-				$sql = $sql.' Licences<="'.$_POST['number'].'"';$prec = 1;
-			}else{
-				$sql = $sql.' Licences="'.$_POST['number'].'"';$prec = 1;
-			}
-		}
-	
-		if($_POST['etat'] != 'indifferent'){
-			if($_POST['etat'] == 'valide'){
-				if($prec == 1){
-					$sql = $sql.' AND';
-				}
-				$sql = $sql.' Revoked="0"';$prec = 1;
-			}else{
-				if($prec == 1){
-					$sql = $sql.' AND';
-				}
-				$sql = $sql.' Revoked="1"';$prec = 1;
-			}
-		}
-		
-		if($_POST['logiciel'] != 'tous'){
-			include 'define.php';
-			mysql_close();
-			$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
-			mysql_select_db ($SQL_Cdw_name, $base);
-			
-			$productID = RequeteSQL_Select('Product_ID', 'products', 'Product_Name',$_POST["logiciel"],"","");
-			
-			if($prec == 1){
-				$sql = $sql.' AND';
-			}
-			$sql = $sql.' ProductID="'.$productID[0].'"';$prec = 1;	
-		}
-		
-		return $sql;
-	}*/
 	
 	///////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////
@@ -418,21 +354,4 @@
 			return false;
 		}
 	}
-	
-	///////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////
-	
-	//Test si des champs Licences sont remplit
-	/*function Test_Licences(){
-		if (/*(isset($_POST['installGuid'])&& !empty($_POST['installGuid']))
-		|| *//*(isset($_POST['installKey']) && !empty($_POST['installKey']))
-		|| (isset($_POST['label']) 		&& !empty($_POST['label']))
-		|| (isset($_POST['number']) 	&& !empty($_POST['number']))
-		|| (isset($_POST['date']) 		&& !empty($_POST['date']))
-		){
-			return true;
-		}else{
-			return false;
-		}
-	}*/
 ?>

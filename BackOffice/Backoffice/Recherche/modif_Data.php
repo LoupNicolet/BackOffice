@@ -5,11 +5,11 @@
 	mysql_select_db ($SQL_Cdw_name, $base);
 	
 	if((isset($_POST['id'])) && ($_POST['id'] == "customers")){
-		$sql = 'UPDATE '.$_POST['id'].' SET '.$Tab_customers[$_POST['col']].'="'.$_POST["value"].'" WHERE Customer_ID="'.$_POST["idc"].'"';
+		$sql = 'UPDATE '.mysql_real_escape_string($_POST['id']).' SET '.mysql_real_escape_string($Tab_customers[$_POST['col']]).'="'.mysql_real_escape_string($_POST["value"]).'" WHERE Customer_ID="'.mysql_real_escape_string($_POST["idc"]).'"';
 	}else if((isset($_POST['id'])) && ($_POST['id'] == "productkey")){
-		$sql = 'UPDATE '.$_POST['id'].' SET '.$Tab_licences[$_POST['col']].'="'.$_POST["value"].'" WHERE InstallKey="'.$_POST["InstallKey"].'"';
+		$sql = 'UPDATE '.mysql_real_escape_string($_POST['id']).' SET '.mysql_real_escape_string($Tab_licences[$_POST['col']]).'="'.mysql_real_escape_string($_POST["value"]).'" WHERE InstallKey="'.mysql_real_escape_string($_POST["InstallKey"]).'"';
 	}
-	$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+	$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
 	if($req){
 		echo $_POST["value"];
 	}else{

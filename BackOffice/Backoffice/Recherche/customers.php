@@ -6,13 +6,13 @@
 		if (test_Customer() || (isset($_POST['type']) && ($_POST['type'] != "indifferent"))){
 			$sql = recherche_Customer('*');	
 		}else if (isset($_GET['id'])){
-			$sql = 'SELECT * FROM customers WHERE Customer_ID="'.$_GET['id'].'"';
+			$sql = 'SELECT * FROM customers WHERE Customer_ID="'.mysql_real_escape_string($_GET['id']).'"';
 		}else{
 			$sql = 'SELECT * FROM customers';
 		}
 		
 		$y = 0;
-		$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+		$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
 		while($row = mysql_fetch_array($req)){
 			$name[$y] = $row['Customer_Name'];
 			$lastName[$y] = $row['Customer_LastName'];

@@ -10,7 +10,7 @@
 				$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 				mysql_select_db ($SQL_Cdw_name, $base);
 				
-				$data = RequeteSQL_Select('count(*)','operator','login_operator',$_POST['login'],"","");
+				$data = RequeteSQL_Select('count(*)','operator','login_operator',mysql_real_escape_string($_POST['login']),"","");
 				
 				if ($data[0] == 0){
 					$sql = "INSERT INTO operator (login_operator, pass_operator";
@@ -26,18 +26,18 @@
 					if(!empty($_POST['type'])){
 						$sql = $sql.", type_operator";
 					}
-					$sql = $sql.") VALUES ('".$_POST['login']."', '".md5($_POST['pass'])."'";
+					$sql = $sql.") VALUES ('".mysql_real_escape_string($_POST['login'])."', '".mysql_real_escape_string(md5($_POST['pass']))."'";
 					if(!empty($_POST['email'])){
-						$sql = $sql.", '".$_POST['email']."'";
+						$sql = $sql.", '".mysql_real_escape_string($_POST['email'])."'";
 					}
 					if(!empty($_POST['prenom'])){
-						$sql = $sql.", '".$_POST['prenom']."'";
+						$sql = $sql.", '".mysql_real_escape_string($_POST['prenom'])."'";
 					}
 					if(!empty($_POST['nom'])){
-						$sql = $sql.", '".$_POST['nom']."'";
+						$sql = $sql.", '".mysql_real_escape_string($_POST['nom'])."'";
 					}
 					if(!empty($_POST['type'])){
-						$sql = $sql.", '".$_POST['type']."'";
+						$sql = $sql.", '".mysql_real_escape_string($_POST['type'])."'";
 					}
 					$sql = $sql.")";
 					

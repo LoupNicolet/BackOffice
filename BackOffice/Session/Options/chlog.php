@@ -9,14 +9,14 @@
 					$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 					mysql_select_db ($SQL_Cdw_name, $base);
 					
-					$data = RequeteSQL_Select('count(*)','operator','login_operator',$_SESSION['login'],'pass_operator',md5($_POST['pass']));
+					$data = RequeteSQL_Select('count(*)','operator','login_operator',mysql_real_escape_string($_SESSION['login']),'pass_operator',mysql_real_escape_string(md5($_POST['pass'])));
 
 					if ($data[0] == 0){
 						$erreur = "Mauvais mot de passe.";
 					}else{
-						$data = RequeteSQL_Select('count(*)','operator','login_operator',$_POST['nLogin'],"","");
+						$data = RequeteSQL_Select('count(*)','operator','login_operator',mysql_real_escape_string($_POST['nLogin']),"","");
 						if ($data[0] == 0) {
-							RequeteSQL_Update('operator', 'login_operator', $_POST['nLogin'],"","","","", 'login_operator', $_SESSION['login'], 'pass_operator', md5($_POST['pass']));
+							RequeteSQL_Update('operator', 'login_operator', mysql_real_escape_string($_POST['nLogin']),"","","","", 'login_operator', mysql_real_escape_string($_SESSION['login']), 'pass_operator', mysql_real_escape_string(md5($_POST['pass'])));
 							$_SESSION['login'] = $_POST['nLogin'];
 							$erreur = 'Changement effectué.';
 						}

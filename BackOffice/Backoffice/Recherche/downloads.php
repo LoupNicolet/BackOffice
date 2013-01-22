@@ -11,7 +11,7 @@
 		}
 		
 		$y = 0;
-		$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+		$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
 		
 		while($row = mysql_fetch_array($req)){
 			$time[$y] = date("Y/m/d  H:i:s",$row['timestamp']);
@@ -96,7 +96,7 @@
 									$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 									mysql_select_db ($SQL_Cdw_name, $base);
 									$sql = 'SELECT Product_Name FROM products';
-									$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+									$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
 									?><input <?php if(!isset($_POST['logiciel']) || ($_POST['logiciel'] == 'tous')){echo 'checked="checked"';}?> type="radio" name="logiciel" value="tous">Tous<br><?php
 									while($row = mysql_fetch_array($req)){
 										if(($row['Product_Name'] != "S2GS")&&($row['Product_Name'] != "Mig6")){

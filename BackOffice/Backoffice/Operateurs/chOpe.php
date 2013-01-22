@@ -4,8 +4,8 @@
 		$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 		mysql_select_db ($SQL_Cdw_name, $base);	
 			
-		$sql = 'SELECT email_operator,firstName_operator,lastName_operator FROM operator WHERE login_operator="'.$_GET['log'].'"';
-		$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+		$sql = 'SELECT email_operator,firstName_operator,lastName_operator FROM operator WHERE login_operator="'.mysql_real_escape_string($_GET['log']).'"';
+		$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
 		while($row = mysql_fetch_array($req)){
 			$email_ope = $row['email_operator'];
 			$prenom_ope = $row['firstName_operator'];
@@ -30,11 +30,11 @@
 					$nEmail = $_POST['email'];
 				}
 				
-				RequeteSQL_Update('operator', 'email_operator', $nEmail, 'firstName_operator', $nPrenom, 'lastName_operator', $nNom, 'login_operator', $_GET['log'],"","");
+				RequeteSQL_Update('operator', 'email_operator', mysql_real_escape_string($nEmail), 'firstName_operator', mysql_real_escape_string($nPrenom), 'lastName_operator', mysql_real_escape_string($nNom), 'login_operator', mysql_real_escape_string($_GET['log']),"","");
 				$erreur = 'Changement effectué.';
 							
-				$sql = 'SELECT email_operator,firstName_operator,lastName_operator FROM operator WHERE login_operator="'.$_GET['log'].'"';
-				$req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+				$sql = 'SELECT email_operator,firstName_operator,lastName_operator FROM operator WHERE login_operator="'.mysql_real_escape_string($_GET['log']).'"';
+				$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
 				while($row = mysql_fetch_array($req)){
 					$email_ope = $row['email_operator'];
 					$prenom_ope = $row['firstName_operator'];
@@ -49,7 +49,7 @@
 		require "../Add/define.php";
 		header ($he_deconnexion);
 		exit();
-	}type='text/javascript'
+	}
 ?>
 <script type='text/javascript' src= <?php echo $sc_JQuery; ?> ></script>
 <script type='text/javascript' src= <?php echo $sc_JQuery_Color; ?>></script>
