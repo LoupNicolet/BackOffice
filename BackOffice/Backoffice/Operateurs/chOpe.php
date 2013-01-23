@@ -58,7 +58,8 @@
 	function valide()
 	{
 		var email=document.forms["formVal"]["email"];
-		if ( ( email.value.indexOf("@") == -1 )
+		if (email.value.length < 1){}
+		else if ( ( email.value.indexOf("@") == -1 )
 			|| ( email.value.indexOf("@") == 0 )
 			|| ( email.value.indexOf("@") != email.value.lastIndexOf("@") ) 
 			|| ( email.value.indexOf(".") == email.value.indexOf("@")-1 ) 

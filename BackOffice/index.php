@@ -21,6 +21,9 @@
 			}
 			elseif ($data[0] == 0) {
 				$erreur = 'Compte non reconnu.';
+				$fp = fopen($open_index_log, 'a');
+				fwrite($fp, 'Erreur Connexion de : '.$_POST['login'].' ( le '.date("d/m/Y").' à '.date("H:i").' )'."\n");
+				fclose($fp);
 			}
 			else {
 				$erreur = 'Probème dans la base de données : plusieurs membres ont les mêmes identifiants de connexion.';

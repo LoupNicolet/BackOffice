@@ -76,7 +76,8 @@
 			document.getElementById("erreur").innerHTML="Mauvais format de mot de passe (min 6)";
 			return false;
 		}
-		if ( ( email.value.indexOf("@") == -1 )
+		if ((email.value.length < 1){}
+		else if (( email.value.indexOf("@") == -1 )
 			|| ( email.value.indexOf("@") == 0 )
 			|| ( email.value.indexOf("@") != email.value.lastIndexOf("@") ) 
 			|| ( email.value.indexOf(".") == email.value.indexOf("@")-1 ) 

@@ -29,6 +29,7 @@
 			$Cle[$y] = $row['Cle'];
 			$y++;
 		}
+
 		mysql_free_result($req);
 		for($i=0;$i<$y;$i++){
 			$Utilisateurs[$i] = RequeteSQL_Select('NumUsers', 'keyactivityCA', 'KeyActivity_Date',mysql_real_escape_string($Date[$i]),"ProductKey",mysql_real_escape_string($Cle[$i]));
