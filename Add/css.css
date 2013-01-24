@@ -6,17 +6,16 @@ a:link,a:visited
 	display:block;
 	font-weight:bold;
 	color:#FFFFFF; /*Blanc*/
-	width:120px;
+	/*width:120px;*/
 	text-align:center;
 	padding:2px;
 	text-decoration:none;
 }
 
 #index a:link,#index a:visited,
-#inscription a:link,#inscription a:visited,
-#pages a:link,#pages a:visited,
 #backoffice a.menu:link,#backoffice a.menu:visited,
-#deconnexion a:link,#deconnexion a:visited
+#deconnexion a:link,#deconnexion a:visited,
+#PagesFrame a:link,#PagesFrame a:visited
 {
 	background-color:#245DB2; /*Bleu*/
 }
@@ -27,10 +26,9 @@ a:link,a:visited
 }
 
 #index a:hover,#index a:active,
-#inscription a:hover,#inscription a:active,
-#pages a:hover,#pages a:active,
 #backoffice a.menu:hover,#backoffice a.menu:active,
-#deconnexion a:hover,#deconnexion a:active
+#deconnexion a:hover,#deconnexion a:active,
+#PagesFrame a:hover,#PagesFrame a:active
 {
 	background-color:#3385FF; /*Bleu Clair*/
 }
@@ -40,9 +38,6 @@ a:link,a:visited
 	background-color:#AD0000; /*Rouge Clair*/
 }
 
-
-
-
 /*//////////////////////////////////
 ////			th				////
 //////////////////////////////////*/
@@ -50,7 +45,6 @@ a:link,a:visited
 #licencesTable th.titre,
 #customersTable th.titre,
 #downloadsTable th.titre,
-#productTable th.titre,
 #operateurTable th.titre
 {
 	padding:2px;
@@ -59,7 +53,6 @@ a:link,a:visited
 	color:#ffffff;	/*Blanc*/
 }
 
-
 /*//////////////////////////////////
 ////			td				////
 //////////////////////////////////*/
@@ -67,15 +60,12 @@ a:link,a:visited
 #licencesTable td,
 #customersTable td ,
 #downloadsTable td ,
-#productTable td,
 #operateurTable td
  {
 	border:1px solid #3385FF; /*Bleu Clair*/
 }
 
-#inscription td,
-#backoffice td.deco,
-#pages td
+#PagesFrame td
 {
 	/*padding:2px;*/
 	width:10%;
@@ -87,8 +77,6 @@ a:link,a:visited
 	padding:5px;
 }
 
-
-
 /*//////////////////////////////////
 ////			table			////
 //////////////////////////////////*/
@@ -96,38 +84,31 @@ a:link,a:visited
 #licencesTable,
 #customersTable,
 #downloadsTable,
-#productTable,
 #operateurTable
 {
 	border-collapse:collapse;
 	
 }
 
-#backoffice table
+#backoffice table,
+#PagesFrame table
 {
 	padding: 5px;
 	width: 100%;
 }
 
-
-
 #backoffice table.menu
 {
-	/*border:1px solid #3385FF; Bleu Clair*/
 	background-color: #245DB2;
 	border-collapse:collapse;
 }
-
-
-
 
 /*//////////////////////////////////
 ////			input			////
 //////////////////////////////////*/
 
 #index input.button,
-#inscription input.button,
-#pages input.button
+#PagesFrame input.button
 {
 	display:block;
 	color:#FFFFFF; /*Blanc*/
@@ -141,41 +122,35 @@ a:link,a:visited
 }
 
 #index input.button:hover,#index input.button:active,
-#inscription input.button:hover,#inscription input.button:active,
-#pages input.button:hover,#pages input.button:active,
-#pages input.button_titre:hover,#pages input.button_titre:active
+#PagesFrame input.button:hover,#PagesFrame input.button:active,
+#PagesFrame input.button_titre:hover,#PagesFrame input.button_titre:active
 {
 	background-color:#3385FF; /*Bleu Clair*/
 }
 
-
-#pages input.button_titre
+#PagesFrame input.button_titre
 {
 	display:block;
 	color:#FFFFFF; /*Blanc*/
 	background-color:#245DB2; /*Bleu*/
 	font-weight:bold;
-	width:100px;
+	/*width:100px;*/
 	text-align:center;
 	padding:5px;
 	text-decoration:none;
 	border:none;
 }
 
-
-
 /*//////////////////////////////////
 ////			p				////
 //////////////////////////////////*/
 
-#backoffice p
+#PagesFrame p
 {
 	font-weight: bold;
 	font-size: 20px;
 	padding : 5px;
 }
-
-
 
 /*//////////////////////////////////
 ////			form			////
@@ -188,18 +163,11 @@ form.recherche
 	border:6px outset #AAAAAA; /*Noir*/
 }
 
-
-
-
-
-
 /*//////////////////////////////////
 ////			button			////
 //////////////////////////////////*/
 
-#index button.button,
-#inscription button.button,
-#pages button.button
+#PagesFrame button.button
 {
 	display:block;
 	color:#FFFFFF; /*Blanc*/
@@ -212,16 +180,8 @@ form.recherche
 	border:none;
 }
 
-#index button.button:hover,#index button.button:active,
-#inscription button.button:hover,#inscription button.button:active,
-#pages button.button:hover,#pages button.button:active,
-#pages button.button_titre:hover,#pages button.button_titre:active
+#PagesFrame button.button:hover,#PagesFrame button.button:active,
+#PagesFrame button.button_titre:hover,#PagesFrame button.button_titre:active
 {
 	background-color:#3385FF; /*Bleu Clair*/
 }
-
-
-
-
-
-

@@ -7,7 +7,8 @@
 		session_destroy();  
 	}
 	if (isset($_GET['action'])){
-		if($_GET['action'] == '"dec"'){$message = "Vous etes déconnecté";}
+		$message = "Veuillez vous connecter";
+		if($_GET['action'] == "dec"){$message = "Vous etes déconnecté";}
 		if($_GET['action'] == '"co"'){$message = "Veuillez vous connecter";}
 		if($_GET['action'] == '"err"'){$message = "Erreur utilisateur inconnu";}
 	}else{
@@ -19,7 +20,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
 		<title>Accueil</title>
-		<link rel="stylesheet" type="text/css" href="../Add/css.css">
+		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css; ?>>
 	</head>
 
 	<body>

@@ -22,7 +22,7 @@
 			elseif ($data[0] == 0) {
 				$erreur = 'Compte non reconnu.';
 				$fp = fopen($open_index_log, 'a');
-				fwrite($fp, 'Erreur Connexion de : '.$_POST['login'].' ( le '.date("d/m/Y").' à '.date("H:i").' )'."\n");
+				fwrite($fp, "\t".'Erreur Connexion de : '.$_POST['login'].' ( le '.date("d/m/Y").' à '.date("H:i").' )'."\n");
 				fclose($fp);
 			}
 			else {
@@ -39,7 +39,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
 		<title>Accueil</title>
-		<link rel="stylesheet" type="text/css" href="Add/css.css">
+		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css; ?>>
 	</head>
 	<body>
 		<table border="6">

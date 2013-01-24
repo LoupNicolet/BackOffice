@@ -85,8 +85,8 @@
 					P.Product_Name AS Logiciel,
 					max(K.KeyActivity_Date) AS Date,
 					Ku.InitialisationDate AS Date2,
-					C.Customer_Name AS Client,
-					Pk.Label AS Label,
+					C.Customer_Email AS Contact,
+					Pk.Label AS Client,
 					Pk.Licences AS Licences,
 					Pk.Revoked AS Etat,
 					Pk.InstallKey AS Cle	
@@ -98,19 +98,19 @@
 					LEFT JOIN keyusage AS Ku ON Pk.RowID = Ku.KeyRowID
 				WHERE ';
 		
-		if(!empty($_POST['label'])){
-			if($prec == 1){
-				$sql = $sql.' AND';
-			}
-			$sql = $sql.' Pk.Label LIKE "%'.mysql_real_escape_string($_POST['label']).'%"';
-			$prec = 1;
-		}
-				
 		if(!empty($_POST['client'])){
 			if($prec == 1){
 				$sql = $sql.' AND';
 			}
-			$sql = $sql.' C.Customer_Name LIKE "%'.mysql_real_escape_string($_POST['client']).'%"';
+			$sql = $sql.' Pk.Label LIKE "%'.mysql_real_escape_string($_POST['client']).'%"';
+			$prec = 1;
+		}
+				
+		if(!empty($_POST['contact'])){
+			if($prec == 1){
+				$sql = $sql.' AND';
+			}
+			$sql = $sql.' C.Customer_Email LIKE "%'.mysql_real_escape_string($_POST['contact']).'%"';
 			$prec = 1;
 		}
 				
@@ -118,7 +118,7 @@
 			if($prec == 1){
 				$sql = $sql.' AND';
 			}
-			$sql = $sql.' K.ProductKey = "'.mysql_real_escape_string($_POST['key']).'"';
+			$sql = $sql.' Pk.InstallKey = "'.mysql_real_escape_string($_POST['key']).'"';
 			$prec = 1;
 		}
 		
@@ -311,8 +311,8 @@
 		if ((isset($_POST['date1']) 	&& !empty($_POST['date1']))
 		|| (isset($_POST['date2']) 		&& !empty($_POST['date2']))
 		|| (isset($_POST['key']) 		&& !empty($_POST['key']))
-		|| (isset($_POST['client']) 	&& !empty($_POST['client'])) 
-		|| (isset($_POST['label']) 		&& !empty($_POST['label']))
+		|| (isset($_POST['contact']) 	&& !empty($_POST['contact'])) 
+		|| (isset($_POST['client']) 	&& !empty($_POST['client']))
 		|| (isset($_POST['numberL']) 	&& !empty($_POST['numberL']))		
 		|| (isset($_POST['number']) 	&& !empty($_POST['number']))
 		){

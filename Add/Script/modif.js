@@ -83,7 +83,7 @@ function valider(button){
 				debut = 2;
 			  }
 			}
-			xmlhttp.open("POST","./Backoffice/Recherche/modif_Data.php",true);
+			xmlhttp.open("POST","/Backoffice/Recherche/modif_Data.php",true);
 			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 			requete(xmlhttp);
 		}else{
