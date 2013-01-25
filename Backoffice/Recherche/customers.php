@@ -50,7 +50,7 @@
 <html id="PagesFrame">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
-		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css; ?>>
+		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css_Customers; ?>>
 		<script type='text/javascript' src= <?php echo $sc_JQuery; ?> ></script>
 		<script type='text/javascript' src= <?php echo $sc_tri; ?> ></script>
 		<script type='text/javascript' src= <?php echo $sc_details; ?> ></script>
@@ -77,93 +77,76 @@
 		</script>
 	</head>
 	<body>
-		<table>
-			<tr><h2 align="center">Clients</h2></tr>
-			<tr>
-				<td>
-					<form id="form" class="recherche" action= <?php echo $fo_customers_customers ?> method="post">
-						<div align="center">
-							<table>
-								<tr>
-									<td align="center" colspan="6"><button class="button">Detail</button></td>
-								</tr>
-								<tr id="plus">
-									<td align="right">Email : </td>
-									<td><input type="text" name="email" value="<?php if (isset($_POST['email'])) echo htmlentities(trim($_POST['email'])); ?>"></td>
-									<td align="right">FirstName :</td>
-									<td><input type="text" name="firstName" value="<?php if (isset($_POST['firstName'])) echo htmlentities(trim($_POST['firstName'])); ?>"></td>
-									<td align="right">Tel :</td>
-									<td><input type="text" name="tel" value="<?php if (isset($_POST['tel'])) echo htmlentities(trim($_POST['tel']));?>"></td>
-								</tr>
-								<tr id="plus">
-									<td align="right">Name :</td>
-									<td><input type="text" name="name" value="<?php if (isset($_POST['name'])) echo htmlentities(trim($_POST['name'])); ?>"></td>
-									<td align="right">LastName :</td>
-									<td><input type="text" name="lastName" value="<?php if (isset($_POST['lastName'])) echo htmlentities(trim($_POST['lastName'])); ?>"></td>
-									<td align="right">Mobile :</td>
-									<td><input type="text" name="mobile" value="<?php if (isset($_POST['mobile'])) echo htmlentities(trim($_POST['mobile'])); ?>"></td>
-								</tr>
-								<tr>
-									<td colspan="6" align="center">
-										<input <?php if(!isset($_POST['type']) || ($_POST['type'] == 'indifferent')){echo 'checked="checked"';}?> type="radio" name="type" value="indifferent">Indifferent<br>
-										<input <?php if(isset($_POST['type']) && $_POST['type'] == 'client'){echo 'checked="checked"';}?> type="radio" name="type" value="client">Client<br>
-										<input <?php if(isset($_POST['type']) && $_POST['type'] == 'prospect'){echo 'checked="checked"';}?> type="radio" name="type" value="prospect">Prospect
-									</td>
-								</tr>
-								<tr><td  colspan="6"  align="center"><input class="button" type="submit" name="recherche" value="Rechercher"></td></tr>
-							</table>
-						</div>
-					</form>
-				</td>
-			</tr>
-			<tr><td><p><?php echo $y." resultats"?></p></td></tr>
-			<tr>
-				<td>
-					<?php
-						if($y > 0){
-							echo
-							"<table id='customersTable'>
-							<tr>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(0,true,\"customersTable\")' value='Name' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(1,true,\"customersTable\")' value='LastName' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(2,true,\"customersTable\")' value='FirstName' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(3,true,\"customersTable\")' value='Email' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(4,true,\"customersTable\")' value='Telephone' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(5,true,\"customersTable\")' value='Mobile' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(6,true,\"customersTable\")' value='Type' />
-								</th>
-							</tr>";
+		<h2 align="center">Clients</h2>
+		<form id="form" class="recherche" action= <?php echo $fo_customers_customers ?> method="post">
+			<div class="recherche">
+				<button class="button">Detail</button>
+				<div class="text1" id="plus">Email :<br>FirstName :</div>
+				<div class="tf1" id="plus">
+					<input class="tf" type="text" name="email" value="<?php if (isset($_POST['email'])) echo htmlentities(trim($_POST['email'])); ?>">
+					<input class="tf" type="text" name="firstName" value="<?php if (isset($_POST['firstName'])) echo htmlentities(trim($_POST['firstName'])); ?>">
+				</div>
+				<div class="text2" id="plus">Tel :<br>Name :</div>
+				<div class="tf2" id="plus">
+					<input class="tf" type="text" name="tel" value="<?php if (isset($_POST['tel'])) echo htmlentities(trim($_POST['tel']));?>">
+					<input class="tf" type="text" name="name" value="<?php if (isset($_POST['name'])) echo htmlentities(trim($_POST['name'])); ?>">
+				</div>
+				<div class="text3" id="plus">LastName :<br>Mobile :</div>
+				<div class="tf3" id="plus">
+					<input class="tf" type="text" name="lastName" value="<?php if (isset($_POST['lastName'])) echo htmlentities(trim($_POST['lastName'])); ?>">
+					<input class="tf" type="text" name="mobile" value="<?php if (isset($_POST['mobile'])) echo htmlentities(trim($_POST['mobile'])); ?>">
+				</div>
+				<div class="type">
+					<input <?php if(!isset($_POST['type']) || ($_POST['type'] == 'indifferent')){echo 'checked="checked"';}?> type="radio" name="type" value="indifferent">Indifferent<br>
+					<input <?php if(isset($_POST['type']) && $_POST['type'] == 'client'){echo 'checked="checked"';}?> type="radio" name="type" value="client">Client<br>
+					<input <?php if(isset($_POST['type']) && $_POST['type'] == 'prospect'){echo 'checked="checked"';}?> type="radio" name="type" value="prospect">Prospect
+				</div>
+				<input class="button" type="submit" name="recherche" value="Rechercher">
+			</div>
+		</form>
+		<p><?php echo $y." resultats"?></p>
+		<?php
+			if($y > 0){
+				echo
+				"<table id='Table'>
+				<tr>
+					<th class='titre' align='center'>
+						<input class='button_titre' type='button' onclick='sortTable(0,true,\"Table\")' value='Name' />
+					</th>
+					<th class='titre' align='center'>
+						<input class='button_titre' type='button' onclick='sortTable(1,true,\"Table\")' value='LastName' />
+					</th>
+					<th class='titre' align='center'>
+						<input class='button_titre' type='button' onclick='sortTable(2,true,\"Table\")' value='FirstName' />
+					</th>
+					<th class='titre' align='center'>
+						<input class='button_titre' type='button' onclick='sortTable(3,true,\"Table\")' value='Email' />
+					</th>
+					<th class='titre' align='center'>
+						<input class='button_titre' type='button' onclick='sortTable(4,true,\"Table\")' value='Telephone' />
+					</th>
+					<th class='titre' align='center'>
+						<input class='button_titre' type='button' onclick='sortTable(5,true,\"Table\")' value='Mobile' />
+					</th>
+					<th class='titre' align='center'>
+						<input class='button_titre' type='button' onclick='sortTable(6,true,\"Table\")' value='Type' />
+					</th>
+				</tr>";
 
-							for ($i=0; $i<$y;$i++){
-								echo 
-								'<tr>
-									<td id="0'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$name[$i].'</td>
-									<td id="1'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$lastName[$i].'</td>
-									<td id="2'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$firstName[$i].'</td>
-									<td id="3'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$email[$i].'</td>
-									<td id="4'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$telephon[$i].'</td>
-									<td id="5'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$mobile[$i].'</td>
-									<td id="6'.($i+1).'" onclick="clic(this,2,'.($i+1).',\''.$id[$i].'\')" align="center">'.$prospect[$i].'</td>
-								</tr>';
-							}
-							echo '</table>';
-						}
-					?>
-				</td>
-			</tr>
-		</table>
+				for ($i=0; $i<$y;$i++){
+					echo 
+					'<tr>
+						<td id="0'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$name[$i].'</td>
+						<td id="1'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$lastName[$i].'</td>
+						<td id="2'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$firstName[$i].'</td>
+						<td id="3'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$email[$i].'</td>
+						<td id="4'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$telephon[$i].'</td>
+						<td id="5'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$mobile[$i].'</td>
+						<td id="6'.($i+1).'" onclick="clic(this,2,'.($i+1).',\''.$id[$i].'\')" align="center">'.$prospect[$i].'</td>
+					</tr>';
+				}
+				echo '</table>';
+			}
+		?>
 	</body>
 </html>

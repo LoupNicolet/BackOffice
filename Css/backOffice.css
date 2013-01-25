@@ -1,0 +1,51 @@
+div.menu
+{
+	border:6px outset #245DB2;
+	background-color:#245DB2;
+	height: 25px;
+	min-width: 700px;
+}
+
+div.pages
+{
+	clear:both;
+}
+
+div.log
+{
+	text-align:right;
+}
+
+a:link,a:visited
+{
+	margin:auto;
+	display:block;
+	font-weight:bold;
+	color:#FFFFFF; /*Blanc*/
+	text-align:center;
+	padding:2px;
+	text-decoration:none;
+}
+
+a.deco{
+	background-color:#8B0000; /*Rouge*/
+	float:right;
+	width:16%;
+}
+
+a.deco:hover,a.deco:active
+{
+	background-color:#AD0000; /*Rouge Clair*/
+}
+
+
+a.pages{
+	background-color:#245DB2; /*Bleu*/
+	float:left;
+	width:16%;
+}
+
+a.pages:hover,a.pages:active
+{
+	background-color:#3385FF; /*Bleu Clair*/
+}

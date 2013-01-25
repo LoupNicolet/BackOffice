@@ -65,7 +65,7 @@
 <html id="PagesFrame">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
-		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css; ?>>
+		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css_Licences; ?>>
 		<script type='text/javascript' src= <?php echo $sc_JQuery; ?> ></script>
 		<script type='text/javascript' src= <?php echo $sc_tri; ?> ></script>
 		<script type='text/javascript' src= <?php echo $sc_details; ?> ></script>
@@ -122,148 +122,137 @@
 		</script>
 	</head>
 	<body>
-		<table>
-			<tr><h2 align="center">Licences</h2></tr>
-			<tr>
-				<td>
-					<form name="formVal" id="form" onsubmit="return valide()" class="recherche" action= <?php echo $fo_licences_licences; ?> method="post">
-						<div align="center">
-							<table>
-								<tr>
-									<td align="center" colspan="6"><button class="button">Detail</button></td>
-								</tr>
-								<tr id="plus">
-									<td align="right">Installation : </td>
-									<td>
-										<small>yyyy/mm/dd</small>
-										<input type="text" onkeyup="verif(this,5)" name="date1" value="<?php if (isset($_POST['date1'])) echo htmlentities(trim($_POST['date1'])); ?>"><br>
-										<input <?php if(!isset($_POST['operateur_date1']) || ($_POST['operateur_date1'] == 'sup')){echo 'checked="checked"';}?> type="radio" name="operateur_date1" value="sup"><?php echo '>='; ?>
-										<input <?php if(isset($_POST['operateur_date1']) && ($_POST['operateur_date1'] == 'inf')){echo 'checked="checked"';}?> type="radio" name="operateur_date1" value="inf"><?php echo '<='; ?>
-										<input <?php if(isset($_POST['operateur_date1']) && ($_POST['operateur_date1'] == 'eg')){echo 'checked="checked"';}?> type="radio" name="operateur_date1" value="eg"><?php echo '='; ?>
-									</td>
-									<td align="right">Nb Utilisateurs :</td>
-									<td>
-										<input type="text" name="number" value="<?php if (isset($_POST['number'])) echo htmlentities(trim($_POST['number'])); ?>"><br>
-										<input <?php if(!isset($_POST['operateur_nombre']) || ($_POST['operateur_nombre'] == 'sup')){echo 'checked="checked"';}?> type="radio" name="operateur_nombre" value="sup"><?php echo '>='; ?>
-										<input <?php if(isset($_POST['operateur_nombre']) && ($_POST['operateur_nombre'] == 'inf')){echo 'checked="checked"';}?> type="radio" name="operateur_nombre" value="inf"><?php echo '<='; ?>
-										<input <?php if(isset($_POST['operateur_nombre']) && ($_POST['operateur_nombre'] == 'eg')){echo 'checked="checked"';}?> type="radio" name="operateur_nombre" value="eg"><?php echo '='; ?>
-									</td>
-									<td align="right">Cle :</td>
-									<td><input type="text" onkeyup="verif(this,6)" name="key" value="<?php if (isset($_POST['key'])) echo htmlentities(trim($_POST['key'])); ?>"></td>
-								</tr>
-								<tr id="plus">
-									<td align="right">Mise à Jour : </td>
-									<td>
-										<small>yyyy/mm/dd</small>
-										<input type="text" onkeyup="verif(this,5)" name="date2" value="<?php if (isset($_POST['date2'])) echo htmlentities(trim($_POST['date2'])); ?>"><br>
-										<input <?php if(!isset($_POST['operateur_date2']) || ($_POST['operateur_date2'] == 'sup')){echo 'checked="checked"';}?> type="radio" name="operateur_date2" value="sup"><?php echo '>='; ?>
-										<input <?php if(isset($_POST['operateur_date2']) && ($_POST['operateur_date2'] == 'inf')){echo 'checked="checked"';}?> type="radio" name="operateur_date2" value="inf"><?php echo '<='; ?>
-										<input <?php if(isset($_POST['operateur_date2']) && ($_POST['operateur_date2'] == 'eg')){echo 'checked="checked"';}?> type="radio" name="operateur_date2" value="eg"><?php echo '='; ?>
-									</td>
-									<td align="right">Nb Licences :</td>
-									<td>
-										<input type="text" name="numberL" value="<?php if (isset($_POST['numberL'])) echo htmlentities(trim($_POST['numberL'])); ?>"><br>
-										<input <?php if(!isset($_POST['operateur_nombreL']) || ($_POST['operateur_nombreL'] == 'sup')){echo 'checked="checked"';}?> type="radio" name="operateur_nombreL" value="sup"><?php echo '>='; ?>
-										<input <?php if(isset($_POST['operateur_nombreL']) && ($_POST['operateur_nombreL'] == 'inf')){echo 'checked="checked"';}?> type="radio" name="operateur_nombreL" value="inf"><?php echo '<='; ?>
-										<input <?php if(isset($_POST['operateur_nombreL']) && ($_POST['operateur_nombreL'] == 'eg')){echo 'checked="checked"';}?> type="radio" name="operateur_nombreL" value="eg"><?php echo '='; ?>
-									</td>
-								</tr>
-								<tr id="plus">
-									<td align="right">Contact :</td>
-									<td><input type="text" name="contact" value="<?php if (isset($_POST['contact'])) echo htmlentities(trim($_POST['contact'])); ?>"></td>
-									<td align="right">Client :</td>
-									<td><input type="text" name="client" value="<?php if (isset($_POST['client'])) echo htmlentities(trim($_POST['client'])); ?>"></td>
-								</tr>
-								<tr>
-									<td align="center" colspan="2">
-										<input <?php if(!isset($_POST['type']) || ($_POST['type'] == 'Indifferent')){echo 'checked="checked"';}?> type="radio" name="type" value="Indifferent">Indifférent<br>
-										<input <?php if(isset($_POST['type']) && $_POST['type'] == 'Client'){echo 'checked="checked"';}?> type="radio" name="type" value="Client">Client<br>
-										<input <?php if(isset($_POST['type']) && $_POST['type'] == 'Prospect'){echo 'checked="checked"';}?> type="radio" name="type" value="Prospect">Prospect
-									</td>
-									<td align="center" colspan="2">
-										<?php
-											$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
-											mysql_select_db ($SQL_Cdw_name, $base);
-											$sql = 'SELECT Product_Name FROM products';
-											$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
-											?><input <?php if(!isset($_POST['logiciel']) || ($_POST['logiciel'] == 'tous')){echo 'checked="checked"';}?> type="radio" name="logiciel" value="tous">Tous<br><?php
-											while($row = mysql_fetch_array($req)){
-												if(($row['Product_Name'] != "S2GS")&&($row['Product_Name'] != "Mig6")){
-													?><input <?php if(isset($_POST['logiciel']) && $_POST['logiciel'] == $row['Product_Name']){echo 'checked="checked"';}?> type="radio" name="logiciel" value=<?php echo '"'.$row['Product_Name'].'"'?>><?php if($row['Product_Name'] == "CloudMailMover"){ echo "CloudXFer"; }else{ echo $row['Product_Name']; } ?><br><?php
-												}
-											}
-											mysql_free_result($req);
-											mysql_close();
-										?>
-									</td>
-									<td align="center" colspan="2">
-										<input <?php if(!isset($_POST['etat']) || ($_POST['etat'] == 'Indifferent')){echo 'checked="checked"';}?> type="radio" name="etat" value="Indifferent">Indifférent<br>
-										<input <?php if(isset($_POST['etat']) && $_POST['etat'] == 'Active'){echo 'checked="checked"';}?> type="radio" name="etat" value="Active">Active<br>
-										<input <?php if(isset($_POST['etat']) && $_POST['etat'] == 'Desactive'){echo 'checked="checked"';}?> type="radio" name="etat" value="Desactive">Desactive
-									</td>
-								</tr>
-								<tr><td  colspan="6" align="center"><input class="button" type="submit" name="recherche" value="Rechercher"></td></tr>
-							</table>
-						</div>
-					</form>
-				</td>
-			</tr>
-			<tr><td><p><?php echo $y." resultats"?></p></td></tr>
-			<tr>
-				<td>
+		<h2 align="center">Licences</h2>
+		<form name="formVal" id="form" onsubmit="return valide()" class="recherche" action= <?php echo $fo_licences_licences; ?> method="post">
+			<div class="recherche">
+				<button class="button">Detail</button>
+				
+				<div class="text1" id="plus">Installation :</div>
+				<div class="tf1" id="plus">
+					<small>yyyy/mm/dd</small><br>
+					<input type="text" onkeyup="verif(this,5)" name="date1" value="<?php if (isset($_POST['date1'])) echo htmlentities(trim($_POST['date1'])); ?>"><br>
+					<input <?php if(!isset($_POST['operateur_date1']) || ($_POST['operateur_date1'] == 'sup')){echo 'checked="checked"';}?> type="radio" name="operateur_date1" value="sup"><?php echo '>='; ?>
+					<input <?php if(isset($_POST['operateur_date1']) && ($_POST['operateur_date1'] == 'inf')){echo 'checked="checked"';}?> type="radio" name="operateur_date1" value="inf"><?php echo '<='; ?>
+					<input <?php if(isset($_POST['operateur_date1']) && ($_POST['operateur_date1'] == 'eg')){echo 'checked="checked"';}?> type="radio" name="operateur_date1" value="eg"><?php echo '='; ?>
+				</div>
+				
+				<div class="text2" id="plus">Mise à Jour :</div>
+				<div class="tf2" id="plus">
+					<small>yyyy/mm/dd</small><br>
+					<input type="text" onkeyup="verif(this,5)" name="date2" value="<?php if (isset($_POST['date2'])) echo htmlentities(trim($_POST['date2'])); ?>"><br>
+					<input <?php if(!isset($_POST['operateur_date2']) || ($_POST['operateur_date2'] == 'sup')){echo 'checked="checked"';}?> type="radio" name="operateur_date2" value="sup"><?php echo '>='; ?>
+					<input <?php if(isset($_POST['operateur_date2']) && ($_POST['operateur_date2'] == 'inf')){echo 'checked="checked"';}?> type="radio" name="operateur_date2" value="inf"><?php echo '<='; ?>
+					<input <?php if(isset($_POST['operateur_date2']) && ($_POST['operateur_date2'] == 'eg')){echo 'checked="checked"';}?> type="radio" name="operateur_date2" value="eg"><?php echo '='; ?>
+				</div>
+				
+				<div class="text3" id="plus">Contact :</div>
+				<div class="tf3" id="plus"><input type="text" name="contact" value="<?php if (isset($_POST['contact'])) echo htmlentities(trim($_POST['contact'])); ?>"></div>
+				
+				<div class="text4" id="plus">Client :</div>
+				<div class="tf4" id="plus"><input type="text" name="client" value="<?php if (isset($_POST['client'])) echo htmlentities(trim($_POST['client'])); ?>"></div>
+				
+				<div class="text5" id="plus">Cle :</div>
+				<div class="tf5" id="plus"><input type="text" onkeyup="verif(this,6)" name="key" value="<?php if (isset($_POST['key'])) echo htmlentities(trim($_POST['key'])); ?>"></div>
+				
+				<div class="text6" id="plus">Nb Utilisateurs :</div>
+				<div class="tf6" id="plus">
+					<input type="text" name="number" value="<?php if (isset($_POST['number'])) echo htmlentities(trim($_POST['number'])); ?>"><br>
+					<input <?php if(!isset($_POST['operateur_nombre']) || ($_POST['operateur_nombre'] == 'sup')){echo 'checked="checked"';}?> type="radio" name="operateur_nombre" value="sup"><?php echo '>='; ?>
+					<input <?php if(isset($_POST['operateur_nombre']) && ($_POST['operateur_nombre'] == 'inf')){echo 'checked="checked"';}?> type="radio" name="operateur_nombre" value="inf"><?php echo '<='; ?>
+					<input <?php if(isset($_POST['operateur_nombre']) && ($_POST['operateur_nombre'] == 'eg')){echo 'checked="checked"';}?> type="radio" name="operateur_nombre" value="eg"><?php echo '='; ?>
+				</div>
+				
+				<div class="text7" id="plus">Nb Licences :</div>
+				<div class="tf7" id="plus">
+					<input type="text" name="numberL" value="<?php if (isset($_POST['numberL'])) echo htmlentities(trim($_POST['numberL'])); ?>"><br>
+					<input <?php if(!isset($_POST['operateur_nombreL']) || ($_POST['operateur_nombreL'] == 'sup')){echo 'checked="checked"';}?> type="radio" name="operateur_nombreL" value="sup"><?php echo '>='; ?>
+					<input <?php if(isset($_POST['operateur_nombreL']) && ($_POST['operateur_nombreL'] == 'inf')){echo 'checked="checked"';}?> type="radio" name="operateur_nombreL" value="inf"><?php echo '<='; ?>
+					<input <?php if(isset($_POST['operateur_nombreL']) && ($_POST['operateur_nombreL'] == 'eg')){echo 'checked="checked"';}?> type="radio" name="operateur_nombreL" value="eg"><?php echo '='; ?>
+				</div>
+				
+				<div class="type">
+					<input <?php if(!isset($_POST['type']) || ($_POST['type'] == 'Indifferent')){echo 'checked="checked"';}?> type="radio" name="type" value="Indifferent">Indifférent<br>
+					<input <?php if(isset($_POST['type']) && $_POST['type'] == 'Client'){echo 'checked="checked"';}?> type="radio" name="type" value="Client">Client<br>
+					<input <?php if(isset($_POST['type']) && $_POST['type'] == 'Prospect'){echo 'checked="checked"';}?> type="radio" name="type" value="Prospect">Prospect
+				</div>
+				
+				<div class="logiciel">
 					<?php
-						if($y > 0){
-							echo
-							"<table id='licencesTable'>
-							<tr>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(0,true,\"licencesTable\")' value='Logiciel' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(1,false,\"licencesTable\")' value='Installation' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(2,false,\"licencesTable\")' value='Mise à Jour' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(3,true,\"licencesTable\")' value='Contact' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(4,true,\"licencesTable\")' value='Client' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(5,true,\"licencesTable\")' value='Licences' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(6,true,\"licencesTable\")' value='Utilisateurs' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(7,true,\"licencesTable\")' value='Etat' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(8,true,\"licencesTable\")' value='Cle' />
-								</th>
-							</tr>";
-
-							for ($i=0; $i<$y;$i++){
-								echo 
-								'<tr ';if($depp[$i]==1){ echo 'style="background-color:#FF6666;color:#FFFFFF;"';} echo '>
-									<td id="0'.($i+1).'" align="center">'.$Logiciel[$i].'</td>
-									<td id="1'.($i+1).'" align="center">'.$Date2[$i].'</td>
-									<td id="2'.($i+1).'" align="center">'.$Date[$i].'</td>
-									<td id="3'.($i+1).'" align="center"><a target="_blank" href="'.$hr_licences_customers.'?tri='.$Contact[$i].'&id='.$ID[$i].'">'.$Contact[$i].'</a></td>
-									<td id="4'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$ID[$i].'\')" align="center">'.$Client[$i].'</td>
-									<td id="5'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$ID[$i].'\')" align="center">'.$Licences[$i].'</td>
-									<td id="6'.($i+1).'" align="center">'.$Utilisateurs[$i][0].'</td>
-									<td id="7'.($i+1).'" onclick="clic(this,3,'.($i+1).',\''.$ID[$i].'\')" align="center">'.$Etat[$i].'</td>
-									<td id="8'.($i+1).'" align="center">'.$Cle[$i].'</td>
-								</tr>';
+						$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
+						mysql_select_db ($SQL_Cdw_name, $base);
+						$sql = 'SELECT Product_Name FROM products';
+						$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
+						?><input <?php if(!isset($_POST['logiciel']) || ($_POST['logiciel'] == 'tous')){echo 'checked="checked"';}?> type="radio" name="logiciel" value="tous">Tous<br><?php
+						while($row = mysql_fetch_array($req)){
+							if(($row['Product_Name'] != "S2GS")&&($row['Product_Name'] != "Mig6")){
+								?><input <?php if(isset($_POST['logiciel']) && $_POST['logiciel'] == $row['Product_Name']){echo 'checked="checked"';}?> type="radio" name="logiciel" value=<?php echo '"'.$row['Product_Name'].'"'?>><?php if($row['Product_Name'] == "CloudMailMover"){ echo "CloudXFer"; }else{ echo $row['Product_Name']; } ?><br><?php
 							}
-							echo '</table>';
 						}
+						mysql_free_result($req);
+						mysql_close();
 					?>
-				</td>
-			</tr>
-		</table>
+				</div>
+				
+				<div class="etat">
+					<input <?php if(!isset($_POST['etat']) || ($_POST['etat'] == 'Indifferent')){echo 'checked="checked"';}?> type="radio" name="etat" value="Indifferent">Indifférent<br>
+					<input <?php if(isset($_POST['etat']) && $_POST['etat'] == 'Active'){echo 'checked="checked"';}?> type="radio" name="etat" value="Active">Active<br>
+					<input <?php if(isset($_POST['etat']) && $_POST['etat'] == 'Desactive'){echo 'checked="checked"';}?> type="radio" name="etat" value="Desactive">Desactive
+				</div>
+				
+				<input class="button" type="submit" name="recherche" value="Rechercher">
+			</div>
+		</form>
+		<p><?php echo $y." resultats"?></p></td></tr>
+		<?php
+			if($y > 0){
+				echo
+				"<table id='Table'>
+				<tr>
+					<th class='titre' align='center'>
+						<input class='button_titre' type='button' onclick='sortTable(0,true,\"Table\")' value='Logiciel' />
+					</th>
+					<th class='titre' align='center'>
+						<input class='button_titre' type='button' onclick='sortTable(1,false,\"Table\")' value='Installation' />
+					</th>
+					<th class='titre' align='center'>
+						<input class='button_titre' type='button' onclick='sortTable(2,false,\"Table\")' value='Mise à Jour' />
+					</th>
+					<th class='titre' align='center'>
+						<input class='button_titre' type='button' onclick='sortTable(3,true,\"Table\")' value='Contact' />
+					</th>
+					<th class='titre' align='center'>
+						<input class='button_titre' type='button' onclick='sortTable(4,true,\"Table\")' value='Client' />
+					</th>
+					<th class='titre' align='center'>
+						<input class='button_titre' type='button' onclick='sortTable(5,true,\"Table\")' value='Licences' />
+					</th>
+					<th class='titre' align='center'>
+						<input class='button_titre' type='button' onclick='sortTable(6,true,\"Table\")' value='Utilisateurs' />
+					</th>
+					<th class='titre' align='center'>
+						<input class='button_titre' type='button' onclick='sortTable(7,true,\"Table\")' value='Etat' />
+					</th>
+					<th class='titre' align='center'>
+						<input class='button_titre' type='button' onclick='sortTable(8,true,\"Table\")' value='Cle' />
+					</th>
+				</tr>";
+
+				for ($i=0; $i<$y;$i++){
+					echo 
+					'<tr ';if($depp[$i]==1){ echo 'style="background-color:#FF6666;color:#FFFFFF;"';} echo '>
+						<td id="0'.($i+1).'" align="center">'.$Logiciel[$i].'</td>
+						<td id="1'.($i+1).'" align="center">'.$Date2[$i].'</td>
+						<td id="2'.($i+1).'" align="center">'.$Date[$i].'</td>
+						<td id="3'.($i+1).'" align="center"><a target="_blank" href="'.$hr_licences_customers.'?tri='.$Contact[$i].'&id='.$ID[$i].'">'.$Contact[$i].'</a></td>
+						<td id="4'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$ID[$i].'\')" align="center">'.$Client[$i].'</td>
+						<td id="5'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$ID[$i].'\')" align="center">'.$Licences[$i].'</td>
+						<td id="6'.($i+1).'" align="center">'.$Utilisateurs[$i][0].'</td>
+						<td id="7'.($i+1).'" onclick="clic(this,3,'.($i+1).',\''.$ID[$i].'\')" align="center">'.$Etat[$i].'</td>
+						<td id="8'.($i+1).'" align="center">'.$Cle[$i].'</td>
+					</tr>';
+				}
+				echo '</table>';
+			}
+		?>
 	</body>
 </html>

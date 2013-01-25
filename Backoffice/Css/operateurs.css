@@ -1,0 +1,111 @@
+
+div.titre
+{
+	margin:auto;
+	width:50%;
+	float:left;
+}
+
+div.choix
+{
+	margin:auto;
+	width:50%;
+	padding-top:21px;
+	padding-bottom:21px;
+	float:left;
+}
+
+div.page
+{
+	margin:auto;
+	width:100%;
+	clear:both;
+}
+
+div.table
+{
+	margin:auto;
+	width:100%;
+}
+
+input.button_titre
+{
+	display:block;
+	color:#FFFFFF; /*Blanc*/
+	background-color:#245DB2; /*Bleu*/
+	font-weight:bold;
+	text-align:center;
+	padding:5px;
+	text-decoration:none;
+	border:none;
+}
+input.button
+{
+	margin:auto;
+	display:block;
+	color:#FFFFFF; /*Blanc*/
+	background-color:#245DB2; /*Bleu*/
+	font-weight:bold;
+	width:100px;
+	text-align:center;
+	padding:10px;
+	text-decoration:none;
+	border:none;
+}
+
+button.button:hover,button.button:active
+{
+	background-color:#3385FF; /*Bleu Clair*/
+}
+
+input.button:hover,input.button:active,
+input.button_titre:hover,input.button_titre:active
+{
+	background-color:#3385FF; /*Bleu Clair*/
+}
+
+a:link,a:visited
+{
+	display:block;
+	font-weight:bold;
+	color:#FFFFFF; /*Blanc*/
+	/*width:120px;*/
+	text-align:center;
+	padding:2px;
+	text-decoration:none;
+	background-color:#245DB2; /*Bleu*/
+}
+
+
+a:hover,a:active
+{
+	background-color:#3385FF; /*Bleu Clair*/
+}
+
+#Table th.titre
+{
+	padding:2px;
+	border:1px solid #3385FF; /*Bleu Clair*/
+	background-color:#245DB2; /*Bleu*/
+	color:#ffffff;	/*Blanc*/
+}
+
+#Table td 
+ {
+	border:1px solid #3385FF; /*Bleu Clair*/
+}
+
+td
+{
+	width:10%;
+}
+
+table
+{
+	padding: 5px;
+	width: 100%;
+}
+#Table
+{
+	border-collapse:collapse;
+}

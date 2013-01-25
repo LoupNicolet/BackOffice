@@ -39,34 +39,20 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
 		<title>Accueil</title>
-		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css; ?>>
+		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css_index; ?>>
 	</head>
 	<body>
-		<table border="6">
-			<tr>
-				<td>
-					<table>
-						<tr>
-							<td colspan="2" align="center"><h3>Connexion :</h3><td>
-						</tr>
-						<?php if(isset($erreur)) echo '<tr><td colspan="2" align="center">'.$erreur.'</td></tr>'; ?>
-						<form action= <?php echo $fo_index_index; ?> method="post" >
-							<tr>
-								<td align="right">Login : </td>
-								<td><input type="text" name="login" value="<?php if (isset($_POST['login'])) echo htmlentities(trim($_POST['login'])); ?>"></td>
-							</tr>
-							<tr>
-								<td align="right">Mot de passe :</td>
-								<td><input type="password" name="pass" value=""></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td><input class="button" type="submit" name="connexion" value="Connexion"></td>
-							</tr>
-						</form>
-					</table>
-				</td>
-			</tr>
-		</table>
+		<div class="bloc">
+			<h3>Connexion :</h3>
+			<?php if(isset($erreur)) echo $erreur; ?>
+			<form action= <?php echo $fo_index_index; ?> method="post" >
+				<div class="text">Login :<br>Mot de passe :</div>
+				<div class="input">
+					<input class="tf" type="text" name="login" value="<?php if (isset($_POST['login'])) echo htmlentities(trim($_POST['login'])); ?>">
+					<input class="tf" type="password" name="pass" value="">
+				</div>
+				<div class="button"><input class="button" type="submit" name="connexion" value="Connexion"></div>
+			</form>
+		</div>
 	</body>
 </html>

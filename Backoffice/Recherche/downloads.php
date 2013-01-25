@@ -46,7 +46,7 @@
 <html id="PagesFrame">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
-		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css; ?>>
+		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css_Download; ?>>
 		<script type='text/javascript' src= <?php echo $sc_JQuery; ?> ></script>
 		<script type='text/javascript' src= <?php echo $sc_tri; ?> ></script>
 		<script type='text/javascript' src= <?php echo $sc_details; ?> ></script>
@@ -72,93 +72,77 @@
 		</script>
 	</head>
 	<body>
-		<table>
-			<tr><h2 align="center">Telechargements</h2></tr>
-			<tr>
-				<td>
-					<form name="formVal" id="form" class="recherche" action=<?php echo $fo_downloads_downloads; ?> method="post" onsubmit="return valide()">
-						<div align="center">
-							<table>
-								<tr>
-									<td align="center" colspan="6"><button class="button">Detail</button></td>
-								</tr>
-								<tr id="plus">
-									<td align="right">Date : </td>
-									<td>
-										<small>yyyy/mm/dd</small>
-										<input type="text" onkeyup="verif(this,5)" name="time" value="<?php if (isset($_POST['time'])){ echo htmlentities(trim($_POST['time']));}?>"><br>
-										<input <?php if(!isset($_POST['operateur_date']) || ($_POST['operateur_date'] == 'sup')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="sup"><?php echo '>='; ?>
-										<input <?php if(isset($_POST['operateur_date']) && ($_POST['operateur_date'] == 'inf')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="inf"><?php echo '<='; ?>
-										<input <?php if(isset($_POST['operateur_date']) && ($_POST['operateur_date'] == 'eg')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="eg"><?php echo '='; ?>
-									</td>
-									<td align="right">Email :</td>
-									<td><input type="text" name="email" value="<?php if (isset($_POST['email'])) echo htmlentities(trim($_POST['email'])); ?>"></td>
-									<td align="right">Downloads :</td>
-									<td align="left">
-										<input <?php if(!isset($_POST['number']) || ($_POST['number'] == 'Tous')){echo 'checked="checked"';}?> type="radio" name="number" value="Tous">Tous<br>
-										<input <?php if(isset($_POST['number']) && $_POST['number'] == 'Non-Telecharge'){echo 'checked="checked"';}?> type="radio" name="number" value="Non-Telecharge">Non-Téléchargé<br>
-										<input <?php if(isset($_POST['number']) && $_POST['number'] == 'Telecharge'){echo 'checked="checked"';}?> type="radio" name="number" value="Telecharge">Téléchargé
-									</td>
-								</tr>
-								<tr>
-									<td colspan="6" align="center">
-										<?php
-											$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
-											mysql_select_db ($SQL_Cdw_name, $base);
-											$sql = 'SELECT Product_Name FROM products';
-											$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
-											?><input <?php if(!isset($_POST['logiciel']) || ($_POST['logiciel'] == 'tous')){echo 'checked="checked"';}?> type="radio" name="logiciel" value="tous">Tous<br><?php
-											while($row = mysql_fetch_array($req)){
-												if(($row['Product_Name'] != "S2GS")&&($row['Product_Name'] != "Mig6")){
-													?><input <?php if(isset($_POST['logiciel']) && $_POST['logiciel'] == $row['Product_Name']){echo 'checked="checked"';}?> type="radio" name="logiciel" value=<?php echo '"'.$row['Product_Name'].'"'?>><?php if($row['Product_Name'] == "CloudMailMover"){ echo "CloudXFer"; }else{ echo $row['Product_Name']; } ?><br><?php
-												}
-											}
-											mysql_free_result($req);
-											mysql_close();
-										?>
-									</td>
-								</tr>
-								<tr><td  colspan="6" align="center"><input class="button" type="submit" name="recherche" value="Rechercher"></td></tr>
-							</table>
-						</div>
-					</form>
-				</td>
-			</tr>
-			<tr><td><p><?php echo $y." resultats"?></p></td></tr>
-			<tr>
-				<td>
+		<h2 align="center">Telechargements</h2>
+		<form name="formVal" id="form" class="recherche" action=<?php echo $fo_downloads_downloads; ?> method="post" onsubmit="return valide()">
+			<div class="recherche">
+				<button class="button">Detail</button>
+				<div class="text1" id="plus">Date :</div>
+				<div class="tf1" id="plus">
+					<small>yyyy/mm/dd</small>
+					<input type="text" onkeyup="verif(this,5)" name="time" value="<?php if (isset($_POST['time'])){ echo htmlentities(trim($_POST['time']));}?>"><br>
+					<input <?php if(!isset($_POST['operateur_date']) || ($_POST['operateur_date'] == 'sup')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="sup"><?php echo '>='; ?>
+					<input <?php if(isset($_POST['operateur_date']) && ($_POST['operateur_date'] == 'inf')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="inf"><?php echo '<='; ?>
+					<input <?php if(isset($_POST['operateur_date']) && ($_POST['operateur_date'] == 'eg')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="eg"><?php echo '='; ?>
+				</div>
+				<div class="text2" id="plus">Email :</div>
+				<div class="tf2" id="plus">
+					<input type="text" name="email" value="<?php if (isset($_POST['email'])) echo htmlentities(trim($_POST['email'])); ?>">
+				</div>
+				<div class="text3" id="plus">Downloads :</div>
+				<div class="tf3" id="plus">
+					<input <?php if(!isset($_POST['number']) || ($_POST['number'] == 'Tous')){echo 'checked="checked"';}?> type="radio" name="number" value="Tous">Tous<br>
+					<input <?php if(isset($_POST['number']) && $_POST['number'] == 'Non-Telecharge'){echo 'checked="checked"';}?> type="radio" name="number" value="Non-Telecharge">Non-Téléchargé<br>
+					<input <?php if(isset($_POST['number']) && $_POST['number'] == 'Telecharge'){echo 'checked="checked"';}?> type="radio" name="number" value="Telecharge">Téléchargé
+				</div>
+				<div class="logiciel">
 					<?php
-						if($y > 0){
-							echo
-							"<table id='downloadsTable'>
-							<tr>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(0,false,\"downloadsTable\")' value='Date' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(1,true,\"downloadsTable\")' value='Email' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(2,true,\"downloadsTable\")' value='Downloads' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(3,true,\"downloadsTable\")' value='Logiciel' />
-								</th>";
-
-							for ($i=0; $i<$y;$i++){
-								echo 
-								'<tr>
-									<td id=1 align="center">'.$time[$i].'</td>
-									<td align="center">'.$email[$i].'</td>
-									<td align="center">'.$number[$i].'</td>
-									<td align="center">'.$logiciel[$i].'</td>
-								</tr>';
+						$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
+						mysql_select_db ($SQL_Cdw_name, $base);
+						$sql = 'SELECT Product_Name FROM products';
+						$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
+						?><input <?php if(!isset($_POST['logiciel']) || ($_POST['logiciel'] == 'tous')){echo 'checked="checked"';}?> type="radio" name="logiciel" value="tous">Tous<br><?php
+						while($row = mysql_fetch_array($req)){
+							if(($row['Product_Name'] != "S2GS")&&($row['Product_Name'] != "Mig6")){
+								?><input <?php if(isset($_POST['logiciel']) && $_POST['logiciel'] == $row['Product_Name']){echo 'checked="checked"';}?> type="radio" name="logiciel" value=<?php echo '"'.$row['Product_Name'].'"'?>><?php if($row['Product_Name'] == "CloudMailMover"){ echo "CloudXFer"; }else{ echo $row['Product_Name']; } ?><br><?php
 							}
-							echo '</table>';
 						}
+						mysql_free_result($req);
+						mysql_close();
 					?>
-				</td>
-			</tr>
-		</table>
+				</div>
+				<input class="button" type="submit" name="recherche" value="Rechercher">
+			</div>
+		</form>
+		<p><?php echo $y." resultats"?></p>
+		<?php
+			if($y > 0){
+				echo
+				"<table id='Table'>
+				<tr>
+					<th class='titre' align='center'>
+						<input class='button_titre' type='button' onclick='sortTable(0,false,\"Table\")' value='Date' />
+					</th>
+					<th class='titre' align='center'>
+						<input class='button_titre' type='button' onclick='sortTable(1,true,\"Table\")' value='Email' />
+					</th>
+					<th class='titre' align='center'>
+						<input class='button_titre' type='button' onclick='sortTable(2,true,\"Table\")' value='Downloads' />
+					</th>
+					<th class='titre' align='center'>
+						<input class='button_titre' type='button' onclick='sortTable(3,true,\"Table\")' value='Logiciel' />
+					</th>";
+
+				for ($i=0; $i<$y;$i++){
+					echo 
+					'<tr>
+						<td id=1 align="center">'.$time[$i].'</td>
+						<td align="center">'.$email[$i].'</td>
+						<td align="center">'.$number[$i].'</td>
+						<td align="center">'.$logiciel[$i].'</td>
+					</tr>';
+				}
+				echo '</table>';
+			}
+		?>
 	</body>
 </html>

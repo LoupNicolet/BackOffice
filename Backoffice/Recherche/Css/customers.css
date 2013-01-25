@@ -1,0 +1,159 @@
+div.recherche
+{
+	margin:auto;
+	width:90%;
+	padding:1%;
+	background-color:#CCCCCC;
+	border:6px outset #CCCCCC;
+}
+
+div.type
+{
+	clear:both;
+	width:100%;
+	padding-top:1%;
+	padding-bottom:1%;
+	text-align:center;
+	margin:auto;
+}
+
+div.tf1
+{
+	float:left;
+	width: 16%;
+}
+
+div.tf2
+{
+	float:left;
+	width: 16%;
+}
+
+div.tf3
+{
+	float:left;
+	width: 16%;
+}
+
+div.text1
+{
+	text-align:right;
+	float:left;
+	padding-top:6px;
+	padding-bottom:6px;
+	padding-right:1%;
+	width: 16%;
+}
+
+div.text2
+{
+	text-align:right;
+	float:left;
+	padding-top:6px;
+	padding-bottom:6px;
+	padding-right:1%;
+	width: 16%;
+}
+
+div.text3
+{
+	text-align:right;
+	float:left;
+	padding-top:6px;
+	padding-bottom:6px;
+	padding-right:1%;
+	width: 16%;
+}
+
+input.tf
+{
+	margin:2px;
+}
+
+#Table th.titre
+{
+	padding:2px;
+	border:1px solid #3385FF; /*Bleu Clair*/
+	background-color:#245DB2; /*Bleu*/
+	color:#ffffff;	/*Blanc*/
+}
+
+#Table td 
+ {
+	border:1px solid #3385FF; /*Bleu Clair*/
+}
+
+td
+{
+	width:10%;
+}
+
+p
+{
+	font-weight: bold;
+	font-size: 20px;
+	padding : 5px;
+}
+
+table
+{
+	padding: 5px;
+	width: 100%;
+}
+
+#Table
+{
+	border-collapse:collapse;
+}
+
+button.button
+{
+	margin:auto;
+	display:block;
+	color:#FFFFFF; /*Blanc*/
+	background-color:#245DB2; /*Bleu*/
+	font-weight:bold;
+	width:70px;
+	text-align:center;
+	padding:10px;
+	text-decoration:none;
+	border:none;
+}
+
+
+input.button_titre
+{
+	display:block;
+	color:#FFFFFF; /*Blanc*/
+	background-color:#245DB2; /*Bleu*/
+	font-weight:bold;
+	text-align:center;
+	padding:5px;
+	text-decoration:none;
+	border:none;
+}
+
+input.button
+{
+	margin:auto;
+	display:block;
+	color:#FFFFFF; /*Blanc*/
+	background-color:#245DB2; /*Bleu*/
+	font-weight:bold;
+	width:100px;
+	text-align:center;
+	padding:10px;
+	text-decoration:none;
+	border:none;
+}
+
+button.button:hover,button.button:active
+{
+	background-color:#3385FF; /*Bleu Clair*/
+}
+
+input.button:hover,input.button:active,
+input.button_titre:hover,input.button_titre:active
+{
+	background-color:#3385FF; /*Bleu Clair*/
+}

@@ -1,0 +1,63 @@
+div.cadre
+{
+	border:10px outset #245DB2;
+	
+}
+
+div.erreur
+{
+	text-align:center;
+}
+
+div.text
+{
+	text-align:right;
+	float:left;
+	padding-top:6px;
+	padding-bottom:6px;
+	width: 50%;
+}
+
+div.input
+{
+	margin-top:20px;
+	float:right;
+	width: 50%;
+}
+
+input.tf
+{
+	margin:4px;
+}
+
+p
+{
+	margin-bottom:-26px;
+	margin-right:10px;
+}
+
+div.button
+{
+	margin:auto;
+	padding-top:1%;
+	padding-bottom:1%;
+	width: 100%;
+	clear:both;
+}
+
+input.button
+{
+	display:block;
+	margin:auto;
+	color:#FFFFFF; /*Blanc*/
+	background-color:#245DB2; /*Bleu*/
+	font-weight:bold;
+	text-align:center;
+	padding:10px;
+	border:none;
+}
+
+input.button:hover,input.button:active
+{
+	background-color:#3385FF; /*Bleu Clair*/
+}

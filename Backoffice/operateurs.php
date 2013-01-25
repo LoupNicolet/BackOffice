@@ -34,7 +34,7 @@
 <html id="PagesFrame">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
-		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css; ?>>
+		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css_Operateurs; ?>>
 		<script type='text/javascript' src= <?php echo $sc_tri; ?>></script>
 		<script type='text/javascript'>
 			function confirme(colonne, login, table)
@@ -49,91 +49,77 @@
 		</script>
 	</head>
 	<body>
-		<table>	
-			<tr>
-				<td><h2  align="center">Operateurs</h2></td>
-				<td>
-					<table class="menu" style="background-color:#245DB2;">
-						<tr>
-							<td><a class="menu" href= <?php echo $hr_operateur_addOpe ?>>Ajouter</a></td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<?php 	
-						if(isset($_GET['page'])){
-							if($_GET['page'] == 'addOpe'){echo '<iframe src='.$in_operateur_addOpe.' frameborder="0" height="400" width="100%"></iframe>';}
-							else if($_GET['page'] == 'supOpe'){
-								$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
-								mysql_select_db ($SQL_Cdw_name, $base);
-								echo $sql = 'DELETE FROM operator WHERE login_operator="'.mysql_real_escape_string($_GET["log"]).'"';
-								$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
-								mysql_close();
-								header($he_operateur_operateur);
-							}
-							if($_GET['page'] == 'chOpe'){echo '<iframe src='.$in_operateur_chOpe.$_GET['log'].' frameborder="0" height="300" width="100%"></iframe>';}
-						}
-					?> 
-				</td>
-			</tr>
-			<tr>
-				<td colspan='2'>
-					<?php
-						if($y > 0){
-							echo
-							"<table id='operateurTable'>
-							<tr>
-								<th id='resultat' colspan='2' align='center'></th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(2,true,\"operateurTable\")' value='Login' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(3,true,\"operateurTable\")' value='Type' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(4,true,\"operateurTable\")' value='Prenom' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(5,true,\"operateurTable\")' value='Nom' />
-								</th>
-								<th class='titre' align='center'>
-									<input class='button_titre' type='button' onclick='sortTable(6,true,\"operateurTable\")' value='Email' />
-								</th>
-							</tr>";
+		<div class="titre"><h2  align="center">Operateurs</h2></div>
+		<div class="choix"><a class="menu" href= <?php echo $hr_operateur_addOpe ?>>Ajouter</a></div>
+		<div class="page">
+			<?php 	
+				if(isset($_GET['page'])){
+					if($_GET['page'] == 'addOpe'){echo '<iframe src='.$in_operateur_addOpe.' frameborder="0" height="400" width="100%"></iframe>';}
+					else if($_GET['page'] == 'supOpe'){
+						$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
+						mysql_select_db ($SQL_Cdw_name, $base);
+						echo $sql = 'DELETE FROM operator WHERE login_operator="'.mysql_real_escape_string($_GET["log"]).'"';
+						$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
+						mysql_close();
+						header($he_operateur_operateur);
+					}
+					if($_GET['page'] == 'chOpe'){echo '<iframe src='.$in_operateur_chOpe.$_GET['log'].' frameborder="0" height="300" width="100%"></iframe>';}
+				}
+			?>
+		</div>
+		<div class="table">
+			<?php
+				if($y > 0){
+					echo
+					"<table id='Table'>
+					<tr>
+						<th id='resultat' colspan='2' align='center'></th>
+						<th class='titre' align='center'>
+							<input class='button_titre' type='button' onclick='sortTable(2,true,\"Table\")' value='Login' />
+						</th>
+						<th class='titre' align='center'>
+							<input class='button_titre' type='button' onclick='sortTable(3,true,\"Table\")' value='Type' />
+						</th>
+						<th class='titre' align='center'>
+							<input class='button_titre' type='button' onclick='sortTable(4,true,\"Table\")' value='Prenom' />
+						</th>
+						<th class='titre' align='center'>
+							<input class='button_titre' type='button' onclick='sortTable(5,true,\"Table\")' value='Nom' />
+						</th>
+						<th class='titre' align='center'>
+							<input class='button_titre' type='button' onclick='sortTable(6,true,\"Table\")' value='Email' />
+						</th>
+					</tr>";
 
-							for ($i=0; $i<$y;$i++){
-								if($Qui[$i] == 0){
-									echo 
-									'<tr>
-										<td align="center" style="background-color:#245DB2;">
-											<a href='.$hr_operateur_chOpe.$login[$i].'>Modifier</a>
-										</td>
-										<td align="center" style="background-color:#245DB2;">
-											<input class="button_titre" type="button" onclick="confirme(this,\''.$login[$i].'\',\'operateurTable\')" value="Suppr" />
-										</td>';
-								}else{
-									echo 
-									'<tr>
-										<td align="center" style="background-color:#245DB2;">
-											<a href='.$hr_operateur_chprofil.'>Modifier</a>
-										</td>
-										<td align="center" style="background-color:#245DB2;"></td>';
-								}
-								echo
-									'<td align="center">'.$login[$i].'</td>
-									<td align="center">'.$type[$i].'</td>
-									<td align="center">'.$prenom[$i].'</td>
-									<td align="center">'.$nom[$i].'</td>
-									<td align="center">'.$email[$i].'</td>
-								</tr>';
-							}
-							echo '</table>';
+					for ($i=0; $i<$y;$i++){
+						if($Qui[$i] == 0){
+							echo 
+							'<tr>
+								<td align="center" style="background-color:#245DB2;">
+									<a href='.$hr_operateur_chOpe.$login[$i].'>Modifier</a>
+								</td>
+								<td align="center" style="background-color:#245DB2;">
+									<input class="button_titre" type="button" onclick="confirme(this,\''.$login[$i].'\',\'operateurTable\')" value="Suppr" />
+								</td>';
+						}else{
+							echo 
+							'<tr>
+								<td align="center" style="background-color:#245DB2;">
+									<a href='.$hr_operateur_chprofil.'>Modifier</a>
+								</td>
+								<td align="center" style="background-color:#245DB2;"></td>';
 						}
-					?>
-				</td>
-			</tr>
-		</table>
+						echo
+							'<td align="center">'.$login[$i].'</td>
+							<td align="center">'.$type[$i].'</td>
+							<td align="center">'.$prenom[$i].'</td>
+							<td align="center">'.$nom[$i].'</td>
+							<td align="center">'.$email[$i].'</td>
+						</tr>';
+					}
+					echo '</table>';
+				}
+			?>
+		</div>
 	</body>
 </html>

@@ -20,19 +20,24 @@
 	$hr_operateur_chprofil = "'/Session/options.php?page=chprofil'";
 	$in_operateur_addOpe = '/Backoffice/Operateurs/addOpe.php';
 	$in_operateur_chOpe = '/Backoffice/Operateurs/chOpe.php?log=';
+	$hr_Css_Operateurs = "'/Backoffice/Css/operateurs.css'";
 
 	//customers.php
 	$fo_customers_customers = "'/Backoffice/Recherche/customers.php'";
+	$hr_Css_Customers = "'/Backoffice/Recherche/Css/customers.css'";
 	
 	//downloads.php
 	$fo_downloads_downloads = "'/Backoffice/Recherche/downloads.php'";
+	$hr_Css_Download = "'/Backoffice/Recherche/Css/downloads.css'";
 	
 	//licences.php
 	$fo_licences_licences = "'/Backoffice/Recherche/licences.php'";
 	$hr_licences_customers = "/Backoffice/Recherche/customers.php";
+	$hr_Css_Licences = "'/Backoffice/Recherche/Css/licences.css'";
 
 	//addOpe.php
 	$fo_addOpe_addOpe = "'/Backoffice/Operateurs/addOpe.php'";
+	$hr_Css_AddOpe = "'/Backoffice/Operateurs/Css/addOpe.css'";
 	
 	//chOpe.php
 	$fo_chOpe_chOpe = '/Backoffice/Operateurs/chOpe.php?log=';
@@ -64,16 +69,19 @@
 	$hr_backoffice_operateurs = "'backoffice.php?action=operateurs'";
 	$hr_backoffice_options = "'backoffice.php?action=options'";
 	$hr_backoffice_deconnexion = '"Session/deconnexion.php?action=dec"';
+	$hr_Css_Back0ffice = "'/Css/backOffice.css'";
 	$in_backoffice_licences = 'Backoffice/Recherche/licences.php';
 	$in_backoffice_customers = 'Backoffice/Recherche/customers.php';
 	$in_backoffice_downloads = 'Backoffice/Recherche/downloads.php';
 	$in_backoffice_operateurs = 'Backoffice/operateurs.php';
 	$in_backoffice_options = 'Session/options.php';
 	
+	
 	//index.php
 	$he_index_backoffice = 'Location: backoffice.php';
 	$fo_index_index = "'index.php'";
 	$open_index_log = "Add/log.txt";
+	$hr_Css_index = "'/Css/index.css'";
 ?>
 	
 	

@@ -1,0 +1,53 @@
+div.bloc
+{
+	border: 10px outset #245DB2;
+	width: 25%;
+	min-width: 300px;
+	min-height: 190px;
+	margin: auto;
+	text-align: center;
+}
+
+div.text
+{
+	text-align:right;
+	float:left;
+	padding-top:6px;
+	padding-bottom:6px;
+	width: 40%;
+}
+
+div.input
+{
+	float:right;
+	width: 60%;
+}
+
+input.tf
+{
+	margin:2px;
+}
+
+div.button
+{
+	margin:auto;
+	padding-top:5%;
+	width: 30%;
+	clear:both;
+}
+
+input.button
+{
+	display:block;
+	color:#FFFFFF; /*Blanc*/
+	background-color:#245DB2; /*Bleu*/
+	font-weight:bold;
+	text-align:center;
+	padding:10px;
+	border:none;
+}
+
+input.button:hover,input.button:active
+{
+	background-color:#3385FF; /*Bleu Clair*/
+}

@@ -63,7 +63,7 @@
 <html id="PagesFrame">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
-		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css; ?>>
+		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css_AddOpe; ?>>
 		<script type='text/javascript' src= <?php echo $sc_JQuery; ?> ></script>
 		<script type='text/javascript' src= <?php echo $sc_JQuery_Color; ?>></script>
 		<script type='text/javascript' src= <?php echo $sc_verif; ?>></script>
@@ -103,42 +103,22 @@
 		</script>
 	</head>
 	<body>
-		<div style="border:10px outset #245DB2;">
-			<table>
-				<tr><td align="center" colspan="2"><h3>Inscription d'un opérateur :</h3></td></tr>
-				<tr><td id="erreur" colspan="3" align="center"><?php if(isset($erreur)) echo $erreur; ?></td></tr>
-				<form name="formVal" onsubmit="return valide()" action=<?php echo $fo_addOpe_addOpe; ?> method="post" >
-					<tr>
-						<td align="right">Login : </td>
-						<td><input onkeyup="verif(this,1)" type="text" name="login" value=""></td>
-					</tr>
-					<tr>
-						<td align="right">Mot de passe :</td>
-						<td><input onkeyup="verif(this,2)" type="password" name="pass" value=""></td>
-					</tr>
-					<tr>
-						<td align="right">Confirmation :</td>
-						<td><input onkeyup="verif(this,2)" type="password" name="pass_confirm"></td>
-					</tr>
-					<tr>
-						<td align="right">Email :</td>
-						<td><input onkeyup="verif(this,4)" type="text" name="email"></td>
-					</tr>
-					<tr>
-						<td align="right">Prenom :</td>
-						<td><input onkeyup="verif(this,3)" type="text" name="prenom"></td>
-					</tr>
-					<tr>
-						<td align="right">Nom :</td>
-						<td><input onkeyup="verif(this,3)" type="text" name="nom"></td>
-					</tr>
-					<tr>
-						<td align="right">Type :</td>
-						<td><input onkeyup="verif(this,3)" type="text" name="type"></td>
-					</tr>
-					<td align="center" colspan="2"><input class="button" type="submit" name="valider" value="Valider"></td>
-				</form>
-			</table>
+		<div class="cadre">
+			<h3 align="center">Inscription d'un opérateur :</h3>
+			<div class="erreur"><?php if(isset($erreur)) echo $erreur; ?></div>
+			<form name="formVal" onsubmit="return valide()" action=<?php echo $fo_addOpe_addOpe; ?> method="post" >
+				<div class="text"><p>Login :</p><br><p>Mot de passe :</p><br><p>Confirmation :</p><br><p>Email :</p><br><p>Prenom :</p><br><p>Nom :</p><br><p>Type :</p></div>
+				<div class="input">
+					<input class="tf" onkeyup="verif(this,1)" type="text" name="login" value=""><br>
+					<input class="tf" onkeyup="verif(this,2)" type="password" name="pass" value=""><br>
+					<input class="tf" onkeyup="verif(this,2)" type="password" name="pass_confirm"><br>
+					<input class="tf" onkeyup="verif(this,4)" type="text" name="email"><br>
+					<input class="tf" onkeyup="verif(this,3)" type="text" name="prenom"><br>
+					<input class="tf" onkeyup="verif(this,3)" type="text" name="nom"><br>
+					<input class="tf" onkeyup="verif(this,3)" type="text" name="type"><br>
+				</div>
+				<div class="button"><input class="button" type="submit" name="valider" value="Valider"></div>
+			</form>
 		</div>
 	</body>
 </html>
