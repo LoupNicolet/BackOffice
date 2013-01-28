@@ -27,11 +27,11 @@
 		mysql_free_result($req);
 		mysql_close();
 	}else{
-		header ('Location: /Session/deconnexion.php?action="co"');
+		header ($he_deconnexion);
 		exit();
 	}
 ?>
-<html id="PagesFrame">
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
 		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css_Operateurs; ?>>
@@ -49,8 +49,8 @@
 		</script>
 	</head>
 	<body>
-		<div class="titre"><h2  align="center">Operateurs</h2></div>
-		<div class="choix"><a class="menu" href= <?php echo $hr_operateur_addOpe ?>>Ajouter</a></div>
+		<div class="titre"><h2 align="center">Operateurs</h2></div>
+		<div class="choix"><a href= <?php echo $hr_operateur_addOpe ?>>Ajouter</a></div>
 		<div class="page">
 			<?php 	
 				if(isset($_GET['page'])){
@@ -73,7 +73,7 @@
 					echo
 					"<table id='Table'>
 					<tr>
-						<th id='resultat' colspan='2' align='center'></th>
+						<th colspan='2'></th>
 						<th class='titre' align='center'>
 							<input class='button_titre' type='button' onclick='sortTable(2,true,\"Table\")' value='Login' />
 						</th>
@@ -96,7 +96,7 @@
 							echo 
 							'<tr>
 								<td align="center" style="background-color:#245DB2;">
-									<a href='.$hr_operateur_chOpe.$login[$i].'>Modifier</a>
+									<a href='.$hr_operateur_chOpe.$login[$i]."'".'>Modifier</a>
 								</td>
 								<td align="center" style="background-color:#245DB2;">
 									<input class="button_titre" type="button" onclick="confirme(this,\''.$login[$i].'\',\'operateurTable\')" value="Suppr" />

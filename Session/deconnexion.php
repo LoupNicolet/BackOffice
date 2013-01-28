@@ -16,22 +16,16 @@
 	}
 ?> 
 
-<html id="deconnexion">
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
 		<title>Accueil</title>
-		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css; ?>>
+		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css_deconnexion; ?>>
 	</head>
-
 	<body>
-	<table border="6">
-			<td>
-				<table align="center">
-					<tr><td colspan="2" align="center"><h3><?php echo $message;?></h3></td></tr>
-					<td align="center"><a href= <?php echo $hr_deconnexion_index; ?> >Ok</a></td>
-				</table>
-			</td>
-		</table>
+		<div class="bloc">
+			<h3><?php echo $message;?></h3>
+			<div class="button"><a href= <?php echo $hr_deconnexion_index; ?> >Ok</a></div>
+		</div>
 	</body>
 </html>
-

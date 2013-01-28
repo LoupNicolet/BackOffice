@@ -11,12 +11,13 @@
 	$sc_JQuery_Color = "/Add/Script/JQuery_Color.js";
 	$sc_verif = "/Add/Script/verif.js";
 	$sc_modif = "/Add/Script/modif.js";
-	$hr_Css = "'/Add/css.css'";
+	$sc_valide = "/Add/Script/valide.js";
+	$he_deconnexion = 'location: /Session/deconnexion.php?action="co"';
 	
 	//operateur.php
 	$he_operateur_operateur = "location: /Backoffice/operateurs.php?action=operateurs";
 	$hr_operateur_addOpe = "'/Backoffice/operateurs.php?page=addOpe'";
-	$hr_operateur_chOpe = "/Backoffice/operateurs.php?page=chOpe&log=";
+	$hr_operateur_chOpe = "'/Backoffice/operateurs.php?page=chOpe&log=";
 	$hr_operateur_chprofil = "'/Session/options.php?page=chprofil'";
 	$in_operateur_addOpe = '/Backoffice/Operateurs/addOpe.php';
 	$in_operateur_chOpe = '/Backoffice/Operateurs/chOpe.php?log=';
@@ -40,27 +41,33 @@
 	$hr_Css_AddOpe = "'/Backoffice/Operateurs/Css/addOpe.css'";
 	
 	//chOpe.php
-	$fo_chOpe_chOpe = '/Backoffice/Operateurs/chOpe.php?log=';
+	$fo_chOpe_chOpe = "'/Backoffice/Operateurs/chOpe.php?log=";
+	$hr_Css_chOpe = "'/Backoffice/Operateurs/Css/chOpe.css'";
 	
 	//deconnexion.php
 	$hr_deconnexion_index = "/index.php";
+	$hr_Css_deconnexion = "'/Session/Css/deconnexion.css'";
 	
-	//option.php
+	//options.php
 	$hr_options_chlog = "'/Session/options.php?page=chlog'";
 	$hr_options_chpass = "'/Session/options.php?page=chpass'";
 	$hr_options_chprofil = "'/Session/options.php?page=chprofil'";
 	$in_options_chpass = '/Session/Options/chpass.php';
 	$in_options_chprofil = '/Session/Options/chprofil.php';
 	$in_options_chlog = '/Session/Options/chlog.php';
+	$hr_Css_options = "'/Session/Css/options.css'";
 	
 	//chlog.php
 	$fo_chlog_chlog = "'/Session/Options/chlog.php'";
+	$hr_Css_chlog = "'/Session/Options/Css/chlog.css'";
 	
 	//chpass.php
 	$fo_chpass_chpass = "'/Session/Options/chpass.php'";
+	$hr_Css_chpass = "'/Session/Options/Css/chpass.css'";
 
 	//chprofil.php
 	$fo_chprofil_chprofil = "'/Session/Options/chprofil.php'";
+	$hr_Css_chprofil = "'/Session/Options/Css/chprofil.css'";
 
 	//backoffice.php
 	$hr_backoffice_licences = "'backoffice.php?action=licences'";

@@ -1,7 +1,7 @@
 div.menu
 {
-	border:6px outset #245DB2;
-	background-color:#245DB2;
+	border:6px outset #245DB2; /*Bleu*/
+	background-color:#245DB2; /*Bleu*/
 	height: 25px;
 	min-width: 700px;
 }

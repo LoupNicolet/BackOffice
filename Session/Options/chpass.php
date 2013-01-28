@@ -28,54 +28,32 @@
 			else {$erreur = 'Au moins un des champs est vide.';}
 		}
 	}else{
-		header ('Location: /Session/deconnexion.php?action="co"');
+		header ($he_deconnexion);
 		exit();
 	}
 ?>
-<html id="PagesFrame">
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
-		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css; ?>>
+		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css_chpass; ?>>
 		<script type='text/javascript' src= <?php echo $sc_JQuery; ?>></script>
 		<script type='text/javascript' src= <?php echo $sc_JQuery_Color; ?>></script>
 		<script type='text/javascript' src= <?php echo $sc_verif; ?>></script>
-		<script type='text/javascript'>
-			function valide()
-			{
-				var nPass=document.forms["formVal"]["nPass"].value;
-				var cPass=document.forms["formVal"]["cPass"].value;
-				var aPass=document.forms["formVal"]["aPass"].value;
-				if ((nPass.length < 6) || (cPass.length < 6) || (aPass.length < 6))
-				{
-					document.getElementById("erreur").innerHTML="Mauvais login";
-					return false;
-				}
-			}
-		</script>
+		<script type='text/javascript' src= <?php echo $sc_valide; ?>></script>
 	</head>
 	<body>
-		<div style="border:10px outset #245DB2;">
-			<table>
-				<tr><td colspan="3" align="center"><h3>Nouveau Mdp :</h3></td></tr>
-				<tr><td id="erreur" colspan="3" align="center"><?php if(isset($erreur)) echo $erreur; ?></td></tr>
-				<form name="formVal" onsubmit="return valide()" action= <?php echo $fo_chpass_chpass; ?> method="post" >
-					<tr>
-						<td align="right">Nouveau : </td>
-						<td><input onkeyup="verif(this,2)" type="password" name="nPass"></td>
-					</tr>
-					<tr>
-						<td align="right">Confirmer :</td>
-						<td><input onkeyup="verif(this,2)" type="password" name="cPass"></td>
-					</tr>
-					<tr>
-						<td align="right">Ancien :</td>
-						<td><input onkeyup="verif(this,2)" type="password" name="aPass"></td>
-					</tr>
-					<tr>
-					<td colspan="3" align="center"><input class="button" type="submit" name="valider" value="Valider"></td>
-					</tr>
-				</form>	
-			</table>
+		<div class="cadre">
+			<h3 align="center">Nouveau Mdp :</h3>
+			<div id="erreur" class="erreur"><?php if(isset($erreur)) echo $erreur; ?></div>
+			<form onsubmit="return valide('chpass')" action= <?php echo $fo_chpass_chpass; ?> method="post" >
+				<div class="text"><p>Nouveau :</p><br><p>Confirmer :</p><br><p>Ancien :</p></div>
+				<div class="input">
+					<input class="tf" onkeyup="verif(this,2)" type="password" name="nPass"><br>
+					<input class="tf" onkeyup="verif(this,2)" type="password" name="cPass"><br>
+					<input class="tf" onkeyup="verif(this,2)" type="password" name="aPass"><br>
+				</div>
+				<div class="button"><input class="button" type="submit" name="valider" value="Valider"></div>
+			</form>
 		</div>
 	</body>
 </html>

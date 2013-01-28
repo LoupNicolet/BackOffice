@@ -1,9 +1,9 @@
-
 div.titre
 {
 	margin:auto;
 	width:50%;
 	float:left;
+	min-width:150px;
 }
 
 div.choix
@@ -13,6 +13,7 @@ div.choix
 	padding-top:21px;
 	padding-bottom:21px;
 	float:left;
+	min-width:150px;
 }
 
 div.page
@@ -69,7 +70,6 @@ a:link,a:visited
 	display:block;
 	font-weight:bold;
 	color:#FFFFFF; /*Blanc*/
-	/*width:120px;*/
 	text-align:center;
 	padding:2px;
 	text-decoration:none;

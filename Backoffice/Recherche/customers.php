@@ -43,11 +43,11 @@
 
 		mysql_close();
 	}else{
-		header ('Location: /Session/deconnexion.php?action="co"');
+		header ($he_deconnexion);
 		exit();
 	}
 ?>
-<html id="PagesFrame">
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
 		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css_Customers; ?>>
@@ -78,22 +78,22 @@
 	</head>
 	<body>
 		<h2 align="center">Clients</h2>
-		<form id="form" class="recherche" action= <?php echo $fo_customers_customers ?> method="post">
+		<form id="form" action= <?php echo $fo_customers_customers ?> method="post">
 			<div class="recherche">
 				<button class="button">Detail</button>
-				<div class="text1" id="plus">Email :<br>FirstName :</div>
+				<div class="text1" id="plus">Email :<br>Name :</div>
 				<div class="tf1" id="plus">
-					<input class="tf" type="text" name="email" value="<?php if (isset($_POST['email'])) echo htmlentities(trim($_POST['email'])); ?>">
-					<input class="tf" type="text" name="firstName" value="<?php if (isset($_POST['firstName'])) echo htmlentities(trim($_POST['firstName'])); ?>">
-				</div>
-				<div class="text2" id="plus">Tel :<br>Name :</div>
-				<div class="tf2" id="plus">
-					<input class="tf" type="text" name="tel" value="<?php if (isset($_POST['tel'])) echo htmlentities(trim($_POST['tel']));?>">
+					<input class="tf" type="text" name="email" value="<?php if (isset($_POST['email'])) echo htmlentities(trim($_POST['email'])); ?>"><br>
 					<input class="tf" type="text" name="name" value="<?php if (isset($_POST['name'])) echo htmlentities(trim($_POST['name'])); ?>">
 				</div>
-				<div class="text3" id="plus">LastName :<br>Mobile :</div>
+				<div class="text2" id="plus">LastName :<br>FirstName :</div>
+				<div class="tf2" id="plus">
+					<input class="tf" type="text" name="lastName" value="<?php if (isset($_POST['lastName'])) echo htmlentities(trim($_POST['lastName'])); ?>"><br>
+					<input class="tf" type="text" name="firstName" value="<?php if (isset($_POST['firstName'])) echo htmlentities(trim($_POST['firstName'])); ?>">
+				</div>
+				<div class="text3" id="plus">Tel :<br>Mobile :</div>
 				<div class="tf3" id="plus">
-					<input class="tf" type="text" name="lastName" value="<?php if (isset($_POST['lastName'])) echo htmlentities(trim($_POST['lastName'])); ?>">
+					<input class="tf" type="text" name="tel" value="<?php if (isset($_POST['tel'])) echo htmlentities(trim($_POST['tel']));?>"><br>
 					<input class="tf" type="text" name="mobile" value="<?php if (isset($_POST['mobile'])) echo htmlentities(trim($_POST['mobile'])); ?>">
 				</div>
 				<div class="type">

@@ -56,57 +56,24 @@
 		else {$erreur = 'Veuillez rentrer au moins un login et un mot de passe.';}
 	}
 	}else{
-		header ('Location: /Session/deconnexion.php?action="co"');
+		header ($he_deconnexion);
 		exit();
 	}
 ?>
-<html id="PagesFrame">
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
 		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css_AddOpe; ?>>
 		<script type='text/javascript' src= <?php echo $sc_JQuery; ?> ></script>
 		<script type='text/javascript' src= <?php echo $sc_JQuery_Color; ?>></script>
 		<script type='text/javascript' src= <?php echo $sc_verif; ?>></script>
-		<script type='text/javascript'>
-			function valide()
-			{
-				var login=document.forms["formVal"]["login"];
-				var mdp=document.forms["formVal"]["pass"];
-				var email=document.forms["formVal"]["email"];
-				if (login.value.length < 3)
-				{
-					document.getElementById("erreur").innerHTML="Mauvais format de Login (min 3)";
-					return false;
-				}
-				if (mdp.value.length < 6)
-				{
-					document.getElementById("erreur").innerHTML="Mauvais format de mot de passe (min 6)";
-					return false;
-				}
-				if (email.value.length < 1){}
-				else if (( email.value.indexOf("@") == -1 )
-					|| ( email.value.indexOf("@") == 0 )
-					|| ( email.value.indexOf("@") != email.value.lastIndexOf("@") ) 
-					|| ( email.value.indexOf(".") == email.value.indexOf("@")-1 ) 
-					|| ( email.value.indexOf(".") == email.value.indexOf("@") +1 ) 
-					|| (email.value.indexOf("@") == email.value.length -1 ) 
-					|| (email.value.indexOf (".") == -1) 
-					|| ( email.value.lastIndexOf (".") == email.value.length -1 ) 
-					|| (email.value.indexOf (" ") != -1) 
-					|| ((email.value.indexOf(".") == email.value.lastIndexOf(".")) && (email.value.lastIndexOf(".") < email.value.indexOf("@")))
-					)
-				{
-					document.getElementById("erreur").innerHTML="Mauvais format d'Email";
-					return false;
-				}
-			}
-		</script>
+		<script type='text/javascript' src= <?php echo $sc_valide; ?>></script>
 	</head>
 	<body>
 		<div class="cadre">
 			<h3 align="center">Inscription d'un opérateur :</h3>
-			<div class="erreur"><?php if(isset($erreur)) echo $erreur; ?></div>
-			<form name="formVal" onsubmit="return valide()" action=<?php echo $fo_addOpe_addOpe; ?> method="post" >
+			<div id="erreur" class="erreur"><?php if(isset($erreur)) echo $erreur; ?></div>
+			<form onsubmit="return valide('addOpe')" action=<?php echo $fo_addOpe_addOpe; ?> method="post" >
 				<div class="text"><p>Login :</p><br><p>Mot de passe :</p><br><p>Confirmation :</p><br><p>Email :</p><br><p>Prenom :</p><br><p>Nom :</p><br><p>Type :</p></div>
 				<div class="input">
 					<input class="tf" onkeyup="verif(this,1)" type="text" name="login" value=""><br>

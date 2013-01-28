@@ -58,11 +58,11 @@
 		}
 		mysql_close();
 	}else{
-		header ('Location: /Session/deconnexion.php?action="co"');
+		header ($he_deconnexion);
 		exit();
 	}
 ?>
-<html id="PagesFrame">
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
 		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css_Licences; ?>>
@@ -72,33 +72,8 @@
 		<script type='text/javascript' src= <?php echo $sc_JQuery_Color; ?>></script>
 		<script type='text/javascript' src= <?php echo $sc_verif; ?>></script>
 		<script type='text/javascript' src= <?php echo $sc_modif; ?>></script>
+		<script type='text/javascript' src= <?php echo $sc_valide; ?>></script>
 		<script type='text/javascript'>
-			function valide()
-			{
-				var element=document.forms["formVal"]["time"];
-				var element2=document.forms["formVal"]["key"];
-				if ((element.value != "")
-					&&(( element.value.indexOf("/") != 4) 
-					|| ( element.value.lastIndexOf("/") != 7 )
-					|| (element.value.lastIndexOf("/") != (element.value.length - 3))))
-				{
-					alert("Mauvais format de Date ");
-					return false;
-				}
-				if ((element2.value != "")
-					&&(( element2.value.indexOf("-") != 5) 
-					|| ( element2.value.lastIndexOf("-") != 29 )
-					|| ( element2.value.charAt(11) != "-" )
-					|| ( element2.value.charAt(17) != "-" )
-					|| ( element2.value.charAt(23) != "-" )
-					|| ( element2.value.length != 35))
-					)
-				{
-					alert("Mauvais format de Cle");
-					return false;
-				}
-			}
-			
 			function requete(xmlhttp){
 				var val = "0";
 				if(valType==1){
@@ -117,13 +92,13 @@
 			}
 			
 			$(document).ready(function(){
-				sortTable(2, false, "licencesTable");
+				sortTable(2, false, "Table");
 			});
 		</script>
 	</head>
 	<body>
 		<h2 align="center">Licences</h2>
-		<form name="formVal" id="form" onsubmit="return valide()" class="recherche" action= <?php echo $fo_licences_licences; ?> method="post">
+		<form id="form" onsubmit="return valide('licences')" action= <?php echo $fo_licences_licences; ?> method="post">
 			<div class="recherche">
 				<button class="button">Detail</button>
 				

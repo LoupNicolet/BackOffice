@@ -1,11 +1,11 @@
-
 div.recherche
 {
 	margin:auto;
 	width:90%;
 	padding:1%;
-	background-color:#CCCCCC;
-	border:6px outset #CCCCCC;
+	background-color:#CCCCCC; /*Gris*/
+	border:6px outset #CCCCCC;/*Gris*/
+	min-width:900px;
 }
 
 div.type
@@ -164,9 +164,6 @@ input.tf
 {
 	margin:2px;
 }
-
-
-
 
 #Table th.titre
 {

@@ -3,8 +3,9 @@ div.recherche
 	margin:auto;
 	width:90%;
 	padding:1%;
-	background-color:#CCCCCC;
-	border:6px outset #CCCCCC;
+	background-color:#CCCCCC; /*Gris*/
+	border:6px outset #CCCCCC;/*Gris*/
+	min-width:750px;
 }
 
 div.type
@@ -19,34 +20,39 @@ div.type
 
 div.tf1
 {
+	margin-top:1%;
 	float:left;
 	width: 16%;
 }
 
 div.tf2
 {
+	margin-top:1%;
 	float:left;
 	width: 16%;
 }
 
 div.tf3
 {
+	margin-top:1%;
 	float:left;
-	width: 16%;
+	width: 22%;
 }
 
 div.text1
 {
+	margin-top:1%;
 	text-align:right;
 	float:left;
 	padding-top:6px;
 	padding-bottom:6px;
 	padding-right:1%;
-	width: 16%;
+	width: 10%;
 }
 
 div.text2
 {
+	margin-top:1%;
 	text-align:right;
 	float:left;
 	padding-top:6px;
@@ -57,6 +63,7 @@ div.text2
 
 div.text3
 {
+	margin-top:1%;
 	text-align:right;
 	float:left;
 	padding-top:6px;

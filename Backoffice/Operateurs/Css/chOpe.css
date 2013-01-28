@@ -1,11 +1,12 @@
-div.bloc
+div.cadre
 {
-	border: 10px outset #245DB2; /*Bleu*/
-	width: 25%;
-	min-width: 300px;
-	min-height: 190px;
-	margin: auto;
-	text-align: center;
+	border:10px outset #245DB2; /*Bleu*/
+	min-width:400px;
+}
+
+div.erreur
+{
+	text-align:center;
 }
 
 div.text
@@ -17,28 +18,46 @@ div.text
 	width: 40%;
 }
 
+div.info
+{
+	text-align:center;
+	float:left;
+	padding-top:6px;
+	padding-bottom:6px;
+	width: 20%;
+}
+
 div.input
 {
-	float:right;
-	width: 60%;
+	float:left;
+	width: 40%;
 }
 
 input.tf
 {
-	margin:2px;
+	margin:4px;
+}
+
+p
+{
+	margin-top:-4px;
+	margin-bottom:-4px;
+	margin-right:10px;
 }
 
 div.button
 {
 	margin:auto;
-	padding-top:5%;
-	width: 30%;
+	padding-top:1%;
+	padding-bottom:1%;
+	width: 100%;
 	clear:both;
 }
 
 input.button
 {
 	display:block;
+	margin:auto;
 	color:#FFFFFF; /*Blanc*/
 	background-color:#245DB2; /*Bleu*/
 	font-weight:bold;

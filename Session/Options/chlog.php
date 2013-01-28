@@ -32,54 +32,33 @@
 			}
 		}
 	}else{
-		header ('Location: /Session/deconnexion.php?action="co"');
+		header ($he_deconnexion);
 		exit();
 	}
 ?>
-<html id="PagesFrame">
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
-		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css; ?>>
+		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css_chlog; ?>>
 		<script type='text/javascript' src= <?php echo $sc_JQuery; ?>></script>
 		<script type='text/javascript' src= <?php echo $sc_JQuery_Color; ?>></script>
 		<script type='text/javascript' src= <?php echo $sc_verif; ?>></script>
-		<script type='text/javascript'>
-			function valide()
-			{
-				var login=document.forms["formVal"]["nLogin"].value;
-				var conf=document.forms["formVal"]["cLogin"].value;
-				if ((login.length < 3) || (conf.length < 3))
-				{
-					document.getElementById("erreur").innerHTML="Mauvais login";
-					return false;
-				}
-			}
-		</script>
+		<script type='text/javascript' src= <?php echo $sc_valide; ?>></script>
 	</head>
 	<body>
-		<div style="border:10px outset #245DB2;">
-			<table>
-				<tr><td colspan="3" align="center"><h3>Nouveau Login :</h3></td></tr>
-				<tr><td colspan="3" align="center"><h4><?php echo $_SESSION['login']; ?></h4></td></tr>
-				<tr><td id="erreur" colspan="3" align="center"><?php if(isset($erreur)) echo $erreur; ?></td></tr>
-				<form name="formVal" action= <?php echo $fo_chlog_chlog; ?> method="post" onsubmit="return valide()" >
-					<tr>
-						<td align="right">Nouveau : </td>
-						<td><input onkeyup="verif(this,1)" type="text" name="nLogin" value=""></td>
-					</tr>
-					<tr>
-						<td align="right">Confirmer :</td>
-						<td><input onkeyup="verif(this,1)" type="text" name="cLogin" value=""></td>
-					</tr>
-					<tr>
-						<td align="right">Mot de passe :</td>
-						<td><input onkeyup="verif(this,2)" type="password" name="pass"></td>
-					</tr>
-					<tr>
-					<td colspan="3" align="center"><input class="button" type="submit" name="valider" value="Valider"></td>
-					</tr>
-				</form>	
-			</table>
+		<div class="cadre">
+			<h3 align="center">Nouveau Login :</h3><br>
+			<h4 align="center"><p class="log"><?php echo $_SESSION['login']; ?></p></h4>
+			<div id="erreur" class="erreur"><?php if(isset($erreur)) echo $erreur; ?></div>
+			<form name="formVal" action= <?php echo $fo_chlog_chlog; ?> method="post" onsubmit="return valide('chlog')" >
+				<div class="text"><p>Nouveau :</p><br><p>Confirmer :</p><br><p>Mot de passe :</p></div>
+				<div class="input">
+					<input class="tf" onkeyup="verif(this,1)" type="text" name="nLogin" value=""><br>
+					<input class="tf" onkeyup="verif(this,1)" type="text" name="cLogin" value=""><br>
+					<input class="tf" onkeyup="verif(this,2)" type="password" name="pass"><br>
+				</div>
+				<div class="button"><input class="button" type="submit" name="valider" value="Valider"></div>
+			</form>
 		</div>
 	</body>
 </html>

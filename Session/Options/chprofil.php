@@ -50,71 +50,33 @@
 		}
 		mysql_close();
 	}else{
-		header ('Location: /Session/deconnexion.php?action="co"');
+		header ($he_deconnexion);
 		exit();
 	}
 ?>
-<html id="PagesFrame">
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
-		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css; ?>>
+		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css_chprofil; ?>>
 		<script type='text/javascript' src= <?php echo $sc_JQuery; ?>></script>
 		<script type='text/javascript' src= <?php echo $sc_JQuery_Color; ?>></script>
 		<script type='text/javascript' src= <?php echo $sc_verif; ?>></script>
-		<script type='text/javascript'>
-			function valide()
-			{
-				var element=document.forms["formVal"]["email"];
-				if (( element.value.length < 1){}
-				else if (( element.value.indexOf("@") == -1 ) 
-					|| ( element.value.indexOf("@") == 0 )
-					|| ( element.value.indexOf("@") != element.value.lastIndexOf("@") ) 
-					|| ( element.value.indexOf(".") == element.value.indexOf("@")-1 ) 
-					|| ( element.value.indexOf(".") == element.value.indexOf("@") +1 ) 
-					|| (element.value.indexOf("@") == element.value.length -1 ) 
-					|| (element.value.indexOf (".") == -1) 
-					|| ( element.value.lastIndexOf (".") == element.value.length -1 ) 
-					|| (element.value.indexOf (" ") != -1) 
-					|| ((element.value.indexOf(".") == element.value.lastIndexOf(".")) && (element.value.lastIndexOf(".") < element.value.indexOf("@")))
-					)
-				{
-					document.getElementById("erreur").innerHTML="Mauvais format email";
-					return false;
-				}
-			}
-		</script>
+		<script type='text/javascript' src= <?php echo $sc_valide; ?>></script>
 	</head>
 	<body>
-		<div style="border:10px outset #245DB2;">
-			<table>
-				<tr><td colspan="4" align="center"><h3>Profil :</h3></td></tr>
-				<tr><td id="erreur" colspan="3" align="center"><?php if(isset($erreur)) echo $erreur; ?></td></tr>
-				<form id="form" name="formVal" onsubmit="return valide()" action= <?php echo $fo_chprofil_chprofil; ?> method="post" >
-					<tr>
-						<td></td>
-						<td align="center"><b>Informations :</b></td>
-						<td><b>Modifier :</b></td>
-					</tr>
-					<tr>
-						<td align="right">Nom :</td>
-						<td align="center"><?php echo $nom; ?></td>
-						<td><input onkeyup="verif(this,3)" type="text" name="nom" value=""></td>
-					</tr>
-					<tr>
-						<td align="right">Prenom :</td>
-						<td align="center"><?php echo $prenom; ?></td>
-						<td><input onkeyup="verif(this,3)" type="text" name="prenom" value=""></td>
-					</tr>
-					<tr>
-						<td align="right">Email :</td>
-						<td align="center"><?php echo $email; ?></td>
-						<td><input id="email" onkeyup="verif(this,4)" type="text" name="email" value=""></td>
-					</tr>
-					<tr>
-					<td colspan="4" align="center"><input class="button" type="submit" name="valider" value="Valider"></td>
-					</tr>
-				</form>	
-			</table>
+		<div class="cadre">
+			<h3 align="center">Profil :</h3>
+			<div id="erreur" class="erreur"><?php if(isset($erreur)) echo $erreur; ?></div>
+			<form id="form" onsubmit='return valide("chprofil")' action= <?php echo $fo_chprofil_chprofil; ?> method="post" >
+				<div class="text"><p>Nom :</p><br><p>Prenom :</p><br><p>Email :</p></div>
+				<div class="info"><p><?php echo $nom; ?></p><br><p><?php echo $prenom; ?></p><br><p><?php echo $email; ?></p></div>
+				<div class="input">
+					<input class="tf" onkeyup="verif(this,3)" type="text" name="nom" value=""><br>
+					<input class="tf" onkeyup="verif(this,3)" type="text" name="prenom" value=""><br>
+					<input class="tf" id="email" onkeyup="verif(this,4)" type="text" name="email" value=""><br>
+				</div>
+				<div class="button"><input class="button" type="submit" name="valider" value="Valider"></div>
+			</form>
 		</div>
 	</body>
 </html>

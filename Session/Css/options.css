@@ -1,0 +1,42 @@
+div.titre
+{
+	margin:auto;
+	width:50%;
+	float:left;
+	min-width:150px;
+}
+
+div.choix
+{
+	margin:auto;
+	width:50%;
+	padding-top:21px;
+	padding-bottom:21px;
+	float:left;
+	min-width:150px;
+}
+
+div.page
+{
+	margin:auto;
+	width:100%;
+	clear:both;
+}
+
+a:link,a:visited
+{
+	display:block;
+	font-weight:bold;
+	color:#FFFFFF; /*Blanc*/
+	width:32%;
+	float:left;
+	text-align:center;
+	padding:2px;
+	text-decoration:none;
+	background-color:#245DB2; /*Bleu*/
+}
+
+a:hover,a:active
+{
+	background-color:#3385FF; /*Bleu Clair*/
+}

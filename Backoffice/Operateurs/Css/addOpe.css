@@ -1,7 +1,7 @@
 div.cadre
 {
-	border:10px outset #245DB2;
-	
+	border:10px outset #245DB2; /*Bleu*/
+	min-width:350px;
 }
 
 div.erreur

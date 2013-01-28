@@ -4,7 +4,7 @@
 	require '../../Add/function.php';
 	session_start();
 	if (isset($_SESSION['login'])){
-	
+		if(!isset($_GET['log'])){$_GET['log'] = 'undefined';}
 		$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 		mysql_select_db ($SQL_Cdw_name, $base);	
 			
@@ -16,7 +16,7 @@
 			$nom_ope = $row['lastName_operator'];
 		}
 		mysql_free_result($req);
-		
+		$y=0;
 		if (isset($_POST['valider']) && $_POST['valider'] == 'Valider') {
 			if ((isset($_POST['nom']) && !empty($_POST['nom'])) || (isset($_POST['prenom']) && !empty($_POST['prenom'])) || (isset($_POST['email']) && !empty($_POST['email']))) {
 				
@@ -43,6 +43,7 @@
 					$email_ope = $row['email_operator'];
 					$prenom_ope = $row['firstName_operator'];
 					$nom_ope = $row['lastName_operator'];
+					$y++;
 				}
 				mysql_free_result($req);
 			}
@@ -50,71 +51,33 @@
 		}
 		mysql_close();
 	}else{
-		header ('Location: /Session/deconnexion.php?action="co"');
+		header ($he_deconnexion);
 		exit();
 	}
 ?>
-<html id="PagesFrame">
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
-		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css; ?>>
+		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css_chOpe; ?>>
 		<script type='text/javascript' src= <?php echo $sc_JQuery; ?> ></script>
 		<script type='text/javascript' src= <?php echo $sc_JQuery_Color; ?>></script>
 		<script type='text/javascript' src= <?php echo $sc_verif; ?>></script>
-		<script type='text/javascript'>
-			function valide()
-			{
-				var email=document.forms["formVal"]["email"];
-				if (email.value.length < 1){}
-				else if ( ( email.value.indexOf("@") == -1 )
-					|| ( email.value.indexOf("@") == 0 )
-					|| ( email.value.indexOf("@") != email.value.lastIndexOf("@") ) 
-					|| ( email.value.indexOf(".") == email.value.indexOf("@")-1 ) 
-					|| ( email.value.indexOf(".") == email.value.indexOf("@") +1 ) 
-					|| (email.value.indexOf("@") == email.value.length -1 ) 
-					|| (email.value.indexOf (".") == -1) 
-					|| ( email.value.lastIndexOf (".") == email.value.length -1 ) 
-					|| (email.value.indexOf (" ") != -1) 
-					|| ((email.value.indexOf(".") == email.value.lastIndexOf(".")) && (email.value.lastIndexOf(".") < email.value.indexOf("@")))
-					)
-				{
-					document.getElementById("erreur").innerHTML="Mauvais format d'Email";
-					return false;
-				}
-			}
-		</script>
+		<script type='text/javascript' src= <?php echo $sc_valide; ?>></script>
 	</head>
 	<body>
-		<div style="border:10px outset #245DB2;">
-			<table>
-				<tr><td colspan="4" align="center"><h3>Profil de <?php echo $_GET['log']; ?> :</h3></td></tr>
-				<tr><td id="erreur" colspan="3" align="center"><?php if(isset($erreur)) echo $erreur; ?></td></tr>
-				<form name="formVal" onsubmit="return valide()" action= <?php echo $fo_chOpe_chOpe.$_GET['log']; ?> method="post" >
-					<tr>
-						<td></td>
-						<td align="center"><b>Informations :</b></td>
-						<td><b>Modifier :</b></td>
-					</tr>
-					<tr>
-						<td align="right">Nom :</td>
-						<td align="center"><?php echo $nom_ope; ?></td>
-						<td><input onkeyup="verif(this,3)" type="text" name="nom" value=""></td>
-					</tr>
-					<tr>
-						<td align="right">Prenom :</td>
-						<td align="center"><?php echo $prenom_ope; ?></td>
-						<td><input onkeyup="verif(this,3)" type="text" name="prenom" value=""></td>
-					</tr>
-					<tr>
-						<td align="right">Email :</td>
-						<td align="center"><?php echo $email_ope; ?></td>
-						<td><input onkeyup="verif(this,4)" type="text" name="email" value=""></td>
-					</tr>
-					<tr>
-						<td colspan="4" align="center"><input class="button" type="submit" name="valider" value="Valider"></td>
-					</tr>
-				</form>	
-			</table>
+		<div class="cadre">
+			<h3 align="center">Profil de <?php echo $_GET['log']; ?> :</h3>
+			<div id="erreur" class="erreur"><?php if(isset($erreur)) echo $erreur; ?></div>
+			<form onsubmit="return valide('chprofil')" action= <?php echo $fo_chOpe_chOpe.$_GET['log']."'"; ?> method="post" >
+				<div class="text"><p>Nom :</p><br><p>Prenom :</p><br><p>Email :</p></div>
+				<?php if($y>0){ echo '<div class="info"><p><?php echo $nom_ope; ?></p><br><p><?php echo $prenom_ope; ?></p><br><p><?php echo $email_ope; ?></p></div>';}?>
+				<div class="input">
+					<input class="tf" onkeyup="verif(this,3)" type="text" name="nom" value=""><br>
+					<input class="tf" onkeyup="verif(this,3)" type="text" name="prenom" value=""><br>
+					<input class="tf" onkeyup="verif(this,4)" type="text" name="email" value=""><br>
+				</div>
+				<div class="button"><input class="button" type="submit" name="valider" value="Valider"></div>
+			</form>	
 		</div>
 	</body>
 </html>

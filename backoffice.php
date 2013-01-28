@@ -24,25 +24,25 @@
 		$_SESSION['firstName'] = $data[0];
 		mysql_close();
 	}else{
-		header ('Location: /Session/deconnexion.php?action="co"');
+		header ($he_deconnexion);
 		exit();
 	}
 ?>
 
-<html id="backoffice">
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
 		<title>BackOffice</title>
 		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css_Back0ffice; ?>>
 		<script type='text/javascript' src= <?php echo $sc_JQuery; ?> ></script>
 		<script language="JavaScript">
-			function autoResize(id){
-				document.getElementById(id).height= (document.documentElement.clientHeight - 80) + "px";
-				document.getElementById(id).width= (document.documentElement.clientWidth - 20) + "px";
+			function autoResize(){
+				document.getElementById('iframe').height= (document.documentElement.clientHeight - 80) + "px";
+				document.getElementById('iframe').width= (document.documentElement.clientWidth - 20) + "px";
 			}
 		</script>
 	</head>
-	<body>
+	<body onresize="autoResize()">
 		<div class="menu">
 			<a class="pages" href= <?php echo $hr_backoffice_customers; ?> >Clients</a>
 			<a class="pages" href= <?php echo $hr_backoffice_downloads; ?> >Telechargements</a>
@@ -51,15 +51,15 @@
 			<a class="pages" href= <?php echo $hr_backoffice_options; ?> >Options</a>
 			<a class="deco" href= <?php echo $hr_backoffice_deconnexion; ?> >Deconnexion</a>
 		</div>
-		<div class="log"><small><?php echo "[".htmlentities(trim($_SESSION['type']))."]"."[".htmlentities(trim($_SESSION['firstName'])).htmlentities(trim($_SESSION['lastName']))."]";?><small></div>
+		<div class="log"><small><?php echo "[".htmlentities(trim($_SESSION['type']))."]"."[".htmlentities(trim($_SESSION['firstName'])).htmlentities(trim($_SESSION['lastName']))."]";?></small></div>
 		<div class="pages">
 			<?php 	
 				if(isset($_GET['action'])){
-					if($_GET['action'] == 'customers'){ echo '<iframe id="iframeCustomers" onLoad="autoResize(\'iframeCustomers\')" src='.$in_backoffice_customers.' frameborder="0" height="0" width="0"></iframe>';}
-					else if($_GET['action'] == 'downloads'){ echo '<iframe id="iframeDownloads" onLoad="autoResize(\'iframeDownloads\')" src='.$in_backoffice_downloads.' frameborder="0" height="0" width="0"></iframe>';}
-					else if($_GET['action'] == 'licences'){echo '<iframe id="iframeDownloads" onLoad="autoResize(\'iframeDownloads\')" src='.$in_backoffice_licences.' frameborder="0" height="0" width="0"></iframe>';}
-					else if($_GET['action'] == 'operateurs'){echo '<iframe id="iframeDownloads" onLoad="autoResize(\'iframeDownloads\')" src='.$in_backoffice_operateurs.' frameborder="0" height="0" width="0"></iframe>';}
-					else if($_GET['action'] == 'options'){echo '<iframe id="iframeDownloads" onLoad="autoResize(\'iframeDownloads\')" src='.$in_backoffice_options.' frameborder="0" height="0" width="0"></iframe>';}
+					if($_GET['action'] == 'customers'){ echo '<iframe id="iframe" onLoad="autoResize()" src='.$in_backoffice_customers.' frameborder="0" height="0" width="0"></iframe>';}
+					else if($_GET['action'] == 'downloads'){ echo '<iframe id="iframe" onLoad="autoResize()" src='.$in_backoffice_downloads.' frameborder="0" height="0" width="0"></iframe>';}
+					else if($_GET['action'] == 'licences'){echo '<iframe id="iframe" onLoad="autoResize()" src='.$in_backoffice_licences.' frameborder="0" height="0" width="0"></iframe>';}
+					else if($_GET['action'] == 'operateurs'){echo '<iframe id="iframe" onLoad="autoResize()" src='.$in_backoffice_operateurs.' frameborder="0" height="0" width="0"></iframe>';}
+					else if($_GET['action'] == 'options'){echo '<iframe id="iframe" onLoad="autoResize()" src='.$in_backoffice_options.' frameborder="0" height="0" width="0"></iframe>';}
 				}
 			?> 
 		</div>

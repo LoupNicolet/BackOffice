@@ -39,11 +39,11 @@
 		mysql_free_result($req);
 		mysql_close();
 	}else{
-		header ('Location: /Session/deconnexion.php?action="co"');
+		header ($he_deconnexion);
 		exit();
 	}	
 ?>
-<html id="PagesFrame">
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
 		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css_Download; ?>>
@@ -52,33 +52,21 @@
 		<script type='text/javascript' src= <?php echo $sc_details; ?> ></script>
 		<script type='text/javascript' src= <?php echo $sc_JQuery_Color; ?>></script>
 		<script type='text/javascript' src= <?php echo $sc_verif; ?>></script>
+		<script type='text/javascript' src= <?php echo $sc_valide; ?>></script>
 		<script type='text/javascript'>
-			function valide()
-			{
-				var element=document.forms["formVal"]["time"];
-				if ((element.value != "")&&(( element.value.indexOf("/") != 4) 
-					|| ( element.value.lastIndexOf("/") != 7 )
-					|| (element.value.lastIndexOf("/") != (element.value.length - 3))))
-				{
-					alert("Mauvais format de Date ");
-					return false;
-				}
-			}
-			
 			$(document).ready(function(){
-				sortTable(0, false, "downloadsTable");
-			
+				sortTable(0, false, "Table");
 			});
 		</script>
 	</head>
 	<body>
 		<h2 align="center">Telechargements</h2>
-		<form name="formVal" id="form" class="recherche" action=<?php echo $fo_downloads_downloads; ?> method="post" onsubmit="return valide()">
+		<form id="form" action=<?php echo $fo_downloads_downloads; ?> method="post" onsubmit="return valide('downloads')">
 			<div class="recherche">
 				<button class="button">Detail</button>
 				<div class="text1" id="plus">Date :</div>
 				<div class="tf1" id="plus">
-					<small>yyyy/mm/dd</small>
+					<small>yyyy/mm/dd</small><br>
 					<input type="text" onkeyup="verif(this,5)" name="time" value="<?php if (isset($_POST['time'])){ echo htmlentities(trim($_POST['time']));}?>"><br>
 					<input <?php if(!isset($_POST['operateur_date']) || ($_POST['operateur_date'] == 'sup')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="sup"><?php echo '>='; ?>
 					<input <?php if(isset($_POST['operateur_date']) && ($_POST['operateur_date'] == 'inf')){echo 'checked="checked"';}?> type="radio" name="operateur_date" value="inf"><?php echo '<='; ?>
@@ -135,7 +123,7 @@
 				for ($i=0; $i<$y;$i++){
 					echo 
 					'<tr>
-						<td id=1 align="center">'.$time[$i].'</td>
+						<td align="center">'.$time[$i].'</td>
 						<td align="center">'.$email[$i].'</td>
 						<td align="center">'.$number[$i].'</td>
 						<td align="center">'.$logiciel[$i].'</td>
