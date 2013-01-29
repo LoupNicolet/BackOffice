@@ -69,11 +69,11 @@
 			<div id="erreur" class="erreur"><?php if(isset($erreur)) echo $erreur; ?></div>
 			<form id="form" onsubmit='return valide("chprofil")' action= <?php echo $fo_chprofil_chprofil; ?> method="post" >
 				<div class="text"><p>Nom :</p><br><p>Prenom :</p><br><p>Email :</p></div>
-				<div class="info"><p><?php echo $nom; ?></p><br><p><?php echo $prenom; ?></p><br><p><?php echo $email; ?></p></div>
+				<div class="info"><p><?php echo $nom."<br>"; ?></p><br><p><?php echo $prenom."<br>"; ?></p><br><p><?php echo $email."<br>"; ?></p></div>
 				<div class="input">
 					<input class="tf" onkeyup="verif(this,3)" type="text" name="nom" value=""><br>
 					<input class="tf" onkeyup="verif(this,3)" type="text" name="prenom" value=""><br>
-					<input class="tf" id="email" onkeyup="verif(this,4)" type="text" name="email" value=""><br>
+					<input class="tf" onkeyup="verif(this,4)" type="text" name="email" value=""><br>
 				</div>
 				<div class="button"><input class="button" type="submit" name="valider" value="Valider"></div>
 			</form>

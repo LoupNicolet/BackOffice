@@ -4,7 +4,6 @@
 	require '../../Add/function.php';
 	session_start();
 	if (isset($_SESSION['login'])){
-		if(!isset($_GET['log'])){$_GET['log'] = 'undefined';}
 		$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 		mysql_select_db ($SQL_Cdw_name, $base);	
 			
@@ -70,7 +69,7 @@
 			<div id="erreur" class="erreur"><?php if(isset($erreur)) echo $erreur; ?></div>
 			<form onsubmit="return valide('chprofil')" action= <?php echo $fo_chOpe_chOpe.$_GET['log']."'"; ?> method="post" >
 				<div class="text"><p>Nom :</p><br><p>Prenom :</p><br><p>Email :</p></div>
-				<?php if($y>0){ echo '<div class="info"><p><?php echo $nom_ope; ?></p><br><p><?php echo $prenom_ope; ?></p><br><p><?php echo $email_ope; ?></p></div>';}?>
+				<div class="info"><p><?php echo $nom_ope."<br>"; ?></p><br><p><?php echo $prenom_ope."<br>"; ?></p><br><p><?php  echo $email_ope."<br>"; ?></p></div>
 				<div class="input">
 					<input class="tf" onkeyup="verif(this,3)" type="text" name="nom" value=""><br>
 					<input class="tf" onkeyup="verif(this,3)" type="text" name="prenom" value=""><br>

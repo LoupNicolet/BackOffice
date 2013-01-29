@@ -25,6 +25,7 @@ div.info
 	padding-top:6px;
 	padding-bottom:6px;
 	width: 20%;
+	min-height:76px;
 }
 
 div.input

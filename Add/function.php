@@ -12,9 +12,9 @@
 		$sql = $sql.' FROM ';
 		$sql = $sql.mysql_real_escape_string($table);
 		if(!empty($enrg1)){
-			$sql = $sql.' WHERE '.mysql_real_escape_string($enrg1).' LIKE "%'.mysql_real_escape_string($valEnrg1).'%"';
+			$sql = $sql.' WHERE '.mysql_real_escape_string($enrg1).' = "'.mysql_real_escape_string($valEnrg1).'"';
 			if(!empty($enrg2)){
-				$sql = $sql.' AND '.mysql_real_escape_string($enrg2).' LIKE "%'.mysql_real_escape_string($valEnrg2).'%"';
+				$sql = $sql.' AND '.mysql_real_escape_string($enrg2).' = "'.mysql_real_escape_string($valEnrg2).'"';
 			}
 		}
 		$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());

@@ -94,9 +94,15 @@
 			$(document).ready(function(){
 				sortTable(2, false, "Table");
 			});
+			
+			function key(event){
+				if(event.keyCode == 13){
+					document.getElementById("form").submit();
+				}
+			}
 		</script>
 	</head>
-	<body>
+	<body onkeypress="key(event)">
 		<h2 align="center">Licences</h2>
 		<form id="form" onsubmit="return valide('licences')" action= <?php echo $fo_licences_licences; ?> method="post">
 			<div class="recherche">

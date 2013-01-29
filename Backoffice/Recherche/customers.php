@@ -74,9 +74,14 @@
 									+"&idc="+id
 								);
 			}
+			function key(event){
+				if(event.keyCode == 13){
+					document.getElementById("form").submit();
+				}
+			}
 		</script>
 	</head>
-	<body>
+	<body onkeypress="key(event)">
 		<h2 align="center">Clients</h2>
 		<form id="form" action= <?php echo $fo_customers_customers ?> method="post">
 			<div class="recherche">

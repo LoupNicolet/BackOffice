@@ -57,9 +57,14 @@
 			$(document).ready(function(){
 				sortTable(0, false, "Table");
 			});
+			function key(event){
+				if(event.keyCode == 13){
+					document.getElementById("form").submit();
+				}
+			}
 		</script>
 	</head>
-	<body>
+	<body onkeypress="key(event)">
 		<h2 align="center">Telechargements</h2>
 		<form id="form" action=<?php echo $fo_downloads_downloads; ?> method="post" onsubmit="return valide('downloads')">
 			<div class="recherche">
