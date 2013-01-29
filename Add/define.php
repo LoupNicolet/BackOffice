@@ -5,13 +5,13 @@
 	$SQL_Cdw_pass = 'back';
 	
 	//All
-	$sc_tri = "/Add/Script/tri.js";
-	$sc_details = "/Add/Script/details.js";
-	$sc_JQuery = "/Add/Script/JQuery.js";
-	$sc_JQuery_Color = "/Add/Script/JQuery_Color.js";
-	$sc_verif = "/Add/Script/verif.js";
-	$sc_modif = "/Add/Script/modif.js";
-	$sc_valide = "/Add/Script/valide.js";
+	$sc_tri = "'/Add/Script/tri.js'";
+	$sc_details = "'/Add/Script/details.js'";
+	$sc_JQuery = "'/Add/Script/JQuery.js'";
+	$sc_JQuery_Color = "'/Add/Script/JQuery_Color.js'";
+	$sc_verif = "'/Add/Script/verif.js'";
+	$sc_modif = "'/Add/Script/modif.js'";
+	$sc_valide = "'/Add/Script/valide.js'";
 	$he_deconnexion = 'location: /Session/deconnexion.php?action="co"';
 	
 	//operateur.php
@@ -45,7 +45,7 @@
 	$hr_Css_chOpe = "'/Backoffice/Operateurs/Css/chOpe.css'";
 	
 	//deconnexion.php
-	$hr_deconnexion_index = "/index.php";
+	$hr_deconnexion_index = "'/index.php'";
 	$hr_Css_deconnexion = "'/Session/Css/deconnexion.css'";
 	
 	//options.php

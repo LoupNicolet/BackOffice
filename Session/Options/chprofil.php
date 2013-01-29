@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <?php
 	require '../../Add/define.php';
 	require '../../Add/function.php';
@@ -6,7 +6,7 @@
 	if (isset($_SESSION['login'])){
 	
 		$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
-		mysql_select_db ($SQL_Cdw_name, $base);	
+		mysql_select_db ($SQL_Cdw_name, $base) or die('Erreur Selection Base SQL !');	
 			
 		$sql = 'SELECT email_operator,firstName_operator,lastName_operator FROM operator WHERE login_operator="'.mysql_real_escape_string($_SESSION['login']).'"';
 		$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());

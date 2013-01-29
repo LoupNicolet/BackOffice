@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <?php
 	date_default_timezone_set("Europe/Paris");
 	require '../../Add/define.php';
@@ -6,7 +6,7 @@
 	session_start();
 	if (isset($_SESSION['login'])){
 		$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
-		mysql_select_db ($SQL_Cdw_name, $base);
+		mysql_select_db ($SQL_Cdw_name, $base) or die('Erreur Selection Base SQL !');
 		
 		if (Test_Licences() || (isset($_POST['logiciel']) && ($_POST['logiciel'] != "tous")) || (isset($_POST['etat']) && ($_POST['etat'] != "Indifferent")) || (isset($_POST['type']) && ($_POST['type'] != "Indifferent"))){
 				$sql = recherche_licences();
@@ -104,7 +104,7 @@
 	</head>
 	<body onkeypress="key(event)">
 		<h2 align="center">Licences</h2>
-		<form id="form" onsubmit="return valide('licences')" action= <?php echo $fo_licences_licences; ?> method="post">
+		<form id="form" name="formVal" onsubmit="return valide('licences')" action= <?php echo $fo_licences_licences; ?> method="post">
 			<div class="recherche">
 				<button class="button">Detail</button>
 				
@@ -160,7 +160,7 @@
 				<div class="logiciel">
 					<?php
 						$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
-						mysql_select_db ($SQL_Cdw_name, $base);
+						mysql_select_db ($SQL_Cdw_name, $base) or die('Erreur Selection Base SQL !');
 						$sql = 'SELECT Product_Name FROM products';
 						$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
 						?><input <?php if(!isset($_POST['logiciel']) || ($_POST['logiciel'] == 'tous')){echo 'checked="checked"';}?> type="radio" name="logiciel" value="tous">Tous<br><?php

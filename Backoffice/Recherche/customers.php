@@ -1,14 +1,14 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <?php
 	require '../../Add/define.php';
 	require '../../Add/function.php';
 	session_start();
 	if (isset($_SESSION['login'])){
 		$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
-		mysql_select_db ($SQL_Cdw_name, $base);
+		mysql_select_db ($SQL_Cdw_name, $base) or die('Erreur Selection Base SQL !');
 		
 		if (test_Customer() || (isset($_POST['type']) && ($_POST['type'] != "indifferent"))){
-			$sql = recherche_Customer('*');	
+			$sql = recherche_Customer('*');
 		}else if (isset($_GET['id'])){
 			$sql = 'SELECT * FROM customers WHERE Customer_ID="'.mysql_real_escape_string($_GET['id']).'"';
 		}else{

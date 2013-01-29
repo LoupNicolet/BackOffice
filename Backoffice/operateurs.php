@@ -1,10 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <?php
 	require '../Add/define.php';
 	session_start();
 	if (isset($_SESSION['login'])) {
 		$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
-		mysql_select_db ($SQL_Cdw_name, $base);
+		mysql_select_db ($SQL_Cdw_name, $base) or die('Erreur Selection Base SQL !');
 			
 		$sql = 'SELECT login_operator,email_operator,firstName_operator,lastName_operator,type_operator FROM operator';
 			
@@ -57,7 +57,7 @@
 					if($_GET['page'] == 'addOpe'){echo '<iframe src='.$in_operateur_addOpe.' frameborder="0" height="400" width="100%"></iframe>';}
 					else if($_GET['page'] == 'supOpe'){
 						$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
-						mysql_select_db ($SQL_Cdw_name, $base);
+						mysql_select_db ($SQL_Cdw_name, $base) or die('Erreur Selection Base SQL !');
 						echo $sql = 'DELETE FROM operator WHERE login_operator="'.mysql_real_escape_string($_GET["log"]).'"';
 						$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
 						mysql_close();

@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <?php
 	require '../../Add/define.php';
 	require '../../Add/function.php';
@@ -12,7 +12,7 @@
 				}else 
 				{
 					$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
-					mysql_select_db ($SQL_Cdw_name, $base);
+					mysql_select_db ($SQL_Cdw_name, $base) or die('Erreur Selection Base SQL !');
 
 					$data = RequeteSQL_Select('count(*)','operator','login_operator',mysql_real_escape_string($_SESSION['login']),'pass_operator',mysql_real_escape_string(md5($_POST['aPass'])));
 

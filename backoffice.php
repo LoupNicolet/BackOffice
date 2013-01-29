@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <?php
 	require 'Add/define.php';
 	require 'Add/function.php';
@@ -6,7 +6,7 @@
 	if (isset($_SESSION['login'])) {
 
 		$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
-		mysql_select_db ($SQL_Cdw_name, $base);
+		mysql_select_db ($SQL_Cdw_name, $base) or die('Erreur Selection Base SQL !');
 		
 		$data = RequeteSQL_Select('type_operator', 'operator', 'login_operator', mysql_real_escape_string($_SESSION['login']),"","");
 		if ($data[0] == "admin") {
@@ -35,7 +35,7 @@
 		<title>BackOffice</title>
 		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css_Back0ffice; ?>>
 		<script type='text/javascript' src= <?php echo $sc_JQuery; ?> ></script>
-		<script language="JavaScript">
+		<script type='text/javascript'>
 			function autoResize(){
 				document.getElementById('iframe').height= (document.documentElement.clientHeight - 80) + "px";
 				document.getElementById('iframe').width= (document.documentElement.clientWidth - 20) + "px";

@@ -1,7 +1,11 @@
 $(document).ready(function(){
-	$('div#plus').hide();
+	var selected_text = $("div#plus input[value!=''][type='text']");
+	var selected_radio = $("div#plus input[value='Tous'][type='radio'][name='number'][checked!='checked']");
+	if((selected_text.length == 0) && (selected_radio.length == 0)){
+		$('div#plus').hide();
+	}
 	$("button").click(function(){
-		$("div#plus").toggle(500);
+		$('div#plus').toggle(500);
 		return false;
 	});
 });
