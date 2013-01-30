@@ -37,7 +37,7 @@
 		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css_Operateurs; ?>>
 		<script type='text/javascript' src= <?php echo $sc_tri; ?>></script>
 		<script type='text/javascript'>
-			function confirme(colonne, login, table)
+			function confirme(colonne, login)
 			{
 				var x;
 				var r=confirm("Effacer l'operateur " + login + " ?");
@@ -99,7 +99,7 @@
 									<a href='.$hr_operateur_chOpe.$login[$i]."'".'>Modifier</a>
 								</td>
 								<td align="center" style="background-color:#245DB2;">
-									<input class="button_titre" type="button" onclick="confirme(this,\''.$login[$i].'\',\'operateurTable\')" value="Suppr" />
+									<input class="button_titre" type="button" onclick="confirme(this,\''.$login[$i].'\')" value="Suppr" />
 								</td>';
 						}else{
 							echo 

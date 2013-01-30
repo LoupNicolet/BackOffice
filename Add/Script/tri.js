@@ -2,7 +2,6 @@ var sens = true;
 var cur_col = -1;
 			
 function dASC(a, b){
-
 	if(isNaN(a[1])){a[1] = 0;}
 	if(isNaN(b[1])){b[1] = 0;}
 	return(a[1] - b[1]);
@@ -63,13 +62,13 @@ function sortTable(colonne, type, table){
 	if(cur_col != colonne){sens = !type;}
 	
 	if(sens){
-		if(type){if(table == "customersTable" && (colonne == 4 || colonne == 5)){ordre = nDESC;}else{ordre = DESC;}}
+		if(type){if(table == "Table" && (colonne == 4 || colonne == 5)){ordre = nDESC;}else{ordre = DESC;}}
 		else{ordre = dDESC;}
 		sens = false;
 		cur_col = colonne;
 	}
 	else{
-		if(type){if(table == "customersTable" && colonne == 4 || colonne == 5){ordre = nASC;}else{ordre = ASC;}}
+		if(type){if(table == "Table" && colonne == 4 || colonne == 5){ordre = nASC;}else{ordre = ASC;}}
 		else{ordre = dASC;}
 		sens = true;
 		cur_col = colonne;
