@@ -62,13 +62,13 @@ function sortTable(colonne, type, table){
 	if(cur_col != colonne){sens = !type;}
 	
 	if(sens){
-		if(type){if(table == "Table" && (colonne == 4 || colonne == 5)){ordre = nDESC;}else{ordre = DESC;}}
+		if(type){if(table == "Table" && (colonne == 4 /*|| colonne == 5*/)){ordre = nDESC;}else{ordre = DESC;}}
 		else{ordre = dDESC;}
 		sens = false;
 		cur_col = colonne;
 	}
 	else{
-		if(type){if(table == "Table" && colonne == 4 || colonne == 5){ordre = nASC;}else{ordre = ASC;}}
+		if(type){if(table == "Table" && colonne == 4 /*|| colonne == 5*/){ordre = nASC;}else{ordre = ASC;}}
 		else{ordre = dASC;}
 		sens = true;
 		cur_col = colonne;

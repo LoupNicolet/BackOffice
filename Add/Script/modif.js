@@ -92,3 +92,39 @@ function valider(button){
 		}
 	}
 }
+
+function Revoke(uniqueID,email,type){
+	if(type == "Suppr"){
+		var rep=confirm("Supprimer le telechargement de : "+email+" ?");
+	}else if(type == "Rest"){
+		var rep=confirm("Restaurer le telechargement de : "+email+" ?");
+	}
+	if(rep){
+		var xmlhttp;
+		xmlhttp=new XMLHttpRequest();
+		xmlhttp.onreadystatechange=function()
+		{
+			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+				
+				var reponse = xmlhttp.responseText;
+				if(reponse == "1"){
+					document.getElementById(uniqueID).innerHTML = "<";
+					document.getElementById(uniqueID).className = "ButRes";
+					document.getElementById(uniqueID).attributes.onClick.value = "Revoke(\'"+uniqueID+"\',\'"+email+"\',\'Rest\')";
+				}else if(reponse == "2"){
+					document.getElementById(uniqueID).innerHTML = "X";
+					document.getElementById(uniqueID).className = "ButSuppr";
+					document.getElementById(uniqueID).attributes.onClick.value = "Revoke(\'"+uniqueID+"\',\'"+email+"\',\'Suppr\')";
+				}
+			}
+		}
+		xmlhttp.open("POST","/Backoffice/Recherche/Revoke.php",true);
+		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xmlhttp.send(	
+						"id=downloads"
+						+"&Rev="+uniqueID
+						+"&type="+type
+					);
+	}
+}

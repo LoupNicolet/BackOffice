@@ -2,8 +2,9 @@ function valide(page)
 {
 	if(page == "chprofil"){
 		var element=document.forms[0][2];
-		if ( element.value.length < 1){}
-		else if (( element.value.indexOf("@") == -1 ) 
+		if ( element.value.length < 1){
+			return true;
+		}else if (( element.value.indexOf("@") == -1 ) 
 			|| ( element.value.indexOf("@") == 0 )
 			|| ( element.value.indexOf("@") != element.value.lastIndexOf("@") ) 
 			|| ( element.value.indexOf(".") == element.value.indexOf("@")-1 ) 
@@ -16,6 +17,8 @@ function valide(page)
 			){
 				document.getElementById("erreur").innerHTML="Mauvais format email";
 				return false;
+		}else{
+			return true;
 		}
 	}
 	
@@ -27,6 +30,8 @@ function valide(page)
 		{
 			document.getElementById("erreur").innerHTML="Mauvais format (min 6)";
 			return false;
+		}else{
+			return true;
 		}
 	}
 	
@@ -37,6 +42,8 @@ function valide(page)
 		{
 			document.getElementById("erreur").innerHTML="Mauvais login";
 			return false;
+		}else{
+			return true;
 		}
 	}
 	
@@ -71,6 +78,8 @@ function valide(page)
 		{
 			alert("Mauvais format de Cle");
 			return false;
+		}else{
+			return true;
 		}
 	}
 	
@@ -82,6 +91,8 @@ function valide(page)
 		{
 			alert("Mauvais format de Date ");
 			return false;
+		}else{
+			return true;
 		}
 	}
 	
@@ -114,6 +125,8 @@ function valide(page)
 		{
 			document.getElementById("erreur").innerHTML="Mauvais format d'Email";
 			return false;
+		}else{
+			return true;
 		}
 	}
 	
@@ -134,6 +147,8 @@ function valide(page)
 		{
 			document.getElementById("erreur").innerHTML="Mauvais format d'Email";
 			return false;
+		}else{
+			return true;
 		}
 	}
 }	

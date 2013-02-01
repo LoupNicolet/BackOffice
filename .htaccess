@@ -1,0 +1,4 @@
+DirectoryIndex index.php /Erreurs/403.html
+ErrorDocument 401 /Erreurs/401.html
+ErrorDocument 403 /Erreurs/403.html
+ErrorDocument 404 /Erreurs/404.html

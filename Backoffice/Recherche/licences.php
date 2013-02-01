@@ -97,7 +97,9 @@
 			
 			function key(event){
 				if(event.keyCode == 13){
-					document.getElementById("form").submit();
+					if(valide('licences')){
+						document.getElementById("form").submit();
+					}
 				}
 			}
 		</script>
@@ -183,7 +185,7 @@
 				<input class="button" type="submit" name="recherche" value="Rechercher">
 			</div>
 		</form>
-		<p><?php echo $y." resultats"?></p></td></tr>
+		<p><?php echo $y." resultats"?></p>
 		<?php
 			if($y > 0){
 				echo

@@ -8,16 +8,20 @@
 		$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 		mysql_select_db ($SQL_Cdw_name, $base) or die('Erreur Selection Base SQL !');
 		
-		if (test_Downloads() || (isset($_POST['logiciel']) && ($_POST['logiciel'] != "tous")) || (isset($_POST['number']) && ($_POST['number'] != "Tous"))){
+		if (test_Downloads() || (isset($_POST['logiciel']) && ($_POST['logiciel'] != "tous")) || (isset($_POST['number']) && ($_POST['number'] != "Tous")) || (isset($_POST['revoke']) && ($_POST['revoke'] != "avec_ignore"))){
 			$sql = recherche_downloads('*');	
+		}else if(isset($_POST['revoke']) && ($_POST['revoke'] == "avec_ignore")){
+			$sql = 'SELECT * FROM downloadkey AS Dk LEFT JOIN revoked_dl AS R ON Dk.uniqueid = R.Rev_UniqueID';
 		}else{
-			$sql = 'SELECT * FROM downloadkey';
+			$sql = 'SELECT * FROM downloadkey AS Dk LEFT JOIN revoked_dl AS R ON Dk.uniqueid = R.Rev_UniqueID WHERE uniqueid NOT IN (SELECT Rev_UniqueID FROM revoked_dl)';
 		}
 		
 		$y = 0;
-		$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
+		$req = mysql_query($sql) or die('Erreur SQL !');
 		
 		while($row = mysql_fetch_array($req)){
+			$revoke[$y] = $row['Rev_UniqueID'];
+			$uniqueID[$y] = $row['uniqueid'];
 			$time[$y] = date("Y/m/d  H:i:s",$row['timestamp']);
 			$email[$y] = $row['mail'];
 			$number[$y] = $row['downloads'];
@@ -53,13 +57,16 @@
 		<script type='text/javascript' src= <?php echo $sc_JQuery_Color; ?>></script>
 		<script type='text/javascript' src= <?php echo $sc_verif; ?>></script>
 		<script type='text/javascript' src= <?php echo $sc_valide; ?>></script>
+		<script type='text/javascript' src= <?php echo $sc_modif; ?>></script>
 		<script type='text/javascript'>
 			$(document).ready(function(){
 				sortTable(0, false, "Table");
 			});
 			function key(event){
 				if(event.keyCode == 13){
-					document.getElementById("form").submit();
+					if(valide('downloads')){
+						document.getElementById("form").submit();
+					}
 				}
 			}
 		</script>
@@ -81,12 +88,12 @@
 				<div class="tf2" id="plus">
 					<input type="text" name="email" value="<?php if (isset($_POST['email'])) echo htmlentities(trim($_POST['email'])); ?>">
 				</div>
-				<div class="text3" id="plus">Downloads :</div>
-				<div class="tf3" id="plus">
+				<div class="tf3">
 					<input <?php if(!isset($_POST['number']) || ($_POST['number'] == 'Tous')){echo 'checked="checked"';}?> type="radio" name="number" value="Tous">Tous<br>
 					<input <?php if(isset($_POST['number']) && $_POST['number'] == 'Non-Telecharge'){echo 'checked="checked"';}?> type="radio" name="number" value="Non-Telecharge">Non-Téléchargé<br>
 					<input <?php if(isset($_POST['number']) && $_POST['number'] == 'Telecharge'){echo 'checked="checked"';}?> type="radio" name="number" value="Telecharge">Téléchargé
 				</div>
+				
 				<div class="logiciel">
 					<?php
 						$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
@@ -102,6 +109,11 @@
 						mysql_free_result($req);
 						mysql_close();
 					?>
+				</div>
+				<div class="tf4">
+					<input <?php if(!isset($_POST['revoke']) || ($_POST['revoke'] == 'sans_ignore')){echo 'checked="checked"';}?> type="radio" name="revoke" value="sans_ignore">Sans ignoré<br>
+					<input <?php if(isset($_POST['revoke']) && $_POST['revoke'] == 'avec_ignore'){echo 'checked="checked"';}?> type="radio" name="revoke" value="avec_ignore">Avec ignoré<br>
+					<input <?php if(isset($_POST['revoke']) && $_POST['revoke'] == 'ignore_seul'){echo 'checked="checked"';}?> type="radio" name="revoke" value="ignore_seul">Ignoré seul
 				</div>
 				<input class="button" type="submit" name="recherche" value="Rechercher">
 			</div>
@@ -126,12 +138,16 @@
 					</th>";
 
 				for ($i=0; $i<$y;$i++){
+						if($revoke[$i]==null){$class = "ButSuppr";}else{$class = "ButRes";}
+						if($revoke[$i]==null){$action = "Suppr";}else{$action = "Rest";}
+						if($revoke[$i]==null){$text = "X";}else{$text = "<";}
 					echo 
 					'<tr>
-						<td align="center">'.$time[$i].'</td>
-						<td align="center">'.$email[$i].'</td>
-						<td align="center">'.$number[$i].'</td>
-						<td align="center">'.$logiciel[$i].'</td>
+						<td class="Case" align="center">'.$time[$i].'</td>
+						<td class="Case" align="center">'.$email[$i].'</td>
+						<td class="Case" align="center">'.$number[$i].'</td>
+						<td class="Case" align="center">'.$logiciel[$i].'</td>
+						<td class="CaseSuppr"><button id="'.$uniqueID[$i].'" class="'.$class.'" type="button" onclick="Revoke(\''.$uniqueID[$i].'\',\''.$email[$i].'\',\''.$action.'\')">'.$text.'</button></td>
 					</tr>';
 				}
 				echo '</table>';

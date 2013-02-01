@@ -10,8 +10,8 @@ div.recherche
 
 div.logiciel
 {
-	clear:both;
-	width:100%;
+	float:left;
+	width:50%;
 	padding-top:1%;
 	padding-bottom:1%;
 	text-align:center;
@@ -21,21 +21,33 @@ div.logiciel
 div.tf1
 {
 	float:left;
-	width: 16%;
+	width: 27%;
 }
 
 div.tf2
 {
 	padding-top:21px;
 	padding-bottom:21px;
-	float:left;
-	width: 16%;
+	width: 27%;
 }
 
 div.tf3
 {
+	padding-top:30px;
+	padding-bottom:30px;
+	text-align:center;
 	float:left;
-	width: 22%;
+	width: 25%;
+}
+
+div.tf4
+{
+	padding-top:32px;
+	padding-bottom:32px;
+	text-align:center;
+	float:left;
+	clear:right;
+	width: 25%;
 }
 
 div.text1
@@ -45,7 +57,7 @@ div.text1
 	padding-top:21px;
 	padding-bottom:21px;
 	padding-right:1%;
-	width: 10%;
+	width: 18%;
 }
 
 div.text2
@@ -55,17 +67,7 @@ div.text2
 	padding-top:21px;
 	padding-bottom:21px;
 	padding-right:1%;
-	width: 16%;
-}
-
-div.text3
-{
-	text-align:right;
-	float:left;
-	padding-top:21px;
-	padding-bottom:21px;
-	padding-right:1%;
-	width: 16%;
+	width: 24%;
 }
 
 input.tf
@@ -81,14 +83,19 @@ input.tf
 	color:#ffffff;	/*Blanc*/
 }
 
-#Table td 
+#Table td.Case
  {
 	border:1px solid #3385FF; /*Bleu Clair*/
 }
 
-td
+td.Case
 {
 	width:10%;
+}
+
+td.CaseSuppr
+{
+	width:1%;
 }
 
 p
@@ -150,13 +157,49 @@ input.button
 	border:none;
 }
 
-button.button:hover,button.button:active
-{
-	background-color:#3385FF; /*Bleu Clair*/
-}
-
+button.button:hover,button.button:active,
 input.button:hover,input.button:active,
 input.button_titre:hover,input.button_titre:active
 {
 	background-color:#3385FF; /*Bleu Clair*/
 }
+
+button.ButSuppr:hover,button.ButSuppr:active
+{
+	background-color:#AD0000; /*Rouge Clair*/
+}
+
+button.ButRes:hover,button.ButRes:active
+{
+	background-color:#33AD33; /*Vert Clair*/
+}
+
+button.ButSuppr
+{
+	margin:auto;
+	display:block;
+	color:#FFFFFF; /*Blanc*/
+	background-color:#8B0000; /*Rouge*/
+	font-weight:bold;
+	width:25px;
+	text-align:center;
+	padding:1px;
+	text-decoration:none;
+	border:none;
+}
+
+button.ButRes
+{
+	margin:auto;
+	display:block;
+	color:#FFFFFF; /*Blanc*/
+	background-color:#009900; /*Vert*/
+	font-weight:bold;
+	width:25px;
+	text-align:center;
+	padding:1px;
+	text-decoration:none;
+	border:none;
+}
+
+

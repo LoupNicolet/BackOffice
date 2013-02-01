@@ -13,7 +13,7 @@
 			if ($data[0] == 1) {
 				session_start();
 				$_SESSION['login'] = $_POST['login'];
-				$fp = fopen($open_index_log.'E', 'a');
+				$fp = fopen($open_index_log, 'a');
 				fwrite($fp, 'Connexion de : '.$_SESSION['login'].' ( le '.date("d/m/Y").' à '.date("H:i").' )'."\n");
 				fclose($fp);
 				header($he_index_backoffice);

@@ -9,7 +9,7 @@
 	}else if((isset($_POST['id'])) && ($_POST['id'] == "productkey")){
 		$sql = 'UPDATE '.mysql_real_escape_string($_POST['id']).' SET '.mysql_real_escape_string($Tab_licences[$_POST['col']]).'="'.mysql_real_escape_string($_POST["value"]).'" WHERE InstallKey="'.mysql_real_escape_string($_POST["InstallKey"]).'"';
 	}
-	$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
+	$req = mysql_query($sql) or die('Erreur SQL !<br />');
 	if($req){
 		echo $_POST["value"];
 	}else{

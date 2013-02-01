@@ -225,7 +225,7 @@
 	//Construit la requete SQL en fonction de ce que l'utilisateur a renseigné
 	function recherche_downloads($champ){
 		$prec = 0;
-		$sql = 'SELECT '.mysql_real_escape_string($champ).' FROM downloadkey WHERE';
+		$sql = 'SELECT * FROM downloadkey AS Dk LEFT JOIN revoked_dl AS R ON Dk.uniqueid = R.Rev_UniqueID WHERE';
 		
 		$ret = ajout_si_existe_like('email','mail',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 
@@ -237,6 +237,17 @@
 				$sql = $sql.' downloads="0"';$prec = 1;
 			}else if($_POST['number'] == 'Telecharge'){
 				$sql = $sql.' ( downloads="1" OR downloads="2" )';$prec = 1;
+			}
+		}
+		
+		if($_POST['revoke'] != 'avec_ignore'){
+			if($prec == 1){
+				$sql = $sql.' AND';
+			}
+			if($_POST['revoke'] == 'sans_ignore'){
+				$sql = $sql.' uniqueid NOT IN (SELECT Rev_UniqueID FROM revoked_dl)';$prec = 1;
+			}else if($_POST['revoke'] == 'ignore_seul'){
+				$sql = $sql.' uniqueid IN (SELECT Rev_UniqueID FROM revoked_dl)';$prec = 1;
 			}
 		}
 		
@@ -329,7 +340,6 @@
 	function Test_Downloads(){
 		if ((isset($_POST['time']) 		&& !empty($_POST['time']))
 		|| (isset($_POST['email']) 		&& !empty($_POST['email'])) 
-		|| (isset($_POST['downloads']) 	&& !empty($_POST['downloads']))  
 		){
 			return true;
 		}else{
