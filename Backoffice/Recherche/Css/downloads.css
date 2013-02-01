@@ -8,6 +8,14 @@ div.recherche
 	min-width:730px;
 }
 
+div.Bt_recherche
+{
+	clear:both;
+	margin:auto;
+	width:90%;
+	padding:1%;
+}
+
 div.logiciel
 {
 	float:left;
@@ -21,18 +29,20 @@ div.logiciel
 div.tf1
 {
 	float:left;
-	width: 27%;
+	width: 25%;
 }
 
 div.tf2
 {
+	float:left;
 	padding-top:21px;
 	padding-bottom:21px;
-	width: 27%;
+	width: 35%;
 }
 
 div.tf3
 {
+	clear:left;
 	padding-top:30px;
 	padding-bottom:30px;
 	text-align:center;
@@ -57,7 +67,7 @@ div.text1
 	padding-top:21px;
 	padding-bottom:21px;
 	padding-right:1%;
-	width: 18%;
+	width: 24%;
 }
 
 div.text2
@@ -67,7 +77,7 @@ div.text2
 	padding-top:21px;
 	padding-bottom:21px;
 	padding-right:1%;
-	width: 24%;
+	width: 14%;
 }
 
 input.tf

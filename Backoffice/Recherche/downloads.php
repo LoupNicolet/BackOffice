@@ -115,7 +115,7 @@
 					<input <?php if(isset($_POST['revoke']) && $_POST['revoke'] == 'avec_ignore'){echo 'checked="checked"';}?> type="radio" name="revoke" value="avec_ignore">Avec ignoré<br>
 					<input <?php if(isset($_POST['revoke']) && $_POST['revoke'] == 'ignore_seul'){echo 'checked="checked"';}?> type="radio" name="revoke" value="ignore_seul">Ignoré seul
 				</div>
-				<input class="button" type="submit" name="recherche" value="Rechercher">
+				<div class="Bt_recherche"><input class="button" type="submit" name="recherche" value="Rechercher"></div>
 			</div>
 		</form>
 		<p><?php echo $y." resultats"?></p>
