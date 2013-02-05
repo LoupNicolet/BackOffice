@@ -99,7 +99,7 @@
 						$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 						mysql_select_db ($SQL_Cdw_name, $base) or die('Erreur Selection Base SQL !');
 						$sql = 'SELECT Product_Name FROM products';
-						$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
+						$req = mysql_query($sql) or die('Erreur SQL !');
 						?><input <?php if(!isset($_POST['logiciel']) || ($_POST['logiciel'] == 'tous')){echo 'checked="checked"';}?> type="radio" name="logiciel" value="tous">Tous<br><?php
 						while($row = mysql_fetch_array($req)){
 							if(($row['Product_Name'] != "S2GS")&&($row['Product_Name'] != "Mig6")){
@@ -125,29 +125,29 @@
 				"<table id='Table'>
 				<tr>
 					<th class='titre' align='center'>
-						<input class='button_titre' type='button' onclick='sortTable(0,false,\"Table\")' value='Date' />
+						<input class='button_titre' type='button' onclick='sortTable(0,false,\"Table\")' value='Date'>
 					</th>
 					<th class='titre' align='center'>
-						<input class='button_titre' type='button' onclick='sortTable(1,true,\"Table\")' value='Email' />
+						<input class='button_titre' type='button' onclick='sortTable(1,true,\"Table\")' value='Email'>
 					</th>
 					<th class='titre' align='center'>
-						<input class='button_titre' type='button' onclick='sortTable(2,true,\"Table\")' value='Downloads' />
+						<input class='button_titre' type='button' onclick='sortTable(2,true,\"Table\")' value='Downloads'>
 					</th>
 					<th class='titre' align='center'>
-						<input class='button_titre' type='button' onclick='sortTable(3,true,\"Table\")' value='Logiciel' />
+						<input class='button_titre' type='button' onclick='sortTable(3,true,\"Table\")' value='Logiciel'>
 					</th>";
 
 				for ($i=0; $i<$y;$i++){
-						if($revoke[$i]==null){$class = "ButSuppr";}else{$class = "ButRes";}
-						if($revoke[$i]==null){$action = "Suppr";}else{$action = "Rest";}
-						if($revoke[$i]==null){$text = "X";}else{$text = "<";}
+					if($revoke[$i]==null){$class = "ButSuppr";}else{$class = "ButRes";}
+					if($revoke[$i]==null){$action = "Suppr";}else{$action = "Rest";}
+					if($revoke[$i]==null){$text = "X";}else{$text = "<";}
 					echo 
 					'<tr>
 						<td class="Case" align="center">'.$time[$i].'</td>
 						<td class="Case" align="center">'.$email[$i].'</td>
 						<td class="Case" align="center">'.$number[$i].'</td>
 						<td class="Case" align="center">'.$logiciel[$i].'</td>
-						<td class="CaseSuppr"><button id="'.$uniqueID[$i].'" class="'.$class.'" type="button" onclick="Revoke(\''.$uniqueID[$i].'\',\''.$email[$i].'\',\''.$action.'\')">'.$text.'</button></td>
+						<td class="CaseSuppr"><button id="'.$uniqueID[$i].'" class="'.$class.'" type="button" onclick="Revoke(\''.$uniqueID[$i].'\',\''.$email[$i].'\',\''.$action.'\',\'downloads\')">'.$text.'</button></td>
 					</tr>';
 				}
 				echo '</table>';

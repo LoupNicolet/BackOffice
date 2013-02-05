@@ -93,11 +93,13 @@ function valider(button){
 	}
 }
 
-function Revoke(uniqueID,email,type){
+function Revoke(ID,email,type,page){
 	if(type == "Suppr"){
-		var rep=confirm("Supprimer le telechargement de : "+email+" ?");
+		if(page == "downloads"){var rep=confirm("Ignorer le telechargement de : "+email+" ?");}
+		else if(page == "customers"){var rep=confirm("Ignorer le client : "+email+" ?");}
 	}else if(type == "Rest"){
-		var rep=confirm("Restaurer le telechargement de : "+email+" ?");
+		if(page == "downloads"){var rep=confirm("Restaurer le telechargement de : "+email+" ?");}
+		else if(page == "customers"){var rep=confirm("Restaurer le client : "+email+" ?");}
 	}
 	if(rep){
 		var xmlhttp;
@@ -109,21 +111,21 @@ function Revoke(uniqueID,email,type){
 				
 				var reponse = xmlhttp.responseText;
 				if(reponse == "1"){
-					document.getElementById(uniqueID).innerHTML = "<";
-					document.getElementById(uniqueID).className = "ButRes";
-					document.getElementById(uniqueID).attributes.onClick.value = "Revoke(\'"+uniqueID+"\',\'"+email+"\',\'Rest\')";
+					document.getElementById(ID).innerHTML = "<";
+					document.getElementById(ID).className = "ButRes";
+					document.getElementById(ID).attributes.onClick.value = "Revoke(\'"+ID+"\',\'"+email+"\',\'Rest\',\'"+page+"\')";
 				}else if(reponse == "2"){
-					document.getElementById(uniqueID).innerHTML = "X";
-					document.getElementById(uniqueID).className = "ButSuppr";
-					document.getElementById(uniqueID).attributes.onClick.value = "Revoke(\'"+uniqueID+"\',\'"+email+"\',\'Suppr\')";
+					document.getElementById(ID).innerHTML = "X";
+					document.getElementById(ID).className = "ButSuppr";
+					document.getElementById(ID).attributes.onClick.value = "Revoke(\'"+ID+"\',\'"+email+"\',\'Suppr\',\'"+page+"\')";
 				}
 			}
 		}
 		xmlhttp.open("POST","/Backoffice/Recherche/Revoke.php",true);
 		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xmlhttp.send(	
-						"id=downloads"
-						+"&Rev="+uniqueID
+						"id="+page
+						+"&Rev="+ID
 						+"&type="+type
 					);
 	}

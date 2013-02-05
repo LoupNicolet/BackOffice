@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <?php
+	header("Expires: Mon, 26 Jul 1997 05:00:00 GMT" );             // Date du passé
+  header("Last-Modified: " . gmdate("D, d M Y H:i:s" ) . " GMT" ); // toujours modifié
+  header("Cache-Control: no-cache, must-revalidate" );           // HTTP/1.1
+  header("Pragma: no-cache" );                                   // HTTP/1.0 
 	require 'Add/define.php';
 	require 'Add/function.php';
 	session_start();

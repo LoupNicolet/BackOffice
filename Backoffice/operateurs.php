@@ -9,7 +9,7 @@
 		$sql = 'SELECT login_operator,email_operator,firstName_operator,lastName_operator,type_operator FROM operator';
 			
 		$y = 0;
-		$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
+		$req = mysql_query($sql) or die('Erreur SQL !');
 		while($row = mysql_fetch_array($req)){
 			$login[$y] = $row['login_operator'];
 			$type[$y] = $row['type_operator'];
@@ -59,7 +59,7 @@
 						$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 						mysql_select_db ($SQL_Cdw_name, $base) or die('Erreur Selection Base SQL !');
 						echo $sql = 'DELETE FROM operator WHERE login_operator="'.mysql_real_escape_string($_GET["log"]).'"';
-						$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
+						$req = mysql_query($sql) or die('Erreur SQL !');
 						mysql_close();
 						header($he_operateur_operateur);
 					}
@@ -75,19 +75,19 @@
 					<tr>
 						<th colspan='2'></th>
 						<th class='titre' align='center'>
-							<input class='button_titre' type='button' onclick='sortTable(2,true,\"Table\")' value='Login' />
+							<input class='button_titre' type='button' onclick='sortTable(2,true,\"Table\")' value='Login'>
 						</th>
 						<th class='titre' align='center'>
-							<input class='button_titre' type='button' onclick='sortTable(3,true,\"Table\")' value='Type' />
+							<input class='button_titre' type='button' onclick='sortTable(3,true,\"Table\")' value='Type'>
 						</th>
 						<th class='titre' align='center'>
-							<input class='button_titre' type='button' onclick='sortTable(4,true,\"Table\")' value='Prenom' />
+							<input class='button_titre' type='button' onclick='sortTable(4,true,\"Table\")' value='Prenom'>
 						</th>
 						<th class='titre' align='center'>
-							<input class='button_titre' type='button' onclick='sortTable(5,true,\"Table\")' value='Nom' />
+							<input class='button_titre' type='button' onclick='sortTable(5,true,\"Table\")' value='Nom'>
 						</th>
 						<th class='titre' align='center'>
-							<input class='button_titre' type='button' onclick='sortTable(6,true,\"Table\")' value='Email' />
+							<input class='button_titre' type='button' onclick='sortTable(6,true,\"Table\")' value='Email'>
 						</th>
 					</tr>";
 
@@ -99,7 +99,7 @@
 									<a href='.$hr_operateur_chOpe.$login[$i]."'".'>Modifier</a>
 								</td>
 								<td align="center" style="background-color:#245DB2;">
-									<input class="button_titre" type="button" onclick="confirme(this,\''.$login[$i].'\')" value="Suppr" />
+									<input class="button_titre" type="button" onclick="confirme(this,\''.$login[$i].'\')" value="Suppr">
 								</td>';
 						}else{
 							echo 

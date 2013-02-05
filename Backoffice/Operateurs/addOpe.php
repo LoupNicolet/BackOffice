@@ -45,7 +45,7 @@
 					}
 					$sql = $sql.")";
 					
-					mysql_query($sql) or die('Erreur SQL !'.$sql.'<br />'.mysql_error());
+					mysql_query($sql) or die('Erreur SQL !');
 					$erreur = "operateur ajoute";
 					mysql_close();
 				}else{
@@ -62,7 +62,7 @@
 ?>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" > 
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" >
 		<link rel="stylesheet" type="text/css" href= <?php echo $hr_Css_AddOpe; ?>>
 		<script type='text/javascript' src= <?php echo $sc_JQuery; ?> ></script>
 		<script type='text/javascript' src= <?php echo $sc_JQuery_Color; ?>></script>

@@ -17,9 +17,10 @@
 						LEFT JOIN products AS P ON Pk.ProductID = P.Product_ID
 						LEFT JOIN customers AS C ON Pk.CustomerID = C.Customer_ID
 						LEFT JOIN keyusage AS Ku ON Pk.RowID = Ku.KeyRowID
+						WHERE C.Customer_ID NOT IN (SELECT Rev_CustomerID FROM revoked_cu)
 						GROUP BY Pk.InstallKey';
 			}
-		$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
+		$req = mysql_query($sql) or die('Erreur SQL !');
 		$y=0;
 		while($row = mysql_fetch_array($req)){
 			$ID[$y] = $row['ID'];
@@ -164,7 +165,7 @@
 						$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 						mysql_select_db ($SQL_Cdw_name, $base) or die('Erreur Selection Base SQL !');
 						$sql = 'SELECT Product_Name FROM products';
-						$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
+						$req = mysql_query($sql) or die('Erreur SQL !');
 						?><input <?php if(!isset($_POST['logiciel']) || ($_POST['logiciel'] == 'tous')){echo 'checked="checked"';}?> type="radio" name="logiciel" value="tous">Tous<br><?php
 						while($row = mysql_fetch_array($req)){
 							if(($row['Product_Name'] != "S2GS")&&($row['Product_Name'] != "Mig6")){
@@ -192,31 +193,31 @@
 				"<table id='Table'>
 				<tr>
 					<th class='titre' align='center'>
-						<input class='button_titre' type='button' onclick='sortTable(0,true,\"Table\")' value='Logiciel' />
+						<input class='button_titre' type='button' onclick='sortTable(0,true,\"Table\")' value='Logiciel'>
 					</th>
 					<th class='titre' align='center'>
-						<input class='button_titre' type='button' onclick='sortTable(1,false,\"Table\")' value='Installation' />
+						<input class='button_titre' type='button' onclick='sortTable(1,false,\"Table\")' value='Installation'>
 					</th>
 					<th class='titre' align='center'>
-						<input class='button_titre' type='button' onclick='sortTable(2,false,\"Table\")' value='Mise à Jour' />
+						<input class='button_titre' type='button' onclick='sortTable(2,false,\"Table\")' value='Mise à Jour'>
 					</th>
 					<th class='titre' align='center'>
-						<input class='button_titre' type='button' onclick='sortTable(3,true,\"Table\")' value='Contact' />
+						<input class='button_titre' type='button' onclick='sortTable(3,true,\"Table\")' value='Contact'>
 					</th>
 					<th class='titre' align='center'>
-						<input class='button_titre' type='button' onclick='sortTable(4,true,\"Table\")' value='Client' />
+						<input class='button_titre' type='button' onclick='sortTable(4,true,\"Table\")' value='Client'>
 					</th>
 					<th class='titre' align='center'>
-						<input class='button_titre' type='button' onclick='sortTable(5,true,\"Table\")' value='Licences' />
+						<input class='button_titre' type='button' onclick='sortTable(5,true,\"Table\")' value='Licences'>
 					</th>
 					<th class='titre' align='center'>
-						<input class='button_titre' type='button' onclick='sortTable(6,true,\"Table\")' value='Utilisateurs' />
+						<input class='button_titre' type='button' onclick='sortTable(6,true,\"Table\")' value='Utilisateurs'>
 					</th>
 					<th class='titre' align='center'>
-						<input class='button_titre' type='button' onclick='sortTable(7,true,\"Table\")' value='Etat' />
+						<input class='button_titre' type='button' onclick='sortTable(7,true,\"Table\")' value='Etat'>
 					</th>
 					<th class='titre' align='center'>
-						<input class='button_titre' type='button' onclick='sortTable(8,true,\"Table\")' value='Cle' />
+						<input class='button_titre' type='button' onclick='sortTable(8,true,\"Table\")' value='Cle'>
 					</th>
 				</tr>";
 

@@ -9,7 +9,7 @@
 		mysql_select_db ($SQL_Cdw_name, $base) or die('Erreur Selection Base SQL !');	
 			
 		$sql = 'SELECT email_operator,firstName_operator,lastName_operator FROM operator WHERE login_operator="'.mysql_real_escape_string($_SESSION['login']).'"';
-		$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
+		$req = mysql_query($sql) or die('Erreur SQL !');
 		while($row = mysql_fetch_array($req)){
 			$email = $row['email_operator'];
 			$prenom = $row['firstName_operator'];
@@ -38,7 +38,7 @@
 				$erreur = 'Changement effectué.';
 							
 				$sql = 'SELECT email_operator,firstName_operator,lastName_operator FROM operator WHERE login_operator="'.mysql_real_escape_string($_SESSION['login']).'"';
-				$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
+				$req = mysql_query($sql) or die('Erreur SQL !');
 				while($row = mysql_fetch_array($req)){
 					$email = $row['email_operator'];
 					$prenom = $row['firstName_operator'];

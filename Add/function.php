@@ -17,7 +17,7 @@
 				$sql = $sql.' AND '.mysql_real_escape_string($enrg2).' = "'.mysql_real_escape_string($valEnrg2).'"';
 			}
 		}
-		$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
+		$req = mysql_query($sql) or die('Erreur SQL !');
 		$retData = mysql_fetch_array($req);
 		mysql_free_result($req);
 		return $retData;
@@ -38,7 +38,7 @@
 		if(!empty($enrg2)){
 			$sql = $sql.' AND '.mysql_real_escape_string($enrg2).'="'.mysql_real_escape_string($valEnrg2).'"';
 		}
-		mysql_query($sql) or die('Erreur SQL !'.$sql.'<br />'.mysql_error());
+		mysql_query($sql) or die('Erreur SQL !');
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////
@@ -96,7 +96,9 @@
 					LEFT JOIN products AS P ON Pk.ProductID = P.Product_ID
 					LEFT JOIN customers AS C ON Pk.CustomerID = C.Customer_ID
 					LEFT JOIN keyusage AS Ku ON Pk.RowID = Ku.KeyRowID
-				WHERE ';
+				WHERE C.Customer_ID NOT IN (SELECT Rev_CustomerID FROM revoked_cu)';
+				
+		$prec = 1;
 		
 		if(!empty($_POST['client'])){
 			if($prec == 1){
@@ -215,7 +217,7 @@
 			}
 			$_POST['date2'] = date("Y/m/d",$_POST['date2']);
 		}
-		$sql = $sql.'GROUP BY Pk.InstallKey';
+		$sql = $sql.' GROUP BY Pk.InstallKey';
 		return $sql;
 	}
 	
@@ -236,7 +238,8 @@
 			if($_POST['number'] == 'Non-Telecharge'){
 				$sql = $sql.' downloads="0"';$prec = 1;
 			}else if($_POST['number'] == 'Telecharge'){
-				$sql = $sql.' ( downloads="1" OR downloads="2" )';$prec = 1;
+				//$sql = $sql.' ( downloads="1" OR downloads="2" )';$prec = 1;
+				$sql = $sql.' downloads<>"0" ';$prec = 1;
 			}
 		}
 		
@@ -287,9 +290,10 @@
 	///////////////////////////////////////////////////////////////////////////////
 	
 	//Construit la requete SQL en fonction de ce que l'utilisateur a renseigné
-	function recherche_Customer($champ){
+	function recherche_Customer(){
 		$prec = 0;
-		$sql = 'SELECT '.mysql_real_escape_string($champ).' FROM customers WHERE';
+		//$sql = 'SELECT '.mysql_real_escape_string($champ).' FROM customers WHERE';
+		$sql = 'SELECT * FROM customers AS C LEFT JOIN revoked_cu AS Rev ON C.Customer_ID = Rev.Rev_CustomerID WHERE';
 		
 		$ret = ajout_si_existe_like('email','Customer_Email',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
 		$ret = ajout_si_existe_like('name','Customer_Name',$sql,$prec);	$sql=$ret[0];$prec=$ret[1];
@@ -311,6 +315,18 @@
 				$sql = $sql.' Customer_Prospect="1"';$prec = 1;
 			}
 		}
+		
+		if($_POST['revoke'] != 'avec_ignore'){
+			if($prec == 1){
+				$sql = $sql.' AND';
+			}
+			if($_POST['revoke'] == 'sans_ignore'){
+				$sql = $sql.' C.Customer_ID NOT IN (SELECT Rev_CustomerID FROM revoked_cu)';$prec = 1;
+			}else if($_POST['revoke'] == 'ignore_seul'){
+				$sql = $sql.' C.Customer_ID IN (SELECT Rev_CustomerID FROM revoked_cu)';$prec = 1;
+			}
+		}
+		
 		return $sql;
 	}
 	

@@ -7,17 +7,20 @@
 		$base = mysql_connect ($SQL_Cdw_serveur, $SQL_Cdw_login, $SQL_Cdw_pass);
 		mysql_select_db ($SQL_Cdw_name, $base) or die('Erreur Selection Base SQL !');
 		
-		if (test_Customer() || (isset($_POST['type']) && ($_POST['type'] != "indifferent"))){
-			$sql = recherche_Customer('*');
+		if (test_Customer() || (isset($_POST['type']) && ($_POST['type'] != "indifferent")) || (isset($_POST['revoke']) && ($_POST['revoke'] != "avec_ignore"))){
+			$sql = recherche_Customer();
 		}else if (isset($_GET['id'])){
-			$sql = 'SELECT * FROM customers WHERE Customer_ID="'.mysql_real_escape_string($_GET['id']).'"';
+			$sql = 'SELECT * FROM customers AS C LEFT JOIN revoked_cu AS Rev ON C.Customer_ID = Rev.Rev_CustomerID WHERE Customer_ID="'.mysql_real_escape_string($_GET['id']).'"';
+		}else if(isset($_POST['revoke']) && ($_POST['revoke'] == "avec_ignore")){
+			$sql = 'SELECT * FROM customers AS C LEFT JOIN revoked_cu AS Rev ON C.Customer_ID = Rev.Rev_CustomerID';
 		}else{
-			$sql = 'SELECT * FROM customers';
+			$sql = 'SELECT * FROM customers AS C LEFT JOIN revoked_cu AS Rev ON C.Customer_ID = Rev.Rev_CustomerID WHERE C.Customer_ID NOT IN (SELECT Rev_CustomerID FROM revoked_cu)';
 		}
 		
 		$y = 0;
-		$req = mysql_query($sql) or die('Erreur SQL !<br />'.mysql_error());
+		$req = mysql_query($sql) or die('Erreur SQL !');
 		while($row = mysql_fetch_array($req)){
+			$revoke[$y] = $row['Rev_CustomerID'];
 			$name[$y] = $row['Customer_Name'];
 			$lastName[$y] = $row['Customer_LastName'];
 			$firstName[$y] = $row['Customer_FirstName'];
@@ -106,7 +109,12 @@
 					<input <?php if(isset($_POST['type']) && $_POST['type'] == 'client'){echo 'checked="checked"';}?> type="radio" name="type" value="client">Client<br>
 					<input <?php if(isset($_POST['type']) && $_POST['type'] == 'prospect'){echo 'checked="checked"';}?> type="radio" name="type" value="prospect">Prospect
 				</div>
-				<input class="button" type="submit" name="recherche" value="Rechercher">
+				<div class="revoke">
+					<input <?php if(!isset($_POST['revoke']) || ($_POST['revoke'] == 'sans_ignore')){echo 'checked="checked"';}?> type="radio" name="revoke" value="sans_ignore">Sans ignoré<br>
+					<input <?php if(isset($_POST['revoke']) && $_POST['revoke'] == 'avec_ignore'){echo 'checked="checked"';}?> type="radio" name="revoke" value="avec_ignore">Avec ignoré<br>
+					<input <?php if(isset($_POST['revoke']) && $_POST['revoke'] == 'ignore_seul'){echo 'checked="checked"';}?> type="radio" name="revoke" value="ignore_seul">Ignoré seul
+				</div>
+				<div class="Bt_recherche"><input class="button" type="submit" name="recherche" value="Rechercher"></div>
 			</div>
 		</form>
 		<p><?php echo $y." resultats"?></p>
@@ -116,38 +124,42 @@
 				"<table id='Table'>
 				<tr>
 					<th class='titre' align='center'>
-						<input class='button_titre' type='button' onclick='sortTable(0,true,\"Table\")' value='Name' />
+						<input class='button_titre' type='button' onclick='sortTable(0,true,\"Table\")' value='Name'>
 					</th>
 					<th class='titre' align='center'>
-						<input class='button_titre' type='button' onclick='sortTable(1,true,\"Table\")' value='LastName' />
+						<input class='button_titre' type='button' onclick='sortTable(1,true,\"Table\")' value='LastName'>
 					</th>
 					<th class='titre' align='center'>
-						<input class='button_titre' type='button' onclick='sortTable(2,true,\"Table\")' value='FirstName' />
+						<input class='button_titre' type='button' onclick='sortTable(2,true,\"Table\")' value='FirstName'>
 					</th>
 					<th class='titre' align='center'>
-						<input class='button_titre' type='button' onclick='sortTable(3,true,\"Table\")' value='Email' />
+						<input class='button_titre' type='button' onclick='sortTable(3,true,\"Table\")' value='Email'>
 					</th>
 					<th class='titre' align='center'>
-						<input class='button_titre' type='button' onclick='sortTable(4,true,\"Table\")' value='Telephone' />
+						<input class='button_titre' type='button' onclick='sortTable(4,true,\"Table\")' value='Telephone'>
 					</th>
 					<th class='titre' align='center'>
-						<input class='button_titre' type='button' onclick='sortTable(5,true,\"Table\")' value='Mobile' />
+						<input class='button_titre' type='button' onclick='sortTable(5,true,\"Table\")' value='Mobile'>
 					</th>
 					<th class='titre' align='center'>
-						<input class='button_titre' type='button' onclick='sortTable(6,true,\"Table\")' value='Type' />
+						<input class='button_titre' type='button' onclick='sortTable(6,true,\"Table\")' value='Type'>
 					</th>
 				</tr>";
 
 				for ($i=0; $i<$y;$i++){
+					if($revoke[$i]==null){$class = "ButSuppr";}else{$class = "ButRes";}
+					if($revoke[$i]==null){$action = "Suppr";}else{$action = "Rest";}
+					if($revoke[$i]==null){$text = "X";}else{$text = "<";}
 					echo 
 					'<tr>
-						<td id="0'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$name[$i].'</td>
-						<td id="1'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$lastName[$i].'</td>
-						<td id="2'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$firstName[$i].'</td>
-						<td id="3'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$email[$i].'</td>
-						<td id="4'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$telephon[$i].'</td>
-						<td id="5'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$mobile[$i].'</td>
-						<td id="6'.($i+1).'" onclick="clic(this,2,'.($i+1).',\''.$id[$i].'\')" align="center">'.$prospect[$i].'</td>
+						<td class="Case" id="0'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$name[$i].'</td>
+						<td class="Case" id="1'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$lastName[$i].'</td>
+						<td class="Case" id="2'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$firstName[$i].'</td>
+						<td class="Case" id="3'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$email[$i].'</td>
+						<td class="Case" id="4'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$telephon[$i].'</td>
+						<td class="Case" id="5'.($i+1).'" onclick="clic(this,1,'.($i+1).',\''.$id[$i].'\')" align="center">'.$mobile[$i].'</td>
+						<td class="Case" id="6'.($i+1).'" onclick="clic(this,2,'.($i+1).',\''.$id[$i].'\')" align="center">'.$prospect[$i].'</td>
+						<td class="CaseSuppr"><button id="'.$id[$i].'" class="'.$class.'" type="button" onclick="Revoke(\''.$id[$i].'\',\''.$email[$i].'\',\''.$action.'\',\'customers\')">'.$text.'</button></td>
 					</tr>';
 				}
 				echo '</table>';
